@@ -1,0 +1,102 @@
+/* https://css-tricks.com/triangle-breadcrumbs/ */
+.breadcrumb
+{
+	list-style: none;
+	overflow: hidden;
+    border-radius: 0px;
+    padding: 0px;
+    background: #E01A22;
+	width: 200%;
+	/*display: inline-block;*/
+}
+
+.breadcrumb > li
+{
+    /*border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-left: 1px solid white;*/
+    border: none;/*1px solid #FFF;*/
+	float: left;
+    font: 16px LatoWeb;
+	padding: 5px 12.5px 5px 27.5px; /* 13.5px 12.5px 13.5px 27.5px */
+    position: relative;
+	display: block;
+	float: left;
+    /*background: #E01A22;*/
+	color: #FFFFFF;
+	opacity: 0.6;
+}
+
+.breadcrumb > li:first-child
+{
+    padding-left: 5px;/*20px;*/
+}
+
+.breadcrumb > li:not(.active):after
+{
+	content: "";
+	display: block;
+	width: 0;
+	height: 0;
+	border-top: 10px solid transparent;           /* Go big on the size, and let overflow hide */
+	border-bottom: 10px solid transparent;
+	border-left: 10px solid #E01A22;
+	position: absolute;
+	top: 15px;
+	margin-top: -10px;
+    /*margin-left: -1px;*/
+	left: 100%;
+	z-index: 2;
+}
+
+/*.breadcrumb > li.active:after
+{   
+	border-top: 24px solid #E01A22;
+	border-bottom: 24px solid #E01A22;
+	border-left: 15px solid #FFF;
+    margin-top: -24px;
+    margin-left: 1px;
+}*/
+
+.breadcrumb > li:not(.active):before {
+	content: ""; 
+	display: block; 
+	width: 0; 
+	height: 0;
+	border-top: 10px solid transparent;       
+	border-bottom: 10px solid transparent;
+	border-left: 10px solid #FFF;
+	position: absolute;
+	top: 15px;
+	margin-top: -10px;
+	margin-left: 3px;
+	left: 100%;
+	z-index: 1;
+}
+
+.breadcrumb > li:hover { opacity: 0.8;/*background: #DF414E;*/}
+/*.breadcrumb > li:not(.active):hover:after { border-left-color: #DF414E !important;}*/
+
+.breadcrumb > li+li:before { /* overwrite bootstrap '/' separator */
+    padding: 0;
+    content: "";
+}
+
+.breadcrumb > li.active
+{
+	font-family: LatoWebBlack;
+    color: #FFFFFF;/*#E01A22;*/
+	opacity: 1;
+    /*background: #FFF;*/
+	cursor: default;
+	/*pointer-events: none;
+    border: none; Uncomment this to have w/o border design
+    margin-top: 1px;
+    margin-bottom: 1px;*/
+}
+
+.breadcrumb > li > a
+{
+    text-decoration: none;
+	color: #FFF;
+}

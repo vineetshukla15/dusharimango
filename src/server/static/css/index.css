@@ -1,0 +1,203 @@
+html /* http://stackoverflow.com/questions/17756649/disable-the-horizontal-scroll */
+{
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+body
+{
+    background: #FFFFFF;
+}
+
+header
+{
+    padding: 80px 20px 185px 20px!important;
+}
+
+header h1
+{
+    margin-top: 0px;
+    margin-bottom: 10px;
+    font-family: LatoWebBold;
+    font-size: 24px;
+}
+
+div.search-box
+{
+    margin-bottom: 10px;
+}
+
+/*#explore-category {
+    margin-bottom: 40px;
+}*/
+
+/*div.search-box > input
+{
+  max-width: 500px;
+}*/
+
+.content-section
+{
+    padding:0 10px 0 20px !important;
+    background: #FFFFFF;
+    min-height: 50vw;
+    height: calc(100vh - 436px); /* header is min 436px */
+}
+
+.content-section > .container > .row
+{
+    top: -135px;
+    position: relative;
+}
+
+.content-section > .container > .row > [class*="col-"]
+{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+footer
+{
+    padding:0 20px 0 20px !important;
+    background: #F0F0F0;
+    text-align: left;
+}
+
+footer h5
+{
+    font-family: LatoWebBold;
+    font-size: 20px;
+    color: #A0A0A0;
+}
+
+footer a
+{
+    font-family: LatoWeb;
+    font-size: 16px;
+    color: #E01A22;
+    text-decoration: none;
+}
+
+footer h5 a
+{
+    font-family: LatoWebBold;
+    font-size: 20px;
+    color: #A0A0A0;
+}
+
+footer a:hover
+{
+    color: #E01A22;
+}
+
+footer a:focus /* http://stackoverflow.com/questions/6096046/css-change-style-of-an-element-on-click */
+{
+    color: #E01A22;
+}
+
+
+/* http://stackoverflow.com/questions/20547819/vertical-align-with-bootstrap-3 */
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.pb-centered {
+    position: absolute;
+    left: calc((100% - 66px)/2);
+    right: calc((100% + 66px)/2);
+    top: calc((100% - 120px)/2);
+    bottom: calc((100% + 120px)/2);
+    margin: auto;
+}
+
+
+
+/* typeahead overriding*/
+.typeahead,
+.tt-query,
+.tt-hint {
+  width: calc(100vw - 112px); /* 20 + 20 + 15 */
+  max-width: 360px; /* for iphone 6s plus landscape mode, should be 402px */
+}
+
+.tt-menu {
+  width: calc(100vw - 112px);
+  max-width: 360px;
+}
+
+div.data-block {
+    background-color: #222222; padding: 10px; height: 70px; /* 120px */
+}
+
+/*@media (min-width: 420px) {
+    div.data-block {
+        height: 70px;
+    }
+}*/
+
+@media (min-width: 768px) {
+    header
+    {
+        padding: 120px 45px 185px 75px!important;
+    }
+    
+    header h1
+    {
+        margin-top: 10px;
+        margin-bottom: 20px;
+        font-size: 36px;
+    }
+    
+    .content-section
+    {
+        padding:0 45px 0 75px !important;
+        min-height: calc(410px - 185px);
+        height: calc(100vh - 521px); /* header is min 521px */
+    }
+    
+    .content-section > .container > .row
+    {
+        top: -185px;
+    }
+    
+    footer
+    {
+        padding:0 45px 0 75px !important;
+    }
+    
+    .main-center{
+        width: calc(100% - 160px); position: absolute; left: -160px; right: 0; top: 0; bottom: 0; margin: auto;
+    }
+
+    .pb-centered {
+        position: absolute;
+        left: calc((100% - 160px - 66px)/2);
+        right: calc((100% + 160px + 66px)/2);
+        top: 0;
+        bottom: 0;
+        margin: auto;
+    }
+    
+    .typeahead,
+    .tt-query,
+    .tt-hint {
+        width: 500px;
+        max-width: 500px;
+    }
+
+    .tt-menu {
+        width: 500px;
+        max-width: 500px;
+    }
+    
+    #explore-category {
+         margin-bottom: 60px;
+    }
+}

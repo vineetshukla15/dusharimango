@@ -1,0 +1,443 @@
+body
+{
+    text-align: justify;
+    overflow-x: hidden;
+    font-family: LatoWeb;
+}
+
+header
+{
+    padding: 40px 20px 0px 20px!important;
+    background: #E01A22;
+    color:#FFFFFF;
+}
+
+#pvt-beta
+{
+    width: calc(0.65 * 171px);
+}
+
+.home-link
+{
+    text-decoration: none;
+    color:#FFFFFF;
+    
+    display: inline-block;
+    margin: 0px;
+    background-image: url('../img/alphonso.png');
+    background-repeat:no-repeat;
+    background-size:contain;
+    /* actual image size 170px X 53px */
+    width: 77px;
+    height: 24px;
+    
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    
+}
+
+div.h-justify:after {
+  content: 'A';
+  color: transparent;
+  font: 0px;
+  width: 100%; /* Ensures there are at least 2 lines of text, so justification works */
+  display: inline-block;
+}
+
+.content-section
+{
+    padding: 148px 10px 40px 20px !important;
+    background: #F0F0F0;
+    min-height: calc(100vh - 317px); /* required for the content details (advertisement) page only */
+}
+
+footer
+{
+    padding-bottom: 60px !important;
+    background: #F0F0F0;
+    position: relative;
+    text-align: center;
+}
+
+footer > p
+{
+  font-family: LatoWebHeavy;
+  font-size: 16px;
+  margin: 0px;
+}
+
+footer > button
+{
+  margin-top: 20px;
+  background-color: #F0F0F0;
+  border: 1px solid #E01A22;
+  font: 16px LatoWeb;
+  color:  #E01A22;
+  height: 48px;
+  width: 180px;
+  outline: none !important;
+}
+
+footer > button:hover
+{
+  background-color: #E01A22;
+  color:  #FFF;
+  transition: 0.4s ease 0s;
+}
+
+body .overlay
+{
+  background-color: rgba(34, 34, 34, 0.95);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1000;
+  text-align: center;
+  display: none;
+}
+
+body .overlay > div > button
+{
+  margin-top: 12px;
+  background-color: #E01A22;
+  border: 1px solid #E01A22;
+  font: 16px LatoWeb;
+  color:  #FFF;
+  height: 48px;
+  width: 180px;
+}
+
+body .overlay > div > input
+{
+  padding: 6px 12px;
+  min-width: 360px;
+  height: 48px;
+  border-radius: 0px;
+  font-family: LatoWeb;
+  font-size: 16px;
+  color: #222222;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+/*body .overlay > div > input:focus {
+  font-family: LatoWeb;
+  font-style: normal;
+}*/
+
+header h3
+{
+    margin-bottom: 20px;
+    font-family: LatoWebHeavy;
+}
+
+.container { max-width: 100%; }
+
+.container > .row, .container-fluid > .row, #similarAdBlock > .row
+{
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+.container > .row [class*="col-"], .container-fluid > .row > [class*="col-"], #similarAdBlock > .row > [class*="col-"]
+{
+    padding: 20px;
+}
+
+.img-responsive
+{
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.clickable:hover
+{
+    cursor: pointer;
+}
+
+/* Refer: http://jsfiddle.net/KyleMit/cyCFS/ 
+   This will ensure the search icon included
+   in the begining of the input text box
+   The HTML supported by this is currently commented out
+*/
+div.search-box
+{
+  position: relative;
+  margin-bottom: 20px;
+}
+
+div.search-box > input
+{
+  padding-left: 42px;
+  min-width: 360px;
+  height: 48px;
+  border-radius: 0px;
+  font-size: 16px;
+  /*font-family: LatoWeb;
+  font-style: italic;
+  /*color: #A0A0A0;*/
+  color: #222222;
+}
+/* http://stackoverflow.com/questions/14503225/change-font-colour-in-textbox-with-css-when-value-is-typed-into-box */
+::-webkit-input-placeholder {
+  font-style: italic;
+  color: #A0A0A0;
+}
+:-moz-placeholder { /* Firefox 18- */
+  font-style: italic;
+  color: #A0A0A0;
+}
+::-moz-placeholder {  /* Firefox 19+ */
+  font-style: italic;
+  color: #A0A0A0;
+}
+:-ms-input-placeholder {  
+  font-style: italic;
+  color: #A0A0A0;
+}
+
+div.search-box > i
+{
+  font-size: 20px;
+  position: absolute;
+  padding: 14px 12px;
+  /*pointer-events: none;*/
+  z-index: 10;
+  color: #BBBBBB;
+}
+
+
+.popup-play-button {
+    width: 66px;
+    height: 66px;
+    cursor: pointer;
+}
+
+.pb-centered {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+ul.brand {
+  margin: 0;
+  padding: 0;
+  border-radius: 0px;
+  min-height: 30px;
+}
+
+ul.dropdown-menu li.dropdown-header {
+    font-weight: bold;
+    font-size: 14px;
+    color: black;
+    cursor: default;
+}
+
+.dropdown-menu>li>a:hover {
+  cursor: pointer;
+  background: #D7D7D7;
+}
+
+li.ccb {
+  overflow-x: hidden;
+  max-height: calc(100vh - 290px);
+}
+
+/* typeahead */
+.twitter-typeahead
+{
+  width: 100%;
+}
+
+.typeahead,
+.tt-query,
+.tt-hint {
+  max-width: calc(100vw - 50px);
+  padding-left: 42px;
+  width: 360px;
+  height: 48px;
+  font-size: 16px;
+  line-height: 30px;
+  border: 2px solid #ccc;
+  -webkit-border-radius: 0px;
+     -moz-border-radius: 0px;
+          border-radius: 0px;
+  outline: none;
+}
+
+.typeahead {
+  background-color: #fff;
+  border: none;
+}
+
+.typeahead:focus {
+  border: 1px solid #BBBBBB;
+}
+
+
+.tt-query {
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.tt-hint {
+  color: #999
+}
+
+.tt-menu {
+  max-width: calc(100vw - 50px);
+  width: 360px;
+  max-height:calc(100vh - 300px);
+  /*min-height: 300px;*/
+  overflow: auto;
+  margin: 10px 0;
+  background-color: #FFFFFF;
+  border: 1px solid #D7D7D7;
+  /*border: 1px solid rgba(0, 0, 0, 0.2);*/
+  box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.1);
+  -webkit-border-radius: 0px;
+     -moz-border-radius: 0px;
+          border-radius: 0px;
+  -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+     -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+          box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.tt-suggestion {
+  padding: 3px 20px;
+  line-height: 32px;
+  font-family: LatoWeb;
+  font-size: 16px;
+  color: #222222;
+}
+
+.tt-suggestion:hover {
+  cursor: pointer;
+  /*color: #fff;*/
+  background-color: #D7D7D7;
+}
+
+.tt-suggestion.tt-cursor {
+  color: #fff;
+  background-color: #0097cf;
+
+}
+
+.tt-suggestion p {
+  margin: 0;
+}
+
+
+
+
+@media (min-width: 768px) {
+    header
+    {
+        padding: 40px 45px 0px 45px!important;
+    }
+    
+    .content-section
+    {
+        padding: 148px 45px 40px 45px !important;/* 128 + 20 = 148 */
+    }
+    
+    #pvt-beta
+    {
+        width: calc(0.85 * 171px);
+    }
+    
+    .home-link
+    {
+        /* actual image size 170px X 53px */
+        width: 109px;
+        height: 34px;
+    }
+}
+
+/* http://www.w3schools.com/bootstrap/bootstrap_ref_js_tooltip.asp */
+.tooltip > .tooltip-inner {
+      background-color: #777777;/*rgba(224, 26, 34, 0.8);*/
+      color: #FFFFFF; 
+      border-radius: 2px; 
+      font-size: 14px;
+      box-shadow: 0px 2px 4px 0px rgba(0,0,0,0.3);
+      text-align: left;
+      min-width: 200px;
+  }
+  
+.tooltip.top .tooltip-arrow {
+  border-top-color: #777777;
+}
+.tooltip.top-left .tooltip-arrow {
+  border-top-color: #777777;
+}
+.tooltip.top-right .tooltip-arrow {
+  border-top-color:#777777;
+}
+.tooltip.right .tooltip-arrow {
+  border-right-color: #777777;
+}
+.tooltip.left .tooltip-arrow {
+  border-left-color: #777777;
+}
+.tooltip.bottom .tooltip-arrow {
+  border-bottom-color: #777777;
+}
+.tooltip.bottom-left .tooltip-arrow {
+  border-bottom-color: #777777;
+}
+.tooltip.bottom-right .tooltip-arrow {
+  border-bottom-color: #777777;
+}
+
+#si-li
+{
+  color:#fff;
+  background-color:#007bb6;
+  border-color:rgba(0,0,0,0.2);
+  width: auto;
+}
+
+#si-li > span {
+  margin-right: 10px;
+}
+
+/*https://github.com/lipis/bootstrap-social
+btn-linkedin{color:#fff;background-color:#007bb6;border-color:rgba(0,0,0,0.2)}
+.btn-linkedin:focus,.btn-linkedin.focus{color:#fff;background-color:#005983;border-color:rgba(0,0,0,0.2)}
+.btn-linkedin:hover{color:#fff;background-color:#005983;border-color:rgba(0,0,0,0.2)}
+.btn-linkedin:active,.btn-linkedin.active,.open>.dropdown-toggle.btn-linkedin{color:#fff;background-color:#005983;border-color:rgba(0,0,0,0.2)}.btn-linkedin:active:hover,.btn-linkedin.active:hover,.open>.dropdown-toggle.btn-linkedin:hover,.btn-linkedin:active:focus,.btn-linkedin.active:focus,.open>.dropdown-toggle.btn-linkedin:focus,.btn-linkedin:active.focus,.btn-linkedin.active.focus,.open>.dropdown-toggle.btn-linkedin.focus{color:#fff;background-color:#00405f;border-color:rgba(0,0,0,0.2)}
+.btn-linkedin:active,.btn-linkedin.active,.open>.dropdown-toggle.btn-linkedin{background-image:none}
+.btn-linkedin.disabled,.btn-linkedin[disabled],fieldset[disabled] .btn-linkedin,.btn-linkedin.disabled:hover,.btn-linkedin[disabled]:hover,fieldset[disabled] .btn-linkedin:hover,.btn-linkedin.disabled:focus,.btn-linkedin[disabled]:focus,fieldset[disabled] .btn-linkedin:focus,.btn-linkedin.disabled.focus,.btn-linkedin[disabled].focus,fieldset[disabled] .btn-linkedin.focus,.btn-linkedin.disabled:active,.btn-linkedin[disabled]:active,fieldset[disabled] .btn-linkedin:active,.btn-linkedin.disabled.active,.btn-linkedin[disabled].active,fieldset[disabled] .btn-linkedin.active{background-color:#007bb6;border-color:rgba(0,0,0,0.2)}
+.btn-linkedin .badge{color:#007bb6;background-color:#fff}*/
+
+
+button,
+button:active,
+button:focus, 
+button:hover,
+input,
+input:active,
+input:focus, 
+input:hover {
+   outline: none !important;
+}
+
+.logo-mini
+{
+    width: 57px !important;
+    height: 18px !important;
+}
+.logo-micro {
+    width: 29px !important;
+    height: 9px !important;
+}

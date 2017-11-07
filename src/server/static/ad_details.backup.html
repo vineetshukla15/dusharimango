@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <title>Alphonso</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-store" /> <!-- Caching of web page disabled -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" href="./img/favicon.png" />
+    
+    <!-- Bootstrap: http://getbootstrap.com/ -->
+    <link rel="stylesheet" type="text/css" href="./bootstrap/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./bootstrap/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    
+    <!-- Bootstrap Social: https://lipis.github.io/bootstrap-social/ -->
+    <link rel="stylesheet" type="text/css" href="./bootstrap/bootstrap-social-gh-pages/bootstrap-social.css">
+    
+    <!-- Font Awesome: https://fortawesome.github.io/Font-Awesome/ -->
+    <link rel="stylesheet" type="text/css" href="./font/font-awesome-4.5.0/css/font-awesome.min.css">
+    
+    <!-- Font Loto: http://www.latofonts.com/lato-free-fonts/ -->
+    <link rel="stylesheet" type="text/css" href="./font/Lato2OFLWeb/Lato/latofonts.css">
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins): http://jquery.com/download/ -->
+    <script type="text/javascript" src="./jquery/jquery-2.1.4.min.js"></script>
+    <!-- Bootstrap JS, required for Bootstrap's JavaScript plugins: http://getbootstrap.com/ -->
+    <script type="text/javascript" src="./bootstrap/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    
+    <!-- Highcharts for graphs -->
+    <script src="/highcharts/Highcharts-4.1.9/js/highcharts.js"></script>
+    <script src="/highcharts/Highcharts-4.1.9/js/modules/exporting.js"></script>
+    <script src="/highcharts/Highcharts-4.1.9/js/modules/offline-exporting.js"></script>
+    
+    <!-- Include Date Range Picker: http://www.daterangepicker.com/#ex4 -->
+    <script type="text/javascript" src="/bootstrap/bootstrap-daterangepicker-master/moment.min.js"></script>
+    <script type="text/javascript" src="/bootstrap/bootstrap-daterangepicker-master/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="/bootstrap/bootstrap-daterangepicker-master/daterangepicker.css" />
+    
+    <!-- Searchable dropdown: https://github.com/twitter/typeahead.js -->
+    <script type="text/javascript" src="./bootstrap/typeahead.js/typeahead.jquery.min.js"></script>
+    
+    <!-- Customization -->
+    <link rel="stylesheet" type="text/css" href="./css/dashboards.css">
+    <link rel="stylesheet" type="text/css" href="./css/breadcrumb.css">
+    <link rel="stylesheet" type="text/css" href="./css/ad_details.css">
+    <script type="text/javascript" src="./js/dashboards.js"></script>
+    <script type="text/javascript" src="./js/show_network_count.js"></script>
+    
+
+    <!-- Java Script (Google Map)
+     ================================================== -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAFZJPMLtsWjPN_1RGevOIy2_37Qc4HXPo">
+    </script>
+    
+    <script type="text/javascript">
+ 
+      var map;
+      var setOverlayMap;
+      var mapZoomLevel = 4;
+      // Center of the map 
+      var center = new google.maps.LatLng(37.09024, -95.712891); //http://stackoverflow.com/questions/13785466/default-center-on-united-states
+ 
+      /* http://stackoverflow.com/questions/8792676/center-google-maps-v3-on-browser-resize-responsive */
+      google.maps.event.addDomListener(window, 'load', initMap);
+      google.maps.event.addDomListener(window, 'resize', function() {
+        map.setCenter(center);
+        map.setZoom(mapZoomLevel);
+      }); 
+    
+      function initMap() {
+        // Create a map object and specify the DOM element for display.
+        map = new google.maps.Map(document.getElementById('container4'), {
+                      center: center,
+                      scrollwheel: false,
+                      zoom: mapZoomLevel,
+                      scaleControl: false,
+                      scrollwheel: false,
+                      draggable: false,
+                      navigationControl: false,
+                      zoomControl: false,
+                      disableDoubleClickZoom: false,
+                      streetViewControl: false,
+                      mapTypeId: google.maps.MapTypeId.ROADMAP,
+                      disableDefaultUI:true
+        });
+        
+        var styles = [
+              {
+                "featureType": "water",
+                "elementType": "geometry.fill",
+                "stylers": [
+                    {
+                      "color": "#d3d3d3"
+                    }
+                  ]
+              },
+              {
+                "featureType": "transit",
+                "stylers": [
+                    {
+                      "color": "#808080"
+                    },
+                    {
+                      "visibility": "off"
+                    }
+                  ]
+              },
+              {
+                "featureType": "road.highway",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                    {
+                      "visibility": "on"
+                    },
+                    {
+                      "color": "#b3b3b3"
+                    }
+                  ]
+              },
+              {
+                "featureType": "road.highway",
+                "elementType": "geometry.fill",
+                "stylers": [
+                     {
+                       "color": "#ffffff"
+                     }
+                  ]
+              },
+              {
+                "featureType": "road.local",
+                "elementType": "geometry.fill",
+                "stylers": [
+                   {
+                       "visibility": "on"
+                   },
+                   {
+                       "color": "#ffffff"
+                   },
+                   {
+                       "weight": 1.8
+                   }
+                  ]
+              },
+              {
+                "featureType": "road.local",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                   {
+                       "color": "#d7d7d7"
+                   }
+                  ]
+              },
+              {
+                "featureType": "poi",
+                "elementType": "geometry.fill",
+                "stylers": [
+                   {
+                       "visibility": "on"
+                   },
+                   {
+                       "color": "#ebebeb"
+                   }
+                  ]
+              },
+              {
+                "featureType": "administrative",
+                "elementType": "geometry",
+                "stylers": [
+                   {
+                       "color": "#a7a7a7"
+                   }
+                  ]
+              },
+              {
+                "featureType": "road.arterial",
+                "elementType": "geometry.fill",
+                "stylers": [
+                   {
+                       "color": "#ffffff"
+                   }
+                  ]
+              },
+              {
+                "featureType": "road.arterial",
+                "elementType": "geometry.fill",
+                "stylers": [
+                   {
+                       "color": "#ffffff"
+                   }
+                  ]
+              },
+              {
+                "featureType": "landscape",
+                "elementType": "geometry.fill",
+                "stylers": [
+                   {
+                       "visibility": "on"
+                   },
+                   {
+                       "color": "#efefef"
+                   }
+                  ]
+              },
+              {
+                "featureType": "road",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                   {
+                       "color": "#696969"
+                   }
+                  ]
+              },
+              {
+                "featureType": "administrative",
+                "elementType": "labels.text.fill",
+                "stylers": [
+                   {
+                       "visibility": "on"
+                   },
+                   {
+                       "color": "#737373"
+                   }
+                  ]
+              },
+              {
+                "featureType": "poi",
+                "elementType": "labels.icon",
+                "stylers": [
+                   {
+                       "visibility": "off"
+                   }
+                  ]
+              },
+              {
+                "featureType": "poi",
+                "elementType": "labels",
+                "stylers": [
+                   {
+                       "visibility": "off"
+                   }
+                  ]
+              },
+              {
+                "featureType": "road.arterial",
+                "elementType": "geometry.stroke",
+                "stylers": [
+                   {
+                       "color": "#d6d6d6"
+                   }
+                  ]
+              },
+              {
+                "featureType": "road",
+                 "elementType": "labels.icon",
+                "stylers": [
+                   {
+                       "visibility": "off"
+                   }
+                  ]
+              },
+              {},
+              {
+                "featureType": "poi",
+                "elementType": "geometry.fill",
+                "stylers": [
+                   {
+                       "color": "#dadada"
+                   }
+                  ]
+              }
+            ];
+                                              
+        map.setOptions({styles: styles});
+        
+        if (typeof setOverlayMap !== 'undefined') setOverlayMap.setMap(map);
+                                              
+      } // initMap
+
+    $(document).ready(function(){
+
+        /* Advertisement Video display and control */
+        $('video').click(function(){
+            $(this).get(0).paused ? $(this).get(0).play() : $(this).get(0).pause();
+        });
+        
+        var vid = $('video').get(0);
+        var playImg = $('video').parents("div").find('.popup-play-button');
+        vid.onended = function() {
+            playImg.show();
+        };
+        vid.onpause = function() {
+            playImg.show();
+            $(this).get(0).controls = false;
+        };
+        vid.onplay = function() {
+            playImg.hide();
+            $(this).get(0).controls = true;
+        };
+        
+        /* Search input even handlers: http://api.jquery.com/keypress/ */
+        /*var searchInput = $("#searchInput");
+        searchInput.keypress(function( event ) {
+            if ( event.which == 13 ) {
+                event.preventDefault();
+                handleSearch();
+            }
+        });
+ 
+        $("#searchIcon").click(function(){ handleSearch(); });
+        
+        function handleSearch(){
+            //alert(searchInput.val());
+            var searchStr = searchInput.val().trim();
+            if (searchStr.length > 0)
+                window.location.href = "/ad_list.html?searchStr=" + searchInput.val();
+        }*/
+        
+        /* 
+            Should this be moved to webserver??
+            The code below will call services to obtain ad list for the searched brand
+        */
+        
+        // Ref: http://www.sitepoint.com/url-parameters-jquery/
+        /*$.urlParam = function(name){
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            return results[1] || 0;
+        }*/
+        $.urlParam = function(name){
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            if (results != null)
+                return decodeURIComponent(results[1]);
+            else
+                return "";
+        }
+        
+        var ad_id = $.urlParam('id');
+        var playvideo = $.urlParam('playvideo');
+        
+        $.get("http://proxy.alphonso.tv/dashapi/content_by_id?id=" + ad_id, function(data, status){
+                                        //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                        populateAdDetails(data);
+                                    });
+                                    
+        $.get("http://proxy.alphonso.tv/dashapi/list_brands", function(data, status){
+                                        //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                        populateSearchList(data);
+                                    });
+        var param1;
+        var paramAdTitle;
+        function populateAdDetails (data) {
+            
+            /* populate the breadcrumb */
+            $("ol.breadcrumb > #categoryBreadCrumb > a").text(getTextString(data.category).toUpperCase());
+            var catURL = (isEmptyValue(data.category) ? "#" : "/cat_details.html?cat=" + getTextString(data.category));
+            $("ol.breadcrumb > #categoryBreadCrumb > a").attr("href", catURL);
+            $("ol.breadcrumb > #brandBreadCrumb > a").text(getTextString(data.brand).toUpperCase());
+            var brandURL = (isEmptyValue(data.brand_id) ? "#" : "/ad_list.html?brand_id=" + data.brand_id);
+            $("ol.breadcrumb > #brandBreadCrumb > a").attr("href", brandURL);
+            $("ol.breadcrumb > li.active").text(getTextString(data.title).toUpperCase());
+            
+            $("div.content-section > div.container > p").text(getTextString(data.title).toUpperCase());
+            $("footer > div.container > p").text(getTextString(data.brand).toUpperCase());
+            $("#brandBtn").text(getTextString(data.brand));
+            param1 = getTextString(data.brand);
+            paramAdTitle = getTextString(data.title);
+            populateAdsAndDates();
+            
+            $("#visualDiv > video").attr("poster", data.thumbnail);
+            if (!playvideo) $("#visualDiv > video").removeAttr("autoplay");
+            var source = document.createElement("source");
+            source.setAttribute("src", data.mp4_clip);
+            source.setAttribute("type", "video/mp4");
+            $("#visualDiv > video").append(source);
+            //$("#visualDiv > video > source").attr("src", data.mp4_clip);
+            
+            //$("#TotalAiringsVal").text(formatNumberWithSeperator(data.total_airings));
+            $("#TotalAiringsVal").text(121);
+            //$("#NetworksVal").text(getNumberString(data.networks));
+            //$("#ShowsVal").text(convertNumberToShortForm(data.shows));
+            /*$("#NetworksVal").text(getNumberString(show_network_count[ad_id].network_cnt));
+            $("#ShowsVal").text(convertNumberToShortForm(show_network_count[ad_id].show_cnt));*/
+            $("#NetworksVal").text(48);
+            $("#ShowsVal").text(86);
+            //$("#DollarSpendVal").text(convertNumberToShortForm(data.total_spend));
+            $("#DollarSpendVal").text(convertNumberToShortForm(121*2700));
+            //$("#ShareOfVoiceVal").text(getPercentageString(data.share_of_voice));
+            $("#ShareOfVoiceVal").text(getPercentageString(3));
+            //$("#ViewershipVal").text(convertNumberToShortForm(data.viewership));
+            $("#ViewershipVal").text(convertNumberToShortForm(11400000));
+            //$("#ImpressionsVal").text(convertNumberToShortForm(data.total_impressions));
+            
+        }
+        
+        function populateSearchList(data) {
+            
+            
+            // List / Array[string] that will be displayed in the dropdown search
+            var searchList = data;
+            var searchListName = 'Brands'; // The name of the list
+        
+            var substringMatcher = function(strs) {
+                return function findMatches(q, cb) {
+                    var matches, substrRegex;
+                
+                    // an array that will be populated with substring matches
+                    matches = [];
+                
+                    // regex used to determine if a string contains the substring `q`
+                    substrRegex = new RegExp(q, 'i');
+                
+                    // iterate through the pool of strings and for any string that
+                    // contains the substring `q`, add it to the `matches` array
+                    $.each(strs, function(i, brand) {
+                        if (substrRegex.test(brand.name)) {
+                            matches.push(brand);
+                        }
+                    });
+                    cb(matches);
+                };
+            };  
+            
+            
+            $('.typeahead').typeahead({
+                hint: false,
+                highlight: true,
+                minLength: 1
+            },
+            {
+                name: searchListName,
+                displayKey: 'name',
+                source: substringMatcher(searchList),
+                limit: 10
+            });
+            
+        }
+        
+        
+        /*
+          The searchbox within the dropdown.
+          On select of search dropdown
+            set the html text on display
+            set the correct param(1/2)
+            trigger the fetchReportData
+        */	
+        $('.typeahead').on('typeahead:selected', function(event, datum) {
+          
+
+          
+          var color = reportColors[0];
+          
+          var parent_ul_id = $(this).parents("ul").attr("id");
+          
+          switch (parent_ul_id){
+            case 'param1':
+              param1 = datum.name;
+              color = reportColors[1];
+              break;
+            case 'param2':
+              param2 = datum.name;
+              color = reportColors[2];
+              break;
+            case 'param3':
+              param3 = datum.name;
+              color = reportColors[3];
+              break;
+            case 'param4':
+              param4 = datum.name;
+              color = reportColors[4];
+              break;
+            case 'param5':
+              param5 = datum.name;
+              color = reportColors[5];
+              break;
+            case 'param6':
+              param6 = datum.name;
+              color = reportColors[6];
+              break;
+            default: // this has been initiated by the brand search to move to brandlist page
+              //alert(datum.brand_id);
+              window.location.href = "/ad_list.html?brand_id=" + datum.brand_id;
+          }
+          
+          if (color !== reportColors[0]) {
+              $(this).parents(".btn-group").find('.btn').css("background-color", color).css("color", reportColors[0]).html(datum.name + "<span class=\"caret\"></span>");
+              // Trigger the fetchReportData
+              fetchReportData();
+          }
+          
+        });
+
+        // Persist the selected value in the dropdown menu
+        $(".dropdown-menu li.hc").click(function(){
+          $(this).parents(".btn-group").find('.btn').html(
+          $(this).text()+" <span class=\"caret\"></span>");
+        });
+        
+        /* Identify the value selected in the dropdown
+           And then trigger the fetchReportData
+        */
+        //var param1 = brand;
+        /*$('#param1 li.hc').on('click', function(){
+          param1 = $(this).find('a').html();
+          $(this).parents(".btn-group").find('.btn').css("background-color", reportColors[1]);
+          // Trigger the fetchReportData
+          fetchReportData();
+        });*/
+        
+        var param2;
+        $('#param2 li.hc').on('click', function(){
+          param2 = $(this).find('a').html();
+          $(this).parents(".btn-group").find('.btn').css("background-color", reportColors[2]);
+          // Trigger the fetchReportData
+          fetchReportData();
+        });
+        
+        var param3;
+        $('#param3 li.hc').on('click', function(){
+          param3 = $(this).find('a').html();
+          $(this).parents(".btn-group").find('.btn').css("background-color", reportColors[3]);
+          // Trigger the fetchReportData
+          fetchReportData();
+        });
+        
+        var param4;
+        $('#param4 li.hc').on('click', function(){
+          param4 = $(this).find('a').html();
+          $(this).parents(".btn-group").find('.btn').css("background-color", reportColors[4]);
+          // Trigger the fetchReportData
+          fetchReportData();
+        });
+        
+        var param5;
+        $('#param5 li.hc').on('click', function(){
+          param5 = $(this).find('a').html();
+          $(this).parents(".btn-group").find('.btn').css("background-color", reportColors[5]);
+          // Trigger the fetchReportData
+          fetchReportData();
+        });
+        
+        var param6;
+        $('#param6 li.hc').on('click', function(){
+          param6 = $(this).find('a').html();
+          $(this).parents(".btn-group").find('.btn').css("background-color", reportColors[6]);
+          // Trigger the fetchReportData
+          fetchReportData();
+        });
+
+        var paramN = 'a'; // a(all) / b(broadcast only) / c (cable only)
+        $('#paramN li.hc').on('click', function(){
+          paramN = $(this).find('a').html();
+          
+          switch (paramN){
+            case 'Broadcast':
+              paramN = 'b';
+              break;
+            case 'Cable':
+              paramN = 'c';
+              break;
+            default:
+              paramN = 'a';
+          }
+          
+          // Trigger the fetchReportData
+          fetchReportData();
+        });
+        
+        /* Date Picer functions
+          Refer: http://www.daterangepicker.com/#ex4
+        */
+        var startDateParam;
+        var endDateParam;
+        // DateRangeCallback function
+        function drcb(start, end) {
+          if (displayDateShortForm)
+            $('#reportrange span').html(start.format('MMM D, YY') + ' - ' + end.format('MMM D, YY'));
+          else
+            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+          startDateParam = start.format('YYYY-MM-DD');
+          initStartDate = start;
+          endDateParam = end.format('YYYY-MM-DD');
+          initEndDate = end;
+          // Trigger the fetchReportData
+          fetchReportData();
+        }
+        
+        var initStartDate =  $.urlParam('s');
+        if (initStartDate == '') initStartDate = moment().subtract(1, 'month').startOf('month');
+        else initStartDate = moment(initStartDate, 'YYYY-MM-DD');
+        var initEndDate =  $.urlParam('e');
+        if (initEndDate == '') initEndDate = moment();//moment().subtract(1, 'month').endOf('month');
+        else initEndDate = moment(initEndDate, 'YYYY-MM-DD');
+        
+        /* http://www.sitepoint.com/javascript-media-queries/ */
+        var displayDateShortForm = false;
+        // media query event handler
+        if (matchMedia) {
+            var mq = window.matchMedia("(min-width: 768px)");//321 for Android One Karbonn Sparkle V, Chrome for date range Sept,29-30 373px
+            mq.addListener(WidthChange);
+            WidthChange(mq);
+        }
+
+        // media query change
+        function WidthChange(mq) {
+
+            if (mq.matches) {
+                displayDateShortForm = false;
+                $('#reportrange').addClass("pull-right");
+                mapZoomLevel = 4;
+            } else {
+                displayDateShortForm = true;
+                $('#reportrange').removeClass("pull-right");
+                mapZoomLevel = 3;
+            }
+            
+            drcb(initStartDate, initEndDate); // Call the DateRangeCallback function to set the correct date in the HTML view
+        }
+
+        $('#reportrange').daterangepicker({
+          maxDate: moment(),
+          autoApply: true,
+          ranges: {
+            'Last Week': [moment().subtract(7, 'days').startOf('week'), moment().subtract(1, 'week').endOf('week')],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+          },
+          startDate: initStartDate,
+          endDate: initEndDate
+        }, drcb);
+        
+        function populateAdsAndDates(){
+            
+              var params = {};
+              params.brand = param1;
+              params.ad_title = paramAdTitle;
+              /*$.get("http://dashboards.alphonso.tv:9080/ad_start_date", params, function(data, status){
+                                              //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                              populateReportDateRange(data);
+                                            });*/ readyToFetchAdLevelReport++;fetchReportData();
+              $.get("http://dashboards.alphonso.tv:9080/brand_ads", params, function(data, status){
+                                              //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                              populateAdList(data);
+                                            });
+        }
+        
+        var readyToFetchAdLevelReport = 0;
+        function populateReportDateRange(data) {
+            
+            readyToFetchAdLevelReport++;
+            
+            if (data.length > 0) {
+                var adStartDateStr = data[0].ad_start_date;
+                //alert(adStartDateStr);
+                if (adStartDateStr != null) {
+                    var adStartDate = moment(adStartDateStr, 'YYYY-MM-DD');
+                    $('#reportrange').data('daterangepicker').setStartDate(adStartDate);
+                    $('#reportrange').data('daterangepicker').setEndDate( moment());
+                    drcb(adStartDate, moment());
+                }
+                else fetchReportData();
+            }
+        }
+        
+
+        function populateAdList(data) {
+            
+            //readyToFetchAdLevelReport++;
+            $('#paramAdTitle').parents(".btn-group").find('.btn').html( paramAdTitle + " <span class=\"caret\"></span>");
+
+            for (ad in data){
+                var aElement = document.createElement('a');
+                aElement.innerText = data[ad].ad_title;
+                
+                var liElement = document.createElement('li');
+                liElement.className = "hc";
+                liElement.appendChild(aElement);
+                
+                $("#paramAdTitle").append(liElement);
+            }
+
+            // Persist the selected value in the dropdown menu
+            $(".dropdown-menu li.hc").click(function(){
+                $(this).parents(".btn-group").find('.btn').html(
+                $(this).text()+" <span class=\"caret\"></span>");
+            });
+            
+            $('#paramAdTitle li.hc').on('click', function(){
+                paramAdTitle = $(this).find('a').html();
+                // Trigger the fetchReportData
+                fetchReportData();
+            });
+            
+        }
+        
+        var prevParams;
+        var currTransId; // Transaction Id to keep tab of stale ajax reponses that will be discarded
+        function fetchReportData(){
+          if ((typeof param1 !== 'undefined' && typeof param2 !== 'undefined') ||
+              (typeof param1 !== 'undefined' && paramAdTitle == 'All Commercials')){
+              var params = {};
+              params.param1 = param1;
+              
+              if (typeof param1 !== 'undefined' && typeof param2 !== 'undefined')
+                $('#paramAdTitle').parents(".btn-group").addClass('hidden');
+              
+              if (typeof param2 !== 'undefined') {
+                params.param2 = param2;
+                $('#param3').parents(".btn-group").removeClass('hidden');
+              }
+              
+              if (typeof param3 !== 'undefined') {
+                params.param3 = param3;
+                $('#param4').parents(".btn-group").removeClass('hidden');
+              }
+              if (typeof param4 !== 'undefined') {
+                params.param4 = param4;
+                $('#param5').parents(".btn-group").removeClass('hidden');
+              }
+              if (typeof param5 !== 'undefined') {
+                params.param5 = param5;
+                $('#param6').parents(".btn-group").removeClass('hidden');
+              }
+              if (typeof param6 !== 'undefined') {
+                params.param6 = param6
+              }
+              
+              params.paramN = paramN;
+              params.startDate = startDateParam;
+              params.endDate = endDateParam;
+              params.limit = 20;
+ 
+              if (JSON.stringify(params) == JSON.stringify(prevParams)) return; // None of the parameter has changed. No refresh required.
+              
+              var transId = Math.random(); // generate a random transaction Id for this.
+              currTransId = transId;
+
+              $.get("http://dashboards.alphonso.tv:9080/brand_network", params, function(data, status){
+                                              //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                              renderShareOfVoice(data, transId);
+                                            });
+              $.get("http://dashboards.alphonso.tv:9080/brand_spend", params, function(data, status){
+                                              //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                              renderShareOfSpend(data, transId);
+                                            });
+              $.get("http://dashboards.alphonso.tv:9080/brand_network_show", params, function(data, status){
+                                              //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                              renderShareOfVoice(data, transId, true);
+                                            });
+
+              /*
+                Identify the trigger for the report data fetch
+                Add a map update request in the paramsForMapFetch array
+              */
+              if (typeof prevParams === 'undefined' || prevParams.startDate !== startDateParam || prevParams.endDate !== endDateParam) { // || prevParams.paramN !== params.paramN
+                
+                // All the map layers should be refreshed
+                if(typeof params.param1 !== 'undefined') processAudienceNetwork(1, params.param1, params.paramN, params.startDate, params.endDate, transId);
+                if(typeof params.param2 !== 'undefined') processAudienceNetwork(2, params.param2, params.paramN, params.startDate, params.endDate, transId);
+                if(typeof params.param3 !== 'undefined') processAudienceNetwork(3, params.param3, params.paramN, params.startDate, params.endDate, transId);
+                if(typeof params.param4 !== 'undefined') processAudienceNetwork(4, params.param4, params.paramN, params.startDate, params.endDate, transId);
+                if(typeof params.param5 !== 'undefined') processAudienceNetwork(5, params.param5, params.paramN, params.startDate, params.endDate, transId);
+                if(typeof params.param6 !== 'undefined') processAudienceNetwork(6, params.param6, params.paramN, params.startDate, params.endDate, transId);
+                                
+              } else if (prevParams.param1 !== params.param1) {
+                  processAudienceNetwork(1, params.param1, params.paramN, params.startDate, params.endDate, transId);
+                  if (prevParams.param2 !== params.param2) {
+                    processAudienceNetwork(2, params.param2, params.paramN, params.startDate, params.endDate, transId);
+                  }
+              } else if (prevParams.param2 !== params.param2) {
+                  processAudienceNetwork(2, params.param2, params.paramN, params.startDate, params.endDate, transId);
+              } else if (prevParams.param3 !== params.param3) {
+                  processAudienceNetwork(3, params.param3, params.paramN, params.startDate, params.endDate, transId);
+              } else if (prevParams.param4 !== params.param4) {
+                  processAudienceNetwork(4, params.param4, params.paramN, params.startDate, params.endDate, transId);
+              } else if (prevParams.param5 !== params.param5) {
+                  processAudienceNetwork(5, params.param5, params.paramN, params.startDate, params.endDate, transId);
+              } else if (prevParams.param6 !== params.param6) {
+                  processAudienceNetwork(6, params.param6, params.paramN, params.startDate, params.endDate, transId);
+              }
+              
+              prevParams = params;
+                                            
+          } else if (typeof param1 !== 'undefined' && typeof paramAdTitle !== 'undefined' && readyToFetchAdLevelReport == 1) {
+              //alert("fetch ad level reports");
+              var params = {};
+              params.paramB = param1;
+              params.paramAdTitle = paramAdTitle;
+              params.paramN = paramN;
+              params.startDate = startDateParam;
+              params.endDate = endDateParam;
+              params.limit = 20;
+ 
+              if (JSON.stringify(params) == JSON.stringify(prevParams)) return; // None of the parameter has changed. No refresh required.
+              
+              var transId = Math.random(); // generate a random transaction Id for this.
+              currTransId = transId;
+
+              $.get("http://dashboards.alphonso.tv:9080/ad_brand_network", params, function(data, status){
+                                              //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                              renderShareOfVoice(data, transId);
+                                            });
+              $.get("http://dashboards.alphonso.tv:9080/ad_spend", params, function(data, status){
+                                              //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                              renderShareOfSpend(data, transId);
+                                            });
+              $.get("http://dashboards.alphonso.tv:9080/ad_brand_network_show", params, function(data, status){
+                                              //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                              renderShareOfVoice(data, transId, true);
+                                            });
+                                            
+              processAudienceNetworkForAd(1, params.paramB, params.paramAdTitle, params.startDate, params.endDate, transId);
+              
+              prevParams = params;
+          }
+        }
+        
+        function processAudienceNetwork (paramIdx, paramB, paramN, startDate, endDate, transId) {
+            
+            var paramsForMapFetch = {};
+            paramsForMapFetch.paramB = paramB;
+            paramsForMapFetch.paramN = paramN;
+            paramsForMapFetch.startDate = startDate;
+            paramsForMapFetch.endDate = endDate;
+            
+            $.get("http://dashboards.alphonso.tv:9080/brand_viewer", paramsForMapFetch, function(data, status){
+                                            //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                            renderAudienceNetwork(data, paramIdx);
+                                          });
+        }
+        
+        function processAudienceNetworkForAd (paramIdx, paramB, paramAdTitle, startDate, endDate, transId) {
+            
+            var paramsForMapFetch = {};
+            paramsForMapFetch.paramB = paramB;
+            paramsForMapFetch.paramAdTitle = paramAdTitle;
+            paramsForMapFetch.startDate = startDate;
+            paramsForMapFetch.endDate = endDate;
+            
+            $.get("http://dashboards.alphonso.tv:9080/ad_viewer", paramsForMapFetch, function(data, status){
+                                            //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                            renderAudienceNetwork(data, paramIdx);
+                                          });
+        }
+        
+        function renderAudienceNetwork (data, paramIdx){
+            
+            var prevOverlay;
+            var color = reportColors[paramIdx];
+
+            var overlay = new NetworkAudienceOverlay(data, color);
+            
+            switch (paramIdx){
+                case 1:
+                    prevOverlay =  mapOverlay.param1;
+                    mapOverlay.param1 = overlay;
+                    break;
+                case 2:
+                    prevOverlay =  mapOverlay.param2;
+                    mapOverlay.param2 = overlay;
+                    break;
+                case 3:
+                    prevOverlay =  mapOverlay.param3;
+                    mapOverlay.param3 = overlay;
+                    break;
+                case 4:
+                    prevOverlay =  mapOverlay.param4;
+                    mapOverlay.param4 = overlay;
+                    break;
+                case 5:
+                    prevOverlay =  mapOverlay.param5;
+                    mapOverlay.param5 = overlay;
+                    break;
+                case 6:
+                    prevOverlay =  mapOverlay.param6;
+                    mapOverlay.param6 = overlay;
+                    break;
+                default:
+                    prevOverlay =  mapOverlay.param1;
+                    mapOverlay.param1 = overlay;
+            }
+            
+            if (typeof prevOverlay !== 'undefined' || prevOverlay != null) prevOverlay.setMap(null);
+        }
+        
+        NetworkAudienceOverlay.prototype = new google.maps.OverlayView();
+        var mapOverlay = {};
+        /** @constructor */
+        function NetworkAudienceOverlay(data, color) {
+            
+            // Initialize all properties.
+            this.data = data;
+            this.color = color;
+            
+            // Define a property to hold the image's div. We'll
+            // actually create this div upon receipt of the onAdd()
+            // method so we'll leave it null for now.
+            this.div = null;
+
+            //if (typeof map === 'undefined') setTimeout(doNothingTillMapLoads(), 1000); // The function call in setTimeout shouldn't have a bracket.
+
+            // Explicitly call setMap on this overlay.
+            //alert(map);
+            if (typeof map !== 'undefined') this.setMap(map);
+            else setOverlayMap = this;
+        }
+        
+        /*function doNothingTillMapLoads() {
+            alert('waiting');
+            if (typeof map === 'undefined') setTimeout(doNothingTillMapLoads(), 1000);
+        }*/
+        
+        /**
+         * onAdd is called when the map's panes are ready and the overlay has been
+         * added to the map.
+         */
+        NetworkAudienceOverlay.prototype.onAdd = function() {
+            this.div = document.createElement('div');
+            // Add the element to the "overlayLayer" pane.
+            var panes = this.getPanes();
+            panes.overlayLayer.appendChild(this.div);
+        };
+
+        NetworkAudienceOverlay.prototype.draw = function() {
+            // We use the south-west and north-east
+            // coordinates of the overlay to peg it to the correct position and size.
+            // To do this, we need to retrieve the projection from the overlay.
+            var overlayProjection = this.getProjection();
+            
+            // First reset the container div
+            this.div.innerHTML = '';
+            var pointSize = (mapZoomLevel*3/4) + 'px';
+            var offset = mapZoomLevel*3/8;
+            
+            for (viewer in this.data) {
+                
+                var latLng = new google.maps.LatLng({lat: this.data[viewer].lat, lng: this.data[viewer].lng});
+                var point = overlayProjection.fromLatLngToDivPixel(latLng);
+                var div = document.createElement('div');
+                div.style.left = (point.x - offset) + 'px';
+                div.style.top = (point.y - offset) + 'px';
+                div.style.backgroundColor = this.color;
+                div.style.opacity = 0.6;
+                div.style.width = pointSize;
+                div.style.height = pointSize;
+                div.style.position = 'absolute';
+                div.style.borderColor = this.color;
+                div.style.borderWidth = 'thick';
+                div.style.zIndex = 100 + parseInt(Math.random() * 10);
+                        
+                this.div.appendChild(div);
+            }
+            
+        };
+        
+        // The onRemove() method will be called automatically from the API if
+        // we ever set the overlay's map property to 'null'.
+        NetworkAudienceOverlay.prototype.onRemove = function() {
+            this.div.parentNode.removeChild(this.div);
+            this.div = null;
+        };
+        
+        /*
+         Now create the bar chart
+         Refer: http://www.highcharts.com/demo/column-rotated-labels
+                http://jsfiddle.net/gh/get/jquery/1.9.1/highslide-software/highcharts.com/tree/master/samples/highcharts/demo/column-rotated-labels/
+        */        
+        function renderShareOfVoice (data, transId, isShowData){
+          
+          if (transId != currTransId) { // stale response. Discard it.
+              //alert(transId + ":" + currTransId + ":" + (transId==currTransId));
+              return;
+          }
+            
+          if (isShowData) renderStackedColumnChart(data, '#container2', 'SHARE OF VOICE BY SHOWS');
+          else renderStackedColumnChart(data, '#container1', 'SHARE OF VOICE BY NETWORK');          
+        }
+        
+        function renderStackedColumnChart(dataList, containerId, chartTitle){
+            
+           // hack to clean the graph before recreate.
+           $(containerId).html("");
+ 
+           var categoriesToFeed = [];
+           var dataSet1 = [];
+           var dataSet2 = [];
+           var dataSet3 = [];
+           var dataSet4 = [];
+           var dataSet5 = [];
+           var dataSet6 = [];
+            
+            for (i = 0; i < dataList.length; i++) {
+                mergedData = dataList[i];
+                categoriesToFeed.push(mergedData.cat);
+                try {
+                    dataSet1.push(mergedData.b1);
+                    dataSet2.push(mergedData.b2);
+                    dataSet3.push(mergedData.b3);
+                    dataSet4.push(mergedData.b4);
+                    dataSet5.push(mergedData.b5);
+                    dataSet6.push(mergedData.b6);
+                } catch (err) { // Interestingly no error is being thrown in case of missing b(?) fields in the response
+                    alert(err.message);
+                }
+            }
+
+            var seriesToFeed = [];
+            if (typeof param1 !== 'undefined'){
+                seriesToFeed.push({name: param1,
+                                    data: dataSet1,
+                                    color: reportColors[1]});
+            }
+            if (typeof param2 !== 'undefined')
+                seriesToFeed.push({name: param2,
+                                    data: dataSet2,
+                                    color: reportColors[2]});
+            if (typeof param3 !== 'undefined')
+                seriesToFeed.push({name: param3,
+                                    data: dataSet3,
+                                    color: reportColors[3]});
+            if (typeof param4 !== 'undefined')
+                seriesToFeed.push({name: param4,
+                                    data: dataSet4,
+                                    color: reportColors[4]});
+            if (typeof param5 !== 'undefined')
+                seriesToFeed.push({name: param5,
+                                    data: dataSet5,
+                                    color: reportColors[5]});
+            if (typeof param6 !== 'undefined')
+                seriesToFeed.push({name: param6,
+                                    data: dataSet6,
+                                    color: reportColors[6]});
+
+            $(containerId).highcharts({
+                chart: {
+                    //marginRight: 25,
+                    style: {
+                        fontFamily: '"LatoWeb', // default font
+                        fontSize: '13px'
+                    },
+                    type: 'column'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                enabled: false
+                },
+                title: {
+                    text: chartTitle,//# of Airings / Networks'
+                    align: 'left',
+                    style: {
+                        fontSize: '16px',
+                        fontFamily: 'LatoWebHeavy',
+                        textShadow: 'none',
+                        fontWeight: 'normal'
+                    }
+                },
+                /*subtitle: {
+                    text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+                },*/
+                xAxis: {
+                    //type: 'category',
+                    categories: categoriesToFeed,
+                    labels: {
+                        //rotation: -45,
+                        style: {
+                            fontSize: '10px',
+                            //fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: 'Airings'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size: 10px">{series.name}</span><br/>',
+                    pointFormat: '<span style="color:{point.color}">\u25CF</span> # of Airings: <b>{point.y:.0f}</b><br/>'
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal'
+                    },
+                    series: {
+                        animation: {
+                            duration: 500
+                        }
+                    }
+                },
+                series: seriesToFeed
+            });
+        }
+ 
+ 
+        /*
+         Now create the pie chart
+         Refer: http://www.highcharts.com/demo/pie-donut
+                http://jsfiddle.net/gh/get/jquery/1.9.1/highslide-software/highcharts.com/tree/master/samples/highcharts/demo/pie-donut/
+        */       
+        function renderShareOfSpend (data, transId){//, singleAd){
+          
+          if (transId != currTransId) { // stale response. Discard it.
+              //alert(transId + ":" + currTransId + ":" + (transId==currTransId));
+              return;
+          }
+
+          // hack to clean the graph before recreate.
+          $("#container3").html("");
+        
+          // Random colors
+          var colors = Highcharts.getOptions().colors;
+
+          var processedJSON = [];
+        
+          // Build the data arrays
+          for (i = 0; i < data.length; i++) {
+
+            var brand = data[i].brand.toUpperCase();
+            var color = reportColors[0];
+            var rank = 0;
+            //if (singleAd) color = reportColors[1];
+            //else
+            switch (brand){
+                case param1.toUpperCase():
+                    color = reportColors[1];
+                    rank = 1;
+                    break;
+                case param2.toUpperCase():
+                    color = reportColors[2];
+                    rank = 2;
+                    break;
+                case param3.toUpperCase():
+                    color = reportColors[3];
+                    rank = 3;
+                    break;
+                case param4.toUpperCase():
+                    color = reportColors[4];
+                    rank = 4;
+                    break;
+                case param5.toUpperCase():
+                    color = reportColors[5];
+                    rank = 5;
+                    break;
+                case param6.toUpperCase():
+                    color = reportColors[6];
+                    rank = 6;
+                    break;
+                default:
+                    // don't do anything
+            }
+              
+            // add spend data
+            processedJSON.push({
+              name: data[i].brand,
+              y: parseInt(data[i].spend)/1000000,
+              color: color,
+              rank: rank
+            });
+          }
+          
+          // Sort the array to plot the chart in correct order
+          processedJSON.sort(function(data1, data2){
+            return data1.rank - data2.rank; // sort ascending as per rank value
+          });
+        
+          // Create the chart
+          $('#container3').highcharts({
+              chart: {
+                  style: {
+                    fontFamily: 'LatoWeb', // default font
+                    fontSize: '13px'
+                  },
+                  type: 'pie'
+              },
+              credits: {
+                  enabled: false
+              },
+              exporting: {
+                  enabled: false
+              },
+              legend: {
+                  align: "right",
+                  verticalAlign: "middle",
+                  itemMarginTop: 25,
+                  //floating: true,
+                  itemWidth: 100,
+                  labelFormat: '{percentage:.2f}% ',//{percentage:.2f}% (${y:.2f}M)',//'{name}: {percentage:.2f}% (${y:.2f}M)',
+                  layout: "vertical",
+                  margin: 60,
+                  itemStyle: {
+                      fontSize: '13px',
+                      fontFamily: '"LatoWebBold',
+                      textShadow: 'none',
+                      fontWeight: 'normal'
+                  }
+              },
+              title: {
+                  text: 'SHARE OF SPEND (ESTIMATE)',
+                  align: 'left',
+                  style: {
+                      fontSize: '16px',
+                      fontFamily: 'LatoWebHeavy',
+                      textShadow: 'none',
+                      fontWeight: 'normal'
+                  }
+              },
+              /*subtitle: {
+                  text: 'Source: <a href="http://netmarketshare.com/">netmarketshare.com</a>'
+              },*/
+              yAxis: {
+                  title: {
+                      text: 'Percent Spend Share'
+                  }
+              },
+              plotOptions: {
+                  pie: {
+                      shadow: false,
+                      center: ['60%', '50%'],
+                      startAngle: -90,
+                      dataLabels: {
+                          enabled: false
+                      },
+                      showInLegend: true
+                  },
+                    series: {
+                        animation: {
+                            duration: 500
+                        }
+                    }
+              },
+              tooltip: {
+                  //enabled: false,
+                  pointFormat: '<span style="color:{point.color}">\u25CF</span> Share of {series.name}: <b>{point.percentage:.2f}%</b><br/>'//,
+                  //valueSuffix: 'M'
+              },
+              series: [{
+                  name: 'Spend',
+                  data: processedJSON,
+                  size: '110%',
+                  innerSize: '70%',
+                  dataLabels: {
+                      format: '{point.name}: {percentage:.2f}%',//'{point.name}: {percentage:.2f}% (${y:.2f}M)',
+                      style: {
+                          fontSize: '13px',
+                          fontFamily: 'LatoWeb',
+                          textShadow: 'none',
+                          fontWeight: 'normal'
+                      },
+                      /*formatter: function () {
+                          return this.point.name + ': ' + this.percentage + '% (' + this.y + 'M)';
+                      },*/
+                      distance: -50
+                  }
+              }]
+          });
+        }
+  
+        
+    });
+    
+    /* https://css-tricks.com/snippets/jquery/append-site-overlay-div/ */
+    function renderOverlayForDetailsInput () {
+        var docHeight = $(document).height();
+        $("body > #overlay").css( "height", docHeight);
+        $("body > #overlay").show();
+    }
+    
+    function submitDetailsForFullAccess () {
+        var params = {};
+        params.name = $("#nameInput").val();
+        params.email = $("#emailInput").val();
+        params.company = $("#companyInput").val();
+        
+
+        $.get("http://dashboards.alphonso.tv:9080/access_request", params, function(data, status){
+                                        //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                        handleAccessReqResponse(data);
+                                    });
+        
+       
+    }
+    
+    function handleAccessReqResponse(data) {
+/*        $("#accessDetail").html("<h2 class='btn-group' style='background-color: #E01A22; color: #FFF; padding: 10px;'>" + data[0].status +"</h2>");
+        setTimeout(closeOverlay, 1000);
+    }
+    
+    function closeOverlay(){*/
+        $("body > #overlay").hide();
+        
+        var chart = $('#container1').highcharts();
+        chart.exportChartLocal({filename: 'ShareOfVoiceByNetwork'});
+        
+        chart = $('#container2').highcharts();
+        chart.exportChartLocal({filename: 'ShareOfVoiceByShow'});
+        
+        chart = $('#container3').highcharts();
+        chart.exportChartLocal({filename: 'ShareOfSpend(Estimate)'});
+        
+    }
+    
+    </script>
+    
+    <style>
+        
+        .content-section {
+            min-height: 0;
+        }
+        
+        footer {
+            padding: 40px 10px 40px 20px !important;
+            background: #EEEEEE;
+        }
+        
+        @media (min-width: 768px) {
+            footer
+            {
+                padding:40px 45px !important;
+            }
+        }
+        
+    </style>
+    
+  </head>
+
+  <body>
+      
+      <div id='overlay'>
+        <!-- http://stackoverflow.com/questions/18032220/css-change-image-src-on-imghover -->
+        <img src="/img/X icon.png" style="position: fixed; top: 20px; right: 20px;" onmouseover="this.src='/img/X icon_hover.png'" onmouseout="this.src='/img/X icon.png'" onclick="javascript:$('body > #overlay').hide();">
+        <div id="accessDetail" style="position: fixed; top: 20%; left: 0; right: 0;">
+            <input id="emailInput" type="text" placeholder="Email Address"/><br/>
+            <button type="button" onclick="javascript:submitDetailsForFullAccess();">DOWNLOAD REPORT</button>
+        </div>
+      </div>
+      
+      <header> <div class="container">
+            <!--<h3>alphonso</h3>--><a href="/" class="home-link img-responsive"></a>
+            <div class="h-justify">
+                <div class="btn-group">
+                    <ol class="breadcrumb">
+                        <li id="categoryBreadCrumb" class="clickable"><a href="#"></a></li>
+                        <li id="brandBreadCrumb" class="clickable"><a href="#"></a></li>
+                        <li class="active clickable"></li>  
+                    </ol>
+                </div>
+                <div class="btn-group search-box">
+                    <i id="searchIcon" class="fa fa-search"></i>
+                    <input id="searchInput" type="text" class="typeahead form-control" placeholder="Explore another brand"/>
+                </div>
+            </div>
+      </div></header>
+      
+      <div class="content-section" style="background: #FFFFFF"> <div class="container">
+          <p style="font-family: LatoWebHeavy; font-size: 24px; margin: 20px 0;"></p>
+          <div class="row">
+              <div id="visualDiv" class="col-xs-12 col-lg-7">
+                  <img src="http://cds.w2n9q5a7.hwcdn.net/sb-app/img/play-icon.png" class="popup-play-button pb-centered">
+                  <video poster=""  class="img-responsive clickable" autoplay>
+                    <!--<source src="" type="video/mp4">-->
+                    Your browser does not support the video tag.
+                  </video>
+              </div><!--
+              --><div id="dataDiv" class="col-xs-9 col-xs-offset-3 col-xs-pull-2 col-lg-4 col-lg-offset-1 col-lg-pull-1">
+                  <div class="row">
+                      <div class="col-xs-12">
+                          <p style="font-family: LatoWebHeavy; font-size: 16px; margin: 0;">TOTAL AIRINGS</p>
+                          <p id="TotalAiringsVal" style="font-family: LatoWebLight; font-size: 60px; margin: 0;"></p>
+                      </div>
+                      <div class="col-xs-12 col-sm-5">
+                          <p style="font-family: LatoWebHeavy; font-size: 16px; margin: 0;">NETWORKS</p>
+                          <p id="NetworksVal" style="font-family: LatoWebLight; font-size: 36px; margin: 0;"></p>
+                      </div>
+                      <div class="col-xs-12 col-sm-7">
+                          <p style="font-family: LatoWebHeavy; font-size: 16px; margin: 0;">SHOWS</p>
+                          <p id="ShowsVal" style="font-family: LatoWebLight; font-size: 36px; margin: 0;"></p>
+                      </div>
+                      <div class="col-xs-12 col-sm-5">
+                          <p style="font-family: LatoWebHeavy; font-size: 16px; margin: 0;">DOLLAR SPEND</p>
+                          <p id="DollarSpendVal" style="font-family: LatoWebLight; font-size: 36px; margin: 0;"></p>
+                      </div>
+                      <div class="col-xs-12 col-sm-7">
+                          <p style="font-family: LatoWebHeavy; font-size: 16px; margin: 0;">SHARE OF VOICE</p>
+                          <p id="ShareOfVoiceVal" style="font-family: LatoWebLight; font-size: 36px; margin: 0;"></p>
+                      </div>
+                     <div class="col-xs-12 col-sm-5">
+                          <p style="font-family: LatoWebHeavy; font-size: 16px; margin: 0;">VIEWERSHIP</p>
+                          <p id="ViewershipVal" style="font-family: LatoWebLight; font-size: 36px; margin: 0;"></p>
+                      </div>
+                       <!--<div class="col-xs-12 col-sm-7">
+                          <p style="font-family: LatoWebHeavy; font-size: 16px; margin: 0;">IMPRESSIONS</p>
+                          <p id="ImpressionsVal" style="font-family: LatoWebLight; font-size: 36px; margin: 0;"></p>
+                      </div>-->
+                  </div>
+              </div>
+          </div>
+   
+      </div></div>
+      
+      <footer> <div class="container" style="text-align: left;">
+          <p style="font-family: LatoWebHeavy; font-size: 24px; margin: 20px 0;"></p>
+          
+        <div class="btn-group">
+          <button id="brandBtn" class="btn dropdown-toggle" style="background-color: #E01A22; text-align: center; pointer-events: none; color: white;"></span></button>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn dropdown-toggle" data-toggle="dropdown">All Commercials <span class="caret"></span></button>
+          <ul class="dropdown-menu time-slot" id="paramAdTitle">
+            <li class="hc"><a>All Commercials</a></li>
+          </ul>
+        </div>
+          
+        <div class="btn-group">
+          <button class="btn dropdown-toggle" data-toggle="dropdown">Select Brand <span class="caret"></span></button>
+          <ul class="dropdown-menu scrollable-menu brand" id="param2">
+            <li>
+              <div class="search-box">
+                <i class="glyphicon glyphicon-search"></i>
+                <input type="text" class="typeahead form-control"/>
+              </div>
+            </li>
+          </ul>
+        </div>
+          
+        <div class="btn-group hidden">
+          <button class="btn dropdown-toggle" data-toggle="dropdown">Select Brand <span class="caret"></span></button>
+          <ul class="dropdown-menu scrollable-menu brand" id="param3">
+            <li>
+              <div class="search-box">
+                <i class="glyphicon glyphicon-search"></i>
+                <input type="text" class="typeahead form-control"/>
+              </div>
+            </li>
+          </ul>
+        </div>
+          
+        <div class="btn-group hidden">
+          <button class="btn dropdown-toggle" data-toggle="dropdown">Select Brand <span class="caret"></span></button>
+          <ul class="dropdown-menu scrollable-menu brand" id="param4">
+            <li>
+              <div class="search-box">
+                <i class="glyphicon glyphicon-search"></i>
+                <input type="text" class="typeahead form-control"/>
+              </div>
+            </li>
+          </ul>
+        </div>
+          
+        <div class="btn-group hidden">
+          <!--<button class="btn dropdown-toggle" data-toggle="dropdown" disabled="true">Select Brand <span class="caret"></span></button>-->
+          <button class="btn dropdown-toggle" data-toggle="dropdown">Select Brand <span class="caret"></span></button>
+          <ul class="dropdown-menu scrollable-menu brand" id="param5">
+            <!--<li class="dropdown-header">Search for a Brand:</li>-->
+            <li>
+              <div class="search-box">
+                <i class="glyphicon glyphicon-search"></i>
+                <input type="text" class="typeahead form-control"/>
+              </div>
+            </li>
+            <!--<li class="dropdown-header top-margin">Or Select from Popular Brands:</li>-->
+          </ul>
+        </div>
+          
+        <div class="btn-group hidden">
+          <button class="btn dropdown-toggle" data-toggle="dropdown">Select Brand <span class="caret"></span></button>
+          <ul class="dropdown-menu scrollable-menu brand" id="param6">
+            <li>
+              <div class="search-box">
+                <i class="glyphicon glyphicon-search"></i>
+                <input type="text" class="typeahead form-control"/>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn dropdown-toggle" data-toggle="dropdown">All Networks <span class="caret"></span></button>
+          <ul class="dropdown-menu time-slot" id="paramN">
+            <li class="hc"><a>All Networks</a></li>
+            <li class="hc"><a>Broadcast</a></li>
+            <li class="hc"><a>Cable</a></li>
+          </ul>
+        </div>
+
+        <!-- Refer: http://www.daterangepicker.com/#ex4 -->
+        <div id="reportrange" class="pull-right">
+        <!--<div id="reportrange">-->
+          <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+          <span></span> <b class="caret"></b>
+        </div>
+        
+        <div id="container-report" class="row">
+            <!-- The charts will go inside this one -->
+            <div class="btn-group col-xs-12" id="container1"">
+                <div class="middle-center"><i class="fa fa-bar-chart"></i><p>No data to display.</p><p>Select a filter to view data.</p></div>
+            </div>
+            <div class="btn-group col-xs-12" id="container2"">
+                <div class="middle-center"><i class="fa fa-bar-chart"></i><p>No data to display.</p><p>Select a filter to view data.</p></div>
+            </div>
+            <div class="btn-group col-xs-12 col-md-5" id="container3">
+                <div class="middle-center"><i class="fa fa-pie-chart"></i><p>No data to display.</p><p>Select a filter to view data.</p></div>
+            </div><!--
+            --><div class="btn-group col-xs-12 col-md-7" id="container4"></div>
+        </div>
+          
+      </div>
+      <button type="button" onclick="javascript:renderOverlayForDetailsInput();">DOWNLOAD REPORT</button></footer>
+
+
+  </body>
+</html>

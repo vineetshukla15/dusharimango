@@ -1,0 +1,10 @@
+      <div id='overlay-freetrial' class='overlay'>
+        <!-- http://stackoverflow.com/questions/18032220/css-change-image-src-on-imghover -->
+        <img src="/img/X icon.png" style="position: fixed; top: 20px; right: 20px;" onmouseover="this.src='/img/X icon_hover.png';this.style.cursor='pointer';" onmouseout="this.src='/img/X icon.png'" onclick="javascript:$('body > #overlay-freetrial').hide();">
+        <div id="rv-Detail" style="position: fixed; top: 20%; left: 0; right: 0;max-height: calc(80vh - 60px);overflow:auto;">
+            <p style="color:#FFFFFF;font:LatoWebThin;font-size:14px;width:360px;margin-left:calc(50% - 180px);">We are happy to see your interest in trying out insights. In order to enable your 15-day free trial, can you please provide the information requested below ? We will reach out to you on email after we set up your access on insights. You can then login into insights using your LinkedIn credentials.</p>
+            <input id="ft-emailInput" type="text" placeholder="Linkedin Email Id" /><br/>
+            <input id="ft-brandsInput" type="text" placeholder="Brands of interest" /><br/>
+            <button type="button" id='requestFreeTrialBtn' onclick="javascript:requestFreeTrial();">REQUEST FREE TRIAL</button>
+        </div>
+      </div>

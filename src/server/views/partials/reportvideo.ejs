@@ -1,0 +1,18 @@
+      <div id='overlay-reportVideo' class='overlay'>
+        <!-- http://stackoverflow.com/questions/18032220/css-change-image-src-on-imghover -->
+        <img src="/img/X icon.png" style="position: fixed; top: 20px; right: 20px;" onmouseover="this.src='/img/X icon_hover.png';this.style.cursor='pointer';" onmouseout="this.src='/img/X icon.png'" onclick="javascript:$('body > #overlay-reportVideo').hide();">
+        <div id="rv-Detail" style="position: fixed; top: 10%; left: 0; right: 0;max-height: calc(90vh - 60px);overflow:auto;">
+            <p class="videoTitle" style="color:#FFFFFF;font:LatoWebThin;font-size:20px;"></p>
+            <input id="rv-contentId" type="text" style="display:none;" /><br/>
+            <input id="rv-nameInput" type="text" placeholder="*Full Name" /><br/>
+            <p style="color:#FFFFFF;font-family:LatoWebThin;font-size:16px;margin-bottom:6px;width:360px;left:calc(50% - 180px);text-align:left;position: relative;">Please provide an official email address.</p>
+            <input id="rv-emailInput" type="text" placeholder="*Corporate Email Address" /><br/>
+            <p style="color:#FFFFFF;font-family:LatoWebThin;font-size:16px;margin-bottom:6px;width:360px;left:calc(50% - 180px);text-align:left;position: relative;">Please provide the name of the company that owns the rights to this video.</p>
+            <input id="rv-companyNameInput" type="text" placeholder="*Company Name" /><br/>
+            <p style="color:#FFFFFF;font-family:LatoWebThin;font-size:16px;margin-bottom:6px;width:360px;left:calc(50% - 180px);text-align:left;position: relative;">We will call to confirm the DMCA request.</p>
+            <input id="rv-PhNumInput" type="tel" placeholder="*Phone Number" /><br/>
+            <p style="color:#FFFFFF;font-family:LatoWebThin;font-size:16px;margin-bottom:6px;width:360px;left:calc(50% - 180px);text-align:left;position: relative;">Please tell us more about your DMCA request. Which company owns the rights to this video. How are you affiliate and authorized to report DMCA.</p>
+            <input id="rv-descInput" type="text" placeholder="*Description" maxlength="1000" /><br/>
+            <button type="button" id='reportVideoBtn' onclick="javascript:reportVideo();">REPORT VIDEO</button>
+        </div>
+      </div>

@@ -1,0 +1,7 @@
+- for (var i = 0; i < campaigns.length; i += 4)
+    div.row
+      - for (var j = i; j < 3+i; j++)  
+        div(class="col-lg-4") 
+          h1= campaigns[j].campaign_id
+          p= campaigns[j].campaign_name 
+          p= campaigns[j].campaign_url

@@ -1,0 +1,6 @@
+brands=true
+categories=true
+products=true
+contents=true
+content_product_brand_category=false
+content_productl_brandg_category=true

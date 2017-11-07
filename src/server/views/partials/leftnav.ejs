@@ -1,0 +1,48 @@
+      <div id="navButton" class="btn-group" onclick="openLeftNav();"
+           style="position: fixed;
+                  z-index: 99;
+                  cursor: pointer;
+                  font: 24px LatoWeb;
+                  left: 20px;
+                  top: 18px;
+                  color: #fff;">&#9776;
+      </div>
+      <div id="navPanel" class="leftsidenav" style="white-space: nowrap;">
+        <img src="/img/X icon.png" style="margin: 30px 25px; width: calc(0.4 * 37px);" onmouseover="this.src='/img/X icon_hover.png';this.style.cursor='pointer';" onmouseout="this.src='/img/X icon.png'" onclick="closeLeftNav();">
+        <a href="/" onmouseover="closeLeftNav2();"><i class="fa fa-home" aria-hidden="true"></i>&emsp;HOME</a>
+        <a id="navCategory" href="javascript:toggleLeftNav2();" onmouseover="openLeftNav2(this);"><i class="fa fa-list-ul" aria-hidden="true"></i>&emsp;EXPLORE A CATEGORY</a>
+        <a href="/reports" onmouseover="closeLeftNav2();"><i class="fa fa-bar-chart" aria-hidden="true"></i>&emsp;ATTRIBUTION REPORTS</a>
+        <div id="bottomNav" style="font: 9px LatoWeb; 
+                                    color: #111; 
+                                    text-align: center;
+                                    position: absolute;
+                                    bottom: 0px;
+                                    left: 0px;
+                                    width: 100%;
+                                    height: 32px;
+                                    vertical-align: middle; padding-top: 8px;">
+        <span style="cursor: pointer;" onclick="javascript:closeLeftNav();renderOverlayForDetailsInput();">Contact Us </span>&nbsp|&nbsp;<span style="cursor: pointer;" onclick="javascript:closeLeftNav();renderOverlayForCopyrightPolicy();"> Copyright Policy </span>&nbsp;|&nbsp;<span style="cursor: pointer;" onclick="javascript:closeLeftNav();renderOverlayForTnC();"> Terms and Conditions</span>
+        </div>
+      </div>
+      <div id="navPanel2" class="leftsidenav" style="white-space: nowrap;">
+        <a href='/category/Apparel,-Accessories-&-Footwear';">Apparel, Accessories & Footwear</li>
+        <a href='/category/Business-&-Industrial';">Business & Industrial</a></li>
+        <a href='/category/Education-&-Training';">Education & Training</a></li>
+        <a href='/category/Electronics-&-Communication';">Electronics & Communication</a></li>
+        <a href='/category/Financial-Services';">Financial Services</a></li>
+        <a href='/category/Food-&-Beverage';">Food & Beverage</a></li>
+        <a href='/category/Government-&-Non-profits';">Government & Non-profits</a></li>
+        <a href='/category/Health-&-Beauty';">Health & Beauty</a></li>
+        <a href='/category/Home-&-Garden';">Home & Garden</a></li>
+        <a href='/category/Legal-&-Law-services';">Legal & Law services</a></li>
+        <a href='/category/Life-&-Entertainment';">Life & Entertainment</a></li>
+        <a href='/category/Miscellaneous';">Miscellaneous</a></li>
+        <a href='/category/Pet-Supplies';">Pet Supplies</a></li>
+        <a href='/category/Pharma-&-Medical';">Pharma & Medical</a></li>
+        <a href='/category/Restaurants';">Restaurants</a></li>
+        <a href='/category/Retail-&-Marketplaces';">Retail & Marketplaces</a></li>
+        <a href='/category/Sporting-Goods';">Sporting Goods</a></li>
+        <a href='/category/Toys';">Toys</a></li>
+        <a href='/category/Travel';">Travel</a></li>
+        <a href='/category/Vehicles-&-Parts';">Vehicles & Parts</a></li>
+      </div>

@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <title>Alphonso</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-store" /> <!-- Caching of web page disabled -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" href="./img/favicon.png" />
+    
+    <!-- Bootstrap: http://getbootstrap.com/ -->
+    <link rel="stylesheet" type="text/css" href="./bootstrap/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./bootstrap/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    
+    <!-- Bootstrap Social: https://lipis.github.io/bootstrap-social/ -->
+    <link rel="stylesheet" type="text/css" href="./bootstrap/bootstrap-social-gh-pages/bootstrap-social.css">
+    
+    <!-- Font Awesome: https://fortawesome.github.io/Font-Awesome/ -->
+    <link rel="stylesheet" type="text/css" href="./font/font-awesome-4.5.0/css/font-awesome.min.css">
+    
+    <!-- Font Loto: http://www.latofonts.com/lato-free-fonts/ -->
+    <link rel="stylesheet" type="text/css" href="./font/Lato2OFLWeb/Lato/latofonts.css">
+    
+    <link rel="stylesheet" type="text/css" href="./css/dashboards.css">
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+    <link rel="stylesheet" type="text/css" href="./css/carousel.css">
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins): http://jquery.com/download/ -->
+    <script type="text/javascript" src="./jquery/jquery-2.1.4.min.js"></script>
+    <!-- Bootstrap JS, required for Bootstrap's JavaScript plugins: http://getbootstrap.com/ -->
+    <script type="text/javascript" src="./bootstrap/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    
+    <!-- Searchable dropdown: https://github.com/twitter/typeahead.js -->
+    <script type="text/javascript" src="./bootstrap/typeahead.js/typeahead.jquery.min.js"></script>
+    
+    <script type="text/javascript" src="./js/dashboards.js"></script>
+    <script type="text/javascript" src="./js/carousel.js"></script>
+    
+    <script type="text/javascript">
+    
+    $(document).ready(function(){
+        
+        /* Search input even handlers: http://api.jquery.com/keypress/ */
+        /*var searchInput = $("#searchInput");
+        searchInput.keypress(function( event ) {
+            if ( event.which == 13 ) {
+                event.preventDefault();
+                handleSearch();
+            }
+        });
+ 
+        $("#searchIcon").click(function(){ handleSearch(); });
+        
+        function handleSearch(){
+            //alert(searchInput.val());
+            var searchStr = searchInput.val().trim();
+            if (searchStr.length > 0)
+                window.location.href = "/ad_list.html?searchStr=" + searchInput.val();
+        }*/
+        
+        
+        /* 
+            Should this be moved to webserver??
+            The code below will call services to obtain featured ad and brands list to enable search
+        */
+        $.get("http://proxy.alphonso.tv/dashapi/featured_content", function(data, status){
+                                        //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                        populateCarousel(data);
+                                    });
+                                    
+        $.get("http://proxy.alphonso.tv/dashapi/list_brands", function(data, status){
+                                        //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                        populateSearchList(data);
+                                    });
+        
+        function populateCarousel(data) {
+            
+            var mainCarouselIndicators = $("#carousel-main > .carousel-indicators");
+            var mainCarouselInner = $("#carousel-main > .carousel-inner");
+            
+            var leftCarouselInner = $("#carousel-left > .carousel-inner");
+            var rightCarouselInner = $("#carousel-right > .carousel-inner");
+            var right2CarouselInner = $("#carousel-right-2 > .carousel-inner");
+
+            var itemClass = "item active";
+            var adDataLength = data.length;
+            for (i = 0; i < data.length; i++) {
+                
+                var index = i;
+                populateCarouselMaster (data[i], "#carousel-main", i, mainCarouselIndicators, mainCarouselInner, (i == 0 ? true : false) );
+                
+                // leftCarousel
+                index = getCyclicIndex((i-1), adDataLength);
+                populateCarouselSlave (data[index], leftCarouselInner, itemClass);
+                                
+                // rightCarousel
+                index = getCyclicIndex((i+1), adDataLength);
+                populateCarouselSlave (data[index], rightCarouselInner, itemClass);
+                                
+                // leftCarousel
+                index = getCyclicIndex((i+2), adDataLength);
+                populateCarouselSlave (data[index], right2CarouselInner, itemClass);
+                
+                itemClass = "item";
+            }
+            
+            // Invoke the init function to link and synchronize Carousels
+            synchronizeCarousels();
+            
+            /* On click of the ad redirect to the ad_details page */
+            $("#carousel-main .clickable").click(function(event){
+                //alert($(this).data('ad-id'));
+                window.location.href = "/ad_details.html?id=" + $(this).data('ad-id');
+            });
+            
+            $(".popup-play-button").click(function(event){
+                //alert($(this).data('ad-id'));
+                window.location.href = "/ad_details.html?id=" + $(this).parents(".clickable").data('ad-id') + "&playvideo=true";
+                /* http://stackoverflow.com/questions/22440903/clickable-image-inside-a-clickable-div-calls-both-onclick-handlers */
+                event.stopImmediatePropagation();
+            });
+            
+        }
+        
+        function populateCarouselSlave (adData, carouselInnerDiv, itemClass) {
+            
+                var itemDiv = document.createElement('div');
+                itemDiv.className = itemClass;
+                
+                var imgElement = document.createElement('img');
+                imgElement.src = adData.thumbnail;
+                imgElement.className = "img-responsive";
+                
+                itemDiv.appendChild(imgElement);
+                carouselInnerDiv.append(itemDiv);
+        }
+        
+        /* http://www.sitepoint.com/javascript-media-queries/ */
+        var smallDeviceAndAbove = false;
+        // media query event handler
+        if (matchMedia) {
+            var mq = window.matchMedia("(min-width: 768px)");
+            mq.addListener(WidthChange);
+            WidthChange(mq);
+        }
+
+        // media query change
+        function WidthChange(mq) {
+            if (mq.matches) {
+                smallDeviceAndAbove = true;
+                var dataDiv = $('.data-block');
+                dataDiv.removeClass("data-block");
+                dataDiv.removeClass("h-justify");
+                dataDiv.addClass("pull-right");
+                
+                $( ".item" ).each(function() {
+                    $(this).children(".pull-right").after($(this).children(".clickable"));
+                });
+                
+            } else {
+                smallDeviceAndAbove = false;
+                var dataDiv = $('.pull-right');
+                dataDiv.removeClass("pull-right");
+                dataDiv.addClass("data-block");
+                dataDiv.addClass("h-justify");
+                
+                $( ".item" ).each(function() {
+                    $(this).children(".clickable").after($(this).children(".data-block"));
+                });
+                
+            }
+        }
+        
+        function populateCarouselMaster (adData, carouselId, dataIndex, carouselIndicatorsOl, carouselInnerDiv, markActive) {
+            
+            var li = document.createElement("li");
+            if (markActive) li.className = "active";
+            li.setAttribute("data-target", carouselId);
+            li.setAttribute("data-slide-to", dataIndex);
+            carouselIndicatorsOl.append(li);
+            
+            
+            var itemDiv = document.createElement('div');
+            if (markActive) itemDiv.className = "item active";
+            else itemDiv.className = "item";
+            
+            var dataDiv = document.createElement('div');
+            if (smallDeviceAndAbove) dataDiv.className = "pull-right";
+            else dataDiv.className = "h-justify data-block";
+            populateSideBarCarouselData (dataDiv, "TOTAL AIRINGS", convertNumberToShortForm(adData.total_airings));//"16K");
+            //populateSideBarCarouselData (dataDiv, "DOLLAR SPEND", getDollarConvertedShortValue(adData.total_spend));//"$9M");
+            populateSideBarCarouselData (dataDiv, "DOLLAR SPEND", getDollarConvertedShortValue(adData.total_airings * 2400));//"$9M");
+            /*populateSideBarCarouselData (dataDiv, "VIEWERSHIP", convertNumberToShortForm(adData.total_impressions));//"126M");
+            populateSideBarCarouselData (dataDiv, "SHARE OF VOICE", getPercentageString(adData.share_of_voice));//"32%");*/
+            
+            
+            var visualDiv = document.createElement('div');
+            visualDiv.className = "clickable";
+            visualDiv.setAttribute("data-ad-id", adData.content_id);
+            
+            var imgElement = document.createElement('img');
+            imgElement.src = adData.thumbnail;
+            imgElement.className = "main-center";
+            visualDiv.appendChild(imgElement);
+            
+            var homeLogo = document.createElement('div');
+            homeLogo.className = "home-link logo-mini";
+            visualDiv.appendChild(homeLogo);
+            
+            var playbutton = document.createElement('img');
+            playbutton.src = "http://cds.w2n9q5a7.hwcdn.net/sb-app/img/play-icon.png";
+            playbutton.className = "popup-play-button pb-centered";
+            visualDiv.appendChild(playbutton);
+            
+            var carouselCaption = document.createElement('div');
+            carouselCaption.className = "carousel-caption";
+            var adTitle = document.createElement('span');
+            adTitle.className = "ad-title";
+            adTitle.innerText = getTextString(adData.title);
+            carouselCaption.appendChild(adTitle);
+            visualDiv.appendChild(carouselCaption);
+            
+            var footerLink = document.createElement('div');
+            footerLink.className = "footer-link";
+            footerLink.innerText = "Report Video";
+            visualDiv.appendChild(footerLink);
+            
+            if (smallDeviceAndAbove) {
+                itemDiv.appendChild(dataDiv);
+                itemDiv.appendChild(visualDiv);
+            } else {
+                itemDiv.appendChild(visualDiv);
+                itemDiv.appendChild(dataDiv);
+            }
+            
+            carouselInnerDiv.append(itemDiv);
+        }
+        
+        /*function populateSideBarCarouselData (dataDiv, dataCaption, dataValue) {
+            
+            var natlAiringsCaption = document.createElement("p");
+            natlAiringsCaption.className = "caption";
+            natlAiringsCaption.innerText = dataCaption;
+            dataDiv.appendChild(natlAiringsCaption);
+            
+            var natlAiringsVal = document.createElement("p");
+            natlAiringsVal.className = "value";
+            natlAiringsVal.innerText = dataValue;
+            dataDiv.appendChild(natlAiringsVal);
+        }*/
+        
+        function populateSideBarCarouselData (dataDiv, dataCaption, dataValue) {
+                
+                var containerDiv = document.createElement("div");
+                containerDiv.style.display = "inline-block";
+                
+                var natlAiringsCaption = document.createElement("p");
+                natlAiringsCaption.className = "caption";
+                natlAiringsCaption.innerText = dataCaption;
+                containerDiv.appendChild(natlAiringsCaption);
+                
+                var natlAiringsVal = document.createElement("p");
+                natlAiringsVal.className = "value";
+                natlAiringsVal.innerText = dataValue;
+                containerDiv.appendChild(natlAiringsVal);
+                
+                dataDiv.appendChild(containerDiv);
+                /*
+                    http://stackoverflow.com/questions/21412641/text-align-justify-not-working-on-dynamically-created-content
+                    http://stackoverflow.com/questions/8562843/how-to-append-a-space-after-an-element 
+                */
+                dataDiv.appendChild (document.createTextNode (" "));
+            }
+        
+        function getCyclicIndex (flatIndex, arrayLength) {
+            var index = flatIndex;
+            
+            if (flatIndex >= arrayLength) index = flatIndex - arrayLength;
+            else if (flatIndex < 0) index = flatIndex + arrayLength;
+            
+            return index;
+        }
+        
+        function populateSearchList(data) {
+            
+            
+            // List / Array[string] that will be displayed in the dropdown search
+            var searchList = data;
+            var searchListName = 'Brands'; // The name of the list
+        
+            var substringMatcher = function(strs) {
+                return function findMatches(q, cb) {
+                    var matches, substrRegex;
+                
+                    // an array that will be populated with substring matches
+                    matches = [];
+                
+                    // regex used to determine if a string contains the substring `q`
+                    substrRegex = new RegExp(q, 'i');
+                
+                    // iterate through the pool of strings and for any string that
+                    // contains the substring `q`, add it to the `matches` array
+                    $.each(strs, function(i, brand) {
+                        if (substrRegex.test(brand.name)) {
+                            matches.push(brand);
+                        }
+                    });
+                    cb(matches);
+                };
+            };  
+            
+            
+            $('.typeahead').typeahead({
+                hint: false,
+                highlight: true,
+                minLength: 1
+            },
+            {
+                name: searchListName,
+                displayKey: 'name',
+                source: substringMatcher(searchList),
+                limit: 10
+            });
+            
+        }
+        
+        
+        /*
+          The searchbox within the dropdown.
+          On select of search dropdown
+            set the html text on display
+            set the correct param(1/2)
+            trigger the fetchReportData
+        */	
+        $('.typeahead').on('typeahead:selected', function(event, datum) {
+          
+          //alert(datum.brand_id);
+          window.location.href = "/ad_list.html?brand_id=" + datum.brand_id;
+        });
+
+    });
+    
+    </script>
+    
+    <style>
+            @media (min-width: 768px) {
+                .carousel-slave {
+                     width: 500%; /* 2 col width 86.656px, 10 col width = 593.328px w/o padding of 20px each side, image width = 593.328-160 = 433.328px */ 
+                }
+                .dimmed-extendright:before
+                {
+                    right: -400%;
+                }
+            }
+            @media (min-width: 992px) {
+                .content-section > .container > .row {
+                    left: -81px; /* -81.656px; */
+                }
+                .carousel-shift-left {
+                    left: -1000%; /* width - 100% */
+                }
+                .carousel-slave {
+                     width: 1100%; /* 1 col width 41.656px, 10 col width = 776.656px w/o padding of 20px each side, image width = 776.656-160 = 616.656px */ 
+                }
+                .dimmed-extendleft:before
+                {
+                    left: -1000%;
+                }
+                .dimmed-extendright:before
+                {
+                    right: -1000%;
+                }
+            }
+            @media (min-width: 1200px) {
+                .content-section > .container > .row {
+                    left: -98px; /* -98.3281px; */
+                }
+                .carousel-shift-left {
+                    left: -700%; /* width - 100% */
+                }
+                .carousel-slave {
+                     width: 800%; /* 1 col width 58.328px, 9 col width = 845px w/o padding of 20px each side, image width = 845-160 = 685px */ 
+                }
+                .dimmed-extendleft:before
+                {
+                    left: -700%;
+                }
+                .dimmed-extendright:before
+                {
+                    right: -700%;
+                }
+            }
+    </style>
+    
+  </head>
+
+  <body>
+      <img src="./img/beta tag.png" style="position: absolute;">
+      <header>
+        <div  class="container">
+            <a href="/" class="home-link img-responsive"></a>
+            <h1>AD DISCOVERY PLATFORM</h1>
+            <div class="search-box">
+                <i id="searchIcon" class="fa fa-search"></i> <!-- clickable -->
+                <input id="searchInput" type="text" class="typeahead form-control" placeholder="search thousands of brands to learn about the most popular ads"/>
+            </div>
+        </div>
+      </header>
+      
+      <div class="content-section">
+          <div class="container">
+            <div class="row">
+                
+                <div class="col-xs-12 col-md-1 hidden-xs hidden-sm vcenter">
+                    <div id="carousel-left" class="carousel slide carousel-sync dimmed dimmed-extendleft clickable" data-ride="carousel" data-interval="">
+                        <div class="carousel-inner carousel-shift-left carousel-slave" role="listbox">
+                            <!--<div class="item active">
+                                <img src="http://assets.alphonso.tv/advt_db/2788453.jpg" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="http://assets.alphonso.tv/advt_db/2788542.jpg" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="http://assets.alphonso.tv/advt_db/2788511.jpg" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="http://assets.alphonso.tv/advt_db/2788525.jpg" class="img-responsive">
+                            </div>-->
+                        </div>
+                    </div>
+                </div><!--
+
+            --><div class="col-xs-12 col-sm-10 col-md-10 col-lg-9 vcenter">
+                    <div id="carousel-main" class="carousel slide" data-ride="carousel">
+
+                        <ol class="carousel-indicators">
+                            <!--<li data-target="#carousel-main" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-main" data-slide-to="1"></li>
+                            <li data-target="#carousel-main" data-slide-to="2"></li>
+                            <li data-target="#carousel-main" data-slide-to="3"></li>-->
+                        </ol>
+
+                        <div class="carousel-inner" role="listbox">
+                            <!--<div class="item active">
+                                <div class="pull-right">
+                                    <p class="caption">NATL. AIRINGS</p>
+                                    <p class="value">16K</p>
+                                    <p class="caption">DOLLAR SPEND</p>
+                                    <p class="value"">$9M</p>
+                                    <p class="caption"">IMPRESSIONS</p>
+                                    <p class="value"">126M</p>
+                                    <p class="caption"">SHARE OF VOICE</p>
+                                    <p class="value"">32%</p>
+                                </div>
+                                <div class="clickable" data-ad-id="2788542">
+                                    <img src="http://assets.alphonso.tv/advt_db/2788542.jpg" class="main-center">
+                                    <div class="home-link logo-mini"></div>
+                                    <img src="http://cds.w2n9q5a7.hwcdn.net/sb-app/img/play-icon.png" class="popup-play-button pb-centered">
+                                    <div class="carousel-caption">
+                                        <span class="ad-title">Esurance Superbowl 2016 Commercial</span>
+                                    </div>
+                                    <div class="footer-link">Report Video</div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="pull-right" style="width: 160px;color: lightgray; padding: 10px 10px 0px 15px;">
+                                    <p style="font-family: LatoWebBold; font-size: 16px; margin: 0;">NATL. AIRINGS</p>
+                                    <p style="font-family: LatoWebThin; font-size: 48px; margin-top: -10px;">16K</p>
+                                    <p style="font-family: LatoWebBold; font-size: 16px; margin: 0;">DOLLAR SPEND</p>
+                                    <p style="font-family: LatoWebThin; font-size: 48px; margin-top: -10px;">$9M</p>
+                                    <p style="font-family: LatoWebBold; font-size: 16px; margin: 0;">IMPRESSIONS</p>
+                                    <p style="font-family: LatoWebThin; font-size: 48px; margin-top: -10px;">126M</p>
+                                    <p style="font-family: LatoWebBold; font-size: 16px; margin: 0;">SHARE OF VOICE</p>
+                                    <p style="font-family: LatoWebThin; font-size: 48px; margin-top: -10px;">32%</p>
+                                </div>
+                                <div style="width: calc(100% - 160px); min-height: 370px;" class="clickable" data-ad-id="2788511">
+                                    <img src="http://assets.alphonso.tv/advt_db/2788511.jpg" class="main-center">
+                                    <div class="home-link logo-mini" style="position: absolute; top: 10px; right: 170px;"></div>
+                                    <img src="http://cds.w2n9q5a7.hwcdn.net/sb-app/img/play-icon.png" class="popup-play-button pb-centered">
+                                    <div class="carousel-caption" style="width: calc(100% - 160px);">
+                                        <span class="ad-title">Budweiser Superbowl 2016 Commercial</span>
+                                    </div>
+                                    <div style="position: absolute; bottom: 0; right: 160px; text-align= right; color: white; padding: 6px; font-family: LatoWeb; font-size: 8px; z-index: 10;"><span>Report Video</span></div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="pull-right" style="width: 160px;color: lightgray; padding: 10px 10px 0px 15px;">
+                                    <p style="font-family: LatoWebBold; font-size: 16px; margin: 0;">NATL. AIRINGS</p>
+                                    <p style="font-family: LatoWebThin; font-size: 48px; margin-top: -10px;">16K</p>
+                                    <p style="font-family: LatoWebBold; font-size: 16px; margin: 0;">DOLLAR SPEND</p>
+                                    <p style="font-family: LatoWebThin; font-size: 48px; margin-top: -10px;">$9M</p>
+                                    <p style="font-family: LatoWebBold; font-size: 16px; margin: 0;">IMPRESSIONS</p>
+                                    <p style="font-family: LatoWebThin; font-size: 48px; margin-top: -10px;">126M</p>
+                                    <p style="font-family: LatoWebBold; font-size: 16px; margin: 0;">SHARE OF VOICE</p>
+                                    <p style="font-family: LatoWebThin; font-size: 48px; margin-top: -10px;">32%</p>
+                                </div>
+                                <div style="width: calc(100% - 160px); min-height: 370px;" class="clickable" data-ad-id="2788525"">
+                                    <img src="http://assets.alphonso.tv/advt_db/2788525.jpg" class="main-center">
+                                    <div class="home-link logo-mini" style="position: absolute; top: 10px; right: 170px;"></div>
+                                    <img src="http://cds.w2n9q5a7.hwcdn.net/sb-app/img/play-icon.png" class="popup-play-button pb-centered">
+                                    <div class="carousel-caption" style="width: calc(100% - 160px);">
+                                        <span class="ad-title">Colgate Superbowl 2016 Commercial</span>
+                                    </div>
+                                    <div style="position: absolute; bottom: 0; right: 160px; text-align= right; color: white; padding: 6px; font-family: LatoWeb; font-size: 8px; z-index: 10;"><span>Report Video</span></div>
+                                </div>
+                            </div>
+                            <div class="item">
+                                <div class="pull-right" style="width: 160px;color: lightgray; padding: 10px 10px 0px 15px;">
+                                    <p style="font-family: LatoWebBold; font-size: 16px; margin: 0;">NATL. AIRINGS</p>
+                                    <p style="font-family: LatoWebThin; font-size: 48px; margin-top: -10px;">16K</p>
+                                    <p style="font-family: LatoWebBold; font-size: 16px; margin: 0;">DOLLAR SPEND</p>
+                                    <p style="font-family: LatoWebThin; font-size: 48px; margin-top: -10px;">$9M</p>
+                                    <p style="font-family: LatoWebBold; font-size: 16px; margin: 0;">IMPRESSIONS</p>
+                                    <p style="font-family: LatoWebThin; font-size: 48px; margin-top: -10px;">126M</p>
+                                    <p style="font-family: LatoWebBold; font-size: 16px; margin: 0;">SHARE OF VOICE</p>
+                                    <p style="font-family: LatoWebThin; font-size: 48px; margin-top: -10px;">32%</p>
+                                </div>
+                                <div style="width: calc(100% - 160px); min-height: 370px;" class="clickable" data-ad-id="2788453"">
+                                    <img src="http://assets.alphonso.tv/advt_db/2788453.jpg" class="main-center">
+                                    <div class="home-link logo-mini" style="position: absolute; top: 10px; right: 170px;"></div>
+                                    <img src="http://cds.w2n9q5a7.hwcdn.net/sb-app/img/play-icon.png" class="popup-play-button pb-centered">
+                                    <div class="carousel-caption" style="width: calc(100% - 160px);">
+                                        <span class="ad-title">Toyota Superbowl 2016 Commercial</span>
+                                    </div>
+                                    <div style="position: absolute; bottom: 0; right: 160px; text-align= right; color: white; padding: 6px; font-family: LatoWeb; font-size: 8px; z-index: 10;"><span>Report Video</span></div>
+                                </div>
+                            </div>-->
+                        </div>
+                        
+                        <!--<div class="home-link logo-mini" style="position: absolute; top: 10px; right: 170px;"></div>-->
+                        <!--<div style="position: absolute; bottom: 0; right: 160px; text-align= right; color: white; padding: 6px; font-family: LatoWeb; font-size: 8px;"><span>Report Video</span></div>-->
+                    </div>
+                </div><!--
+
+            --><div class="col-xs-12 col-sm-2 col-md-1 col-lg-1 hidden-xs vcenter">
+                    <div id="carousel-right" class="carousel slide carousel-sync dimmed dimmed-extendright clickable" data-ride="carousel" data-interval="">
+                        <div class="carousel-inner carousel-slave" role="listbox">
+                            <!--<div class="item  active">
+                                <img src="http://assets.alphonso.tv/advt_db/2788511.jpg" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="http://assets.alphonso.tv/advt_db/2788525.jpg" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="http://assets.alphonso.tv/advt_db/2788453.jpg" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="http://assets.alphonso.tv/advt_db/2788542.jpg" class="img-responsive">
+                            </div>-->
+                        </div>
+                    </div>
+                </div><!--
+
+            --><div class="col-xs-12 col-lg-1 hidden-xs hidden-sm hidden-md vcenter">
+                    
+                    <div id="carousel-right-2" class="carousel slide carousel-sync dimmed dimmed-extendright clickable" data-ride="carousel" data-interval="" style="left: 700%;">
+                        <div class="carousel-inner carousel-slave" role="listbox">
+                            <!--<div class="item  active">
+                                <img src="http://assets.alphonso.tv/advt_db/2788525.jpg" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="http://assets.alphonso.tv/advt_db/2788453.jpg" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="http://assets.alphonso.tv/advt_db/2788542.jpg" class="img-responsive">
+                            </div>
+                            <div class="item">
+                                <img src="http://assets.alphonso.tv/advt_db/2788511.jpg" class="img-responsive">
+                            </div>-->
+                        </div>
+                    </div>
+                    
+                </div>
+
+            </div>
+          </div>
+      </div>
+      
+      <footer>
+          <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12 col-sm-1 hidden-xs"></div>
+                <div class="col-xs-12 col-sm-10">
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-4 col-md-2">
+                            <h5>A</h5>
+                            <p><a href='/ad_list.html?brand_id=34196'>A Place For Mom</a></p>
+                            <p><a href='/ad_list.html?brand_id=25618'>AARP Services, Inc.</a></p>
+                            <p><a href='/ad_list.html?brand_id=25740'>ABCmouse.com</a></p>
+                            <p><a href='/ad_list.html?brand_id=26081'>ACE Hardware</a></p>
+                            <p><a href='/ad_list.html?brand_id=31463'>ACT Fluoride</a></p>
+                            <p><a href='/ad_list.html?brand_id=25522'>Acura</a></p>
+                            <p><a href='/ad_list.html?brand_id=25481'>Ad Council</a></p>
+                            <p><a href='/ad_list.html?brand_id=25510'>ADT</a></p>
+                            <p><a href='/ad_list.html?brand_id=26286'>Advil</a></p>
+                            <p><a href='/ad_list.html?brand_id=132579'>Airborne</a></p>
+                            <p><a href='/ad_list.html?brand_id=32270'>Align Probiotics</a></p>
+                            <p><a href='/ad_list.html?brand_id=28036'>Alka-Seltzer</a></p>
+                            <p><a href='/ad_list.html?brand_id=25392'>Allegra</a></p>
+                            <p><a href='/ad_list.html?brand_id=25710'>Allstate</a></p>
+                            <p><a href='/ad_list.html?brand_id=25946'>Ally Bank</a></p>
+                            <p><a href='/ad_list.html?brand_id=26376'>American Cancer Society</a></p>
+                            <p><a href='/ad_list.html?brand_id=27619'>American Express</a></p>
+                            <p><a href='/ad_list.html?brand_id=33062'>American Heart Association</a></p>
+                            <p><a href='/ad_list.html?brand_id=2282705'>Amope</a></p>
+                            <p><a href='/ad_list.html?brand_id=26624'>Ancestry.com</a></p>
+                            <p><a href='/ad_list.html?brand_id=26115'>Angie's List</a></p>
+                            <p><a href='/ad_list.html?brand_id=28773'>ASPCA</a></p>
+                            <p><a href='/ad_list.html?brand_id=25601'>Aspercreme</a></p>
+                            <p><a href='/ad_list.html?brand_id=25658'>AT&T</a></p>
+                            <p><a href='/ad_list.html?brand_id=25839'>Audi</a></p>
+                            <p><a href='/ad_list.html?brand_id=26581'>Autozone</a></p>
+                            <p><a href='/ad_list.html?brand_id=25860'>Aveeno</a></p>
+                            <h5>B</h5>
+                            <p><a href='/ad_list.html?brand_id=26199'>Bank of America</a></p>
+                            <p><a href='/ad_list.html?brand_id=25491'>Bass Pro Shops</a></p>
+                            <p><a href='/ad_list.html?brand_id=25718'>Blue Buffalo</a></p>
+                            <p><a href='/ad_list.html?brand_id=25962'>BMW</a></p>
+                            <p><a href='/ad_list.html?brand_id=26111'>Bosley</a></p>
+                            <p><a href='/ad_list.html?brand_id=27302'>Bounty</a></p>
+                            <p><a href='/ad_list.html?brand_id=31991'>Brookside chocolate</a></p>
+                            <p><a href='/ad_list.html?brand_id=1467869'>Bud Light</a></p>
+                            <p><a href='/ad_list.html?brand_id=25425'>Budweiser</a></p>
+                            <p><a href='/ad_list.html?brand_id=32356'>Buffalo Wild Wings</a></p>
+                            <p><a href='/ad_list.html?brand_id=25749'>Buick</a></p>
+                            <p><a href='/ad_list.html?brand_id=25984'>Burger King</a></p>
+                            <p><a href='/ad_list.html?brand_id=25649'>Burlington Coat Factory</a></p>
+                            <h5>C</h5>
+                            <p><a href='/ad_list.html?brand_id=26323'>Cadillac</a></p>
+                            <p><a href='/ad_list.html?brand_id=2459997'>California Walnuts</a></p>
+                            <p><a href='/ad_list.html?brand_id=28676'>Campbell's Soup</a></p>
+                            <p><a href='/ad_list.html?brand_id=25996'>Cancer Treatment Centers of America</a></p>
+                            <p><a href='/ad_list.html?brand_id=25942'>Capital One</a></p>
+                            <p><a href='/ad_list.html?brand_id=25640'>Care.com</a></p>
+                            <p><a href='/ad_list.html?brand_id=25789'>CarFax.com</a></p>
+                            <p><a href='/ad_list.html?brand_id=26294'>Cascade</a></p>
+                            <p><a href='/ad_list.html?brand_id=26080'>Centrum</a></p>
+                            <p><a href='/ad_list.html?brand_id=26244'>Chantix</a></p>
+                        </div>
+                        <div class="col-xs-6 col-sm-4 col-md-2">
+                            <p><a href='/ad_list.html?brand_id=26165'>Cheerios</a></p>
+                            <p><a href='/ad_list.html?brand_id=25466'>Chevrolet</a></p>
+                            <p><a href='/ad_list.html?brand_id=26252'>Chili's</a></p>
+                            <p><a href='/ad_list.html?brand_id=26097'>Chuck E. Cheese's</a></p>
+                            <p><a href='/ad_list.html?brand_id=26317'>Citi</a></p>
+                            <p><a href='/ad_list.html?brand_id=26112'>Clorox</a></p>
+                            <p><a href='/ad_list.html?brand_id=1437968'>Coca-Cola</a></p>
+                            <p><a href='/ad_list.html?brand_id=26591'>Colonial Penn</a></p>
+                            <p><a href='/ad_list.html?brand_id=25628'>Comcast/XFINITY</a></p>
+                            <p><a href='/ad_list.html?brand_id=2316739'>Constant Contact</a></p>
+                            <p><a href='/ad_list.html?brand_id=25391'>CoverGirl</a></p>
+                            <p><a href='/ad_list.html?brand_id=1861469'>Credit Repair Pros</a></p>
+                            <p><a href='/ad_list.html?brand_id=137320'>CreditRepair.com</a></p>
+                            <p><a href='/ad_list.html?brand_id=26295'>Crest</a></p>
+                            <p><a href='/ad_list.html?brand_id=1772341'>Cricket Wireless</a></p>
+                            <p><a href='/ad_list.html?brand_id=26634'>Culturelle</a></p>
+                            <h5>D</h5>
+                            <p><a href='/ad_list.html?brand_id=26870'>Dairy Queen</a></p>
+                            <p><a href='/ad_list.html?brand_id=27748'>Denny's</a></p>
+                            <p><a href='/ad_list.html?brand_id=30170'>DiGiorno</a></p>
+                            <p><a href='/ad_list.html?brand_id=25635'>DirecTV</a></p>
+                            <p><a href='/ad_list.html?brand_id=29832'>Discover Card</a></p>
+                            <p><a href='/ad_list.html?brand_id=26702'>Dish Network</a></p>
+                            <p><a href='/ad_list.html?brand_id=25394'>Disney Parks & Resorts</a></p>
+                            <p><a href='/ad_list.html?brand_id=2391757'>Doctors Without Borders</a></p>
+                            <p><a href='/ad_list.html?brand_id=2391710'>Domino's</a></p>
+                            <p><a href='/ad_list.html?brand_id=28778'>Dr. Scholl's</a></p>
+                            <p><a href='/ad_list.html?brand_id=27442'>Dunkin' Donuts</a></p>
+                            <p><a href='/ad_list.html?brand_id=26141'>DURACELL</a></p>
+                            <h5>E</h5>
+                            <p><a href='/ad_list.html?brand_id=33862'>Edward Jones</a></p>
+                            <p><a href='/ad_list.html?brand_id=26056'>eHarmony</a></p>
+                            <p><a href='/ad_list.html?brand_id=108372'>ELIQUIS</a></p>
+                            <p><a href='/ad_list.html?brand_id=25541'>Empire Today</a></p>
+                            <p><a href='/ad_list.html?brand_id=33573'>Ensure</a></p>
+                            <p><a href='/ad_list.html?brand_id=26721'>Esurance</a></p>
+                            <p><a href='/ad_list.html?brand_id=136579'>Eucerin</a></p>
+                            <p><a href='/ad_list.html?brand_id=25566'>Expedia</a></p>
+                            <h5>F</h5>
+                            <p><a href='/ad_list.html?brand_id=25447'>Farmers Insurance</a></p>
+                            <p><a href='/ad_list.html?brand_id=25523'>Febreze</a></p>
+                            <p><a href='/ad_list.html?brand_id=1460941'>FingerHut.com</a></p>
+                            <p><a href='/ad_list.html?brand_id=2390465'>fitbit</a></p>
+                            <p><a href='/ad_list.html?brand_id=1948786'>Flex Seal</a></p>
+                            <p><a href='/ad_list.html?brand_id=2265585'>FlexShopper.com</a></p>
+                            <p><a href='/ad_list.html?brand_id=25498'>Ford</a></p>
+                            <h5>G</h5>
+                            <p><a href='/ad_list.html?brand_id=2054909'>Garnier Fructis</a></p>
+                            <p><a href='/ad_list.html?brand_id=26846'>Gatorade</a></p>
+                            <p><a href='/ad_list.html?brand_id=25964'>Geico</a></p>
+                            <p><a href='/ad_list.html?brand_id=25574'>General Mills</a></p>
+                            <p><a href='/ad_list.html?brand_id=1230270'>Gilead</a></p>
+                            <p><a href='/ad_list.html?brand_id=653735'>Giorgio Armani Fragrances</a></p>
+                            <p><a href='/ad_list.html?brand_id=25693'>GMC</a></p>
+                            <p><a href='/ad_list.html?brand_id=26129'>Gold Bond</a></p>
+                            <p><a href='/ad_list.html?brand_id=25700'>Golden Corral</a></p>
+                        </div>
+                        <div class="visible-xs-block col-xs-12" style="border-width:1px; border-top-style: dotted; margin-bottom: 20px;"></div>
+                        <div class="col-xs-6 col-sm-4 col-md-2">
+                            <p><a href='/ad_list.html?brand_id=26664'>Goldwater Law Firm</a></p>
+                            <p><a href='/ad_list.html?brand_id=2428836'>Goodness Knows</a></p>
+                            <p><a href='/ad_list.html?brand_id=1104807'>GoodRx</a></p>
+                            <p><a href='/ad_list.html?brand_id=26247'>Guinness</a></p>
+                            <h5>H</h5>
+                            <p><a href='/ad_list.html?brand_id=25887'>H&R Block</a></p>
+                            <p><a href='/ad_list.html?brand_id=26838'>Hair Club</a></p>
+                            <p><a href='/ad_list.html?brand_id=2390425'>Head & Shoulders</a></p>
+                            <p><a href='/ad_list.html?brand_id=783862'>Health Hotline</a></p>
+                            <p><a href='/ad_list.html?brand_id=26030'>Hershey's</a></p>
+                            <p><a href='/ad_list.html?brand_id=25990'>Hidden Valley</a></p>
+                            <p><a href='/ad_list.html?brand_id=25970'>Home Advisor</a></p>
+                            <p><a href='/ad_list.html?brand_id=25780'>Honda</a></p>
+                            <p><a href='/ad_list.html?brand_id=27111'>Honey Bunches of Oats</a></p>
+                            <p><a href='/ad_list.html?brand_id=31470'>Hot Pockets</a></p>
+                            <p><a href='/ad_list.html?brand_id=25834'>Hulu</a></p>
+                            <p><a href='/ad_list.html?brand_id=25944'>Humira</a></p>
+                            <p><a href='/ad_list.html?brand_id=27129'>Hydroxy Cut</a></p>
+                            <h5>I</h5>
+                            <p><a href='/ad_list.html?brand_id=28751'>IHOP</a></p>
+                            <p><a href='/ad_list.html?brand_id=27646'>Infiniti</a></p>
+                            <p><a href='/ad_list.html?brand_id=29746'>Intel</a></p>
+                            <h5>J</h5>
+                            <p><a href='/ad_list.html?brand_id=27200'>J.G. Wentworth</a></p>
+                            <p><a href='/ad_list.html?brand_id=2390208'>JCPenney</a></p>
+                            <p><a href='/ad_list.html?brand_id=28814'>Jeep</a></p>
+                            <p><a href='/ad_list.html?brand_id=2410516'>Jet.com</a></p>
+                            <p><a href='/ad_list.html?brand_id=33632'>Jim Beam</a></p>
+                            <p><a href='/ad_list.html?brand_id=27705'>Jolly Rancher</a></p>
+                            <p><a href='/ad_list.html?brand_id=2386267'>Jublia</a></p>
+                            <h5>K</h5>
+                            <p><a href='/ad_list.html?brand_id=25436'>KFC</a></p>
+                            <p><a href='/ad_list.html?brand_id=156222'>King.com</a></p>
+                            <p><a href='/ad_list.html?brand_id=25540'>Kmart</a></p>
+                            <p><a href='/ad_list.html?brand_id=25824'>Kohl's</a></p>
+                            <p><a href='/ad_list.html?brand_id=2390365'>Kraft Macaroni & Cheese</a></p>
+                            <h5>L</h5>
+                            <p><a href='/ad_list.html?brand_id=32244'>Land Rover</a></p>
+                            <p><a href='/ad_list.html?brand_id=28135'>Legalzoom.com</a></p>
+                            <p><a href='/ad_list.html?brand_id=26131'>Lexus</a></p>
+                            <p><a href='/ad_list.html?brand_id=311199'>LG Mobile</a></p>
+                            <p><a href='/ad_list.html?brand_id=25485'>Life Alert</a></p>
+                            <p><a href='/ad_list.html?brand_id=26263'>LifeLock</a></p>
+                            <p><a href='/ad_list.html?brand_id=2400515'>Lincoln Heritage Funeral Advantage</a></p>
+                            <p><a href='/ad_list.html?brand_id=2070211'>Lincoln Motor Company</a></p>
+                            <p><a href='/ad_list.html?brand_id=31146'>Lindt</a></p>
+                            <p><a href='/ad_list.html?brand_id=28035'>Listerine</a></p>
+                            <p><a href='/ad_list.html?brand_id=25779'>Little Caesars Pizza</a></p>
+                            <p><a href='/ad_list.html?brand_id=2048601'>L'Oreal Paris Cosmetics</a></p>
+                            <p><a href='/ad_list.html?brand_id=90363'>Lowe's</a></p>
+                            <p><a href='/ad_list.html?brand_id=29598'>Luvs</a></p>
+                            <p><a href='/ad_list.html?brand_id=27330'>Lyrica</a></p>
+                            <p><a href='/ad_list.html?brand_id=26641'>Lysol</a></p>
+                        </div>
+                        <div class="visible-sm-block col-sm-12" style="border-width:1px; border-top-style: dotted; margin-bottom: 20px;"></div>
+                        <div class="col-xs-6 col-sm-4 col-md-2">
+                            <h5>M</h5>
+                            <p><a href='/ad_list.html?brand_id=31028'>Maaco</a></p>
+                            <p><a href='/ad_list.html?brand_id=2390533'>Machine Zone</a></p>
+                            <p><a href='/ad_list.html?brand_id=25617'>Macy's</a></p>
+                            <p><a href='/ad_list.html?brand_id=28409'>Marie Callender's</a></p>
+                            <p><a href='/ad_list.html?brand_id=26653'>Mass Mutual</a></p>
+                            <p><a href='/ad_list.html?brand_id=25477'>MasterCard</a></p>
+                            <p><a href='/ad_list.html?brand_id=26253'>Match.com</a></p>
+                            <p><a href='/ad_list.html?brand_id=26684'>Maybelline New York</a></p>
+                            <p><a href='/ad_list.html?brand_id=27322'>Mazda</a></p>
+                            <p><a href='/ad_list.html?brand_id=25449'>McDonald's</a></p>
+                            <p><a href='/ad_list.html?brand_id=25997'>Meineke Car Care Centers</a></p>
+                            <p><a href='/ad_list.html?brand_id=26569'>Mercedes-Benz</a></p>
+                            <p><a href='/ad_list.html?brand_id=28095'>Merck</a></p>
+                            <p><a href='/ad_list.html?brand_id=28845'>MetroPCS</a></p>
+                            <p><a href='/ad_list.html?brand_id=2042696'>Microsoft Studios</a></p>
+                            <p><a href='/ad_list.html?brand_id=2403650'>Mitsubishi</a></p>
+                            <p><a href='/ad_list.html?brand_id=26763'>Money Mutual</a></p>
+                            <p><a href='/ad_list.html?brand_id=26829'>Mountain Dew</a></p>
+                            <p><a href='/ad_list.html?brand_id=28926'>MRHFM Law Firm</a></p>
+                            <p><a href='/ad_list.html?brand_id=126716'>Mucinex</a></p>
+                            <p><a href='/ad_list.html?brand_id=98225'>My Pillow</a></p>
+                            <h5>N</h5>
+                            <p><a href='/ad_list.html?brand_id=2390596'>Namenda XR</a></p>
+                            <p><a href='/ad_list.html?brand_id=3070022'>National Basketball Association (NBA)</a></p>
+                            <p><a href='/ad_list.html?brand_id=2404479'>National Park Service</a></p>
+                            <p><a href='/ad_list.html?brand_id=26293'>Nationwide Insurance</a></p>
+                            <p><a href='/ad_list.html?brand_id=31454'>Nespresso</a></p>
+                            <p><a href='/ad_list.html?brand_id=2404154'>Neulasta</a></p>
+                            <p><a href='/ad_list.html?brand_id=26929'>Nexium</a></p>
+                            <p><a href='/ad_list.html?brand_id=26009'>Nissan</a></p>
+                            <p><a href='/ad_list.html?brand_id=56018'>Nivea</a></p>
+                            <p><a href='/ad_list.html?brand_id=25947'>No! No!</a></p>
+                            <p><a href='/ad_list.html?brand_id=25492'>Nutrisystem</a></p>
+                            <h5>O</h5>
+                            <p><a href='/ad_list.html?brand_id=27791'>Office Depot</a></p>
+                            <p><a href='/ad_list.html?brand_id=26540'>Olay</a></p>
+                            <p><a href='/ad_list.html?brand_id=28903'>Old Spice</a></p>
+                            <p><a href='/ad_list.html?brand_id=26455'>Olive Garden</a></p>
+                            <p><a href='/ad_list.html?brand_id=25671'>One A Day</a></p>
+                            <p><a href='/ad_list.html?brand_id=25943'>Oreo</a></p>
+                            <p><a href='/ad_list.html?brand_id=31128'>OurTime.com</a></p>
+                            <p><a href='/ad_list.html?brand_id=28383'>Outback Steakhouse</a></p>
+                            <p><a href='/ad_list.html?brand_id=26393'>OxiClean</a></p>
+                            <h5>P</h5>
+                            <p><a href='/ad_list.html?brand_id=29198'>Pampers</a></p>
+                            <p><a href='/ad_list.html?brand_id=25465'>Pantene</a></p>
+                            <p><a href='/ad_list.html?brand_id=25886'>Papa John's</a></p>
+                            <p><a href='/ad_list.html?brand_id=25403'>Party city</a></p>
+                            <p><a href='/ad_list.html?brand_id=28899'>Passages Malibu</a></p>
+                            <p><a href='/ad_list.html?brand_id=27338'>Payless Shoe Source</a></p>
+                            <p><a href='/ad_list.html?brand_id=25490'>Pepsi</a></p>
+                            <p><a href='/ad_list.html?brand_id=32112'>Perillo Tours</a></p>
+                        </div>
+                        <div class="visible-xs-block col-xs-12" style="border-width:1px; border-top-style: dotted; margin-bottom: 20px;"></div>
+                        <div class="col-xs-6 col-sm-4 col-md-2">
+                            <p><a href='/ad_list.html?brand_id=2430401'>Persil ProClean</a></p>
+                            <p><a href='/ad_list.html?brand_id=28427'>PETCO</a></p>
+                            <p><a href='/ad_list.html?brand_id=25457'>PetSmart</a></p>
+                            <p><a href='/ad_list.html?brand_id=29173'>Pillsbury</a></p>
+                            <p><a href='/ad_list.html?brand_id=25770'>Pizza Hut</a></p>
+                            <p><a href='/ad_list.html?brand_id=30544'>PlayStation</a></p>
+                            <p><a href='/ad_list.html?brand_id=25880'>Playtex</a></p>
+                            <p><a href='/ad_list.html?brand_id=2265603'>POM</a></p>
+                            <p><a href='/ad_list.html?brand_id=27616'>Popeyes</a></p>
+                            <p><a href='/ad_list.html?brand_id=26267'>Premier Care</a></p>
+                            <p><a href='/ad_list.html?brand_id=25931'>Proactiv</a></p>
+                            <p><a href='/ad_list.html?brand_id=25456'>Progressive</a></p>
+                            <p><a href='/ad_list.html?brand_id=28033'>ProNamel</a></p>
+                            <p><a href='/ad_list.html?brand_id=35088'>Prudential</a></p>
+                            <p><a href='/ad_list.html?brand_id=25679'>Purina</a></p>
+                            <p><a href='/ad_list.html?brand_id=2393156'>Purina Pro Plan</a></p>
+                            <p><a href='/ad_list.html?brand_id=2399229'>Purina Tidy Cats</a></p>
+                            <h5>Q</h5>
+                            <p><a href='/ad_list.html?brand_id=26609'>Quaker</a></p>
+                            <p><a href='/ad_list.html?brand_id=25527'>Quicken Loans</a></p>
+                            <h5>R</h5>
+                            <p><a href='/ad_list.html?brand_id=25567'>Ram Trucks</a></p>
+                            <p><a href='/ad_list.html?brand_id=1205705'>Realtor.com</a></p>
+                            <p><a href='/ad_list.html?brand_id=25838'>Red Lobster</a></p>
+                            <p><a href='/ad_list.html?brand_id=27198'>Reese's</a></p>
+                            <p><a href='/ad_list.html?brand_id=25641'>Relion Group</a></p>
+                            <p><a href='/ad_list.html?brand_id=27131'>Royal Caribbean Cruise Lines</a></p>
+                            <h5>S</h5>
+                            <p><a href='/ad_list.html?brand_id=26278'>SafeLink</a></p>
+                            <p><a href='/ad_list.html?brand_id=26510'>Safelite Auto Glass</a></p>
+                            <p><a href='/ad_list.html?brand_id=1517343'>Samsung Mobile</a></p>
+                            <p><a href='/ad_list.html?brand_id=28925'>Samuel Adams</a></p>
+                            <p><a href='/ad_list.html?brand_id=27325'>Sandals Resorts</a></p>
+                            <p><a href='/ad_list.html?brand_id=34100'>Scrubbing Bubbles</a></p>
+                            <p><a href='/ad_list.html?brand_id=25696'>Sears</a></p>
+                            <p><a href='/ad_list.html?brand_id=25479'>Select Quote</a></p>
+                            <p><a href='/ad_list.html?brand_id=2397853'>SimpliSafe</a></p>
+                            <p><a href='/ad_list.html?brand_id=25706'>SKECHERS</a></p>
+                            <p><a href='/ad_list.html?brand_id=25917'>Sleep Number</a></p>
+                            <p><a href='/ad_list.html?brand_id=26209'>Snickers</a></p>
+                            <p><a href='/ad_list.html?brand_id=26917'>Sonic Drive-In</a></p>
+                            <p><a href='/ad_list.html?brand_id=161389'>Sonicare</a></p>
+                            <p><a href='/ad_list.html?brand_id=25680'>Southwest Airlines</a></p>
+                            <p><a href='/ad_list.html?brand_id=27819'>Special K</a></p>
+                            <p><a href='/ad_list.html?brand_id=27166'>Sprint</a></p>
+                            <p><a href='/ad_list.html?brand_id=27590'>St. Jude Children's Research Hospital</a></p>
+                            <p><a href='/ad_list.html?brand_id=26697'>Stanley Steemer</a></p>
+                            <p><a href='/ad_list.html?brand_id=25927'>State Farm</a></p>
+                            <p><a href='/ad_list.html?brand_id=27133'>Straight Talk Wireless</a></p>
+                            <p><a href='/ad_list.html?brand_id=26319'>Subaru</a></p>
+                            <p><a href='/ad_list.html?brand_id=25734'>Subway</a></p>
+                            <p><a href='/ad_list.html?brand_id=25414'>Swiffer</a></p>
+                            <h5>T</h5>
+                            <p><a href='/ad_list.html?brand_id=26956'>Taco Bell</a></p>
+                            <p><a href='/ad_list.html?brand_id=130593'>Tamiflu</a></p>
+                            <p><a href='/ad_list.html?brand_id=27494'>Target</a></p>
+                            <p><a href='/ad_list.html?brand_id=32534'>TD Ameritrade</a></p>
+                        </div>
+                        <div class="col-xs-6 col-sm-4 col-md-2">
+                            <p><a href='/ad_list.html?brand_id=26318'>Tempur-Pedic</a></p>
+                            <p><a href='/ad_list.html?brand_id=2408023'>The Addiction Network</a></p>
+                            <p><a href='/ad_list.html?brand_id=25703'>The General</a></p>
+                            <p><a href='/ad_list.html?brand_id=26093'>The Home Depot</a></p>
+                            <p><a href='/ad_list.html?brand_id=28560'>The Partnership at Drugfree.org</a></p>
+                            <p><a href='/ad_list.html?brand_id=2142113'>Theraflu</a></p>
+                            <p><a href='/ad_list.html?brand_id=26031'>Tic Tac</a></p>
+                            <p><a href='/ad_list.html?brand_id=25398'>Tide</a></p>
+                            <p><a href='/ad_list.html?brand_id=29058'>TJ Maxx</a></p>
+                            <p><a href='/ad_list.html?brand_id=25569'>T-Mobile</a></p>
+                            <p><a href='/ad_list.html?brand_id=2407597'>Toujeo</a></p>
+                            <p><a href='/ad_list.html?brand_id=25591'>Toyota</a></p>
+                            <p><a href='/ad_list.html?brand_id=123712'>Toys R Us</a></p>
+                            <p><a href='/ad_list.html?brand_id=26650'>Trivago</a></p>
+                            <p><a href='/ad_list.html?brand_id=28379'>Tropicana</a></p>
+                            <p><a href='/ad_list.html?brand_id=26167'>TruBiotics</a></p>
+                            <p><a href='/ad_list.html?brand_id=25545'>TrueCar</a></p>
+                            <p><a href='/ad_list.html?brand_id=25538'>Truth</a></p>
+                            <p><a href='/ad_list.html?brand_id=27444'>Tums</a></p>
+                            <p><a href='/ad_list.html?brand_id=123677'>Tylenol</a></p>
+                            <h5>U</h5>
+                            <p><a href='/ad_list.html?brand_id=25777'>U.S. Army</a></p>
+                            <p><a href='/ad_list.html?brand_id=2998734'>U.S. Food and Drug Administration (FDA)</a></p>
+                            <p><a href='/ad_list.html?brand_id=28234'>Unisom</a></p>
+                            <p><a href='/ad_list.html?brand_id=25903'>United Healthcare</a></p>
+                            <p><a href='/ad_list.html?brand_id=28797'>Universal Orlando Resort</a></p>
+                            <p><a href='/ad_list.html?brand_id=26178'>University of Phoenix</a></p>
+                            <p><a href='/ad_list.html?brand_id=31427'>USAA</a></p>
+                            <p><a href='/ad_list.html?brand_id=94441'>USPS</a></p>
+                            <h5>V</h5>
+                            <p><a href='/ad_list.html?brand_id=25556'>Values.com</a></p>
+                            <p><a href='/ad_list.html?brand_id=25623'>Verizon</a></p>
+                            <p><a href='/ad_list.html?brand_id=26904'>Viagra</a></p>
+                            <p><a href='/ad_list.html?brand_id=26961'>Viking River Cruises</a></p>
+                            <p><a href='/ad_list.html?brand_id=26339'>VisionWorks</a></p>
+                            <p><a href='/ad_list.html?brand_id=27647'>Vista Print</a></p>
+                            <p><a href='/ad_list.html?brand_id=25533'>Volkswagen</a></p>
+                            <p><a href='/ad_list.html?brand_id=26095'>Volvo</a></p>
+                            <h5>W</h5>
+                            <p><a href='/ad_list.html?brand_id=25531'>Walmart</a></p>
+                            <p><a href='/ad_list.html?brand_id=26061'>Wayfair</a></p>
+                            <p><a href='/ad_list.html?brand_id=27795'>Web.com</a></p>
+                            <p><a href='/ad_list.html?brand_id=25832'>Weight Watchers</a></p>
+                            <p><a href='/ad_list.html?brand_id=26299'>Wendy's</a></p>
+                            <p><a href='/ad_list.html?brand_id=25442'>Wonderful Pistachios</a></p>
+                            <h5>X</h5>
+                            <p><a href='/ad_list.html?brand_id=30370'>Xarelto</a></p>
+                            <h5>Y</h5>
+                            <p><a href='/ad_list.html?brand_id=25423'>Yoplait</a></p>
+                            <h5>Z</h5>
+                            <p><a href='/ad_list.html?brand_id=55076'>Zantac</a></p>
+                            <p><a href='/ad_list.html?brand_id=28483'>Ziploc</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-1 hidden-xs"></div>
+            </div>
+        </div>
+      </footer>
+  </body>
+</html>

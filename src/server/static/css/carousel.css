@@ -1,0 +1,202 @@
+#carousel-main
+{
+    box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+}
+
+#carousel-main:hover
+{
+    box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.2);
+}
+
+.carousel-inner
+{
+    background-color: #222222;
+    margin-bottom: 40px;
+}
+
+.carousel
+{
+    box-shadow: 0 -1px 0 #e7e7e7,0 0 2px rgba(0,0,0,0.12),0 2px 4px rgba(0,0,0,0.24);
+}
+.carousel:hover
+{
+    box-shadow: 0 -1px 0 #e7e7e7,0 0 2px rgba(0,0,0,0.12),0 2px 12px rgba(0,0,0,0.3);
+}
+
+.carousel-inner > .item  p.caption
+{
+    font-family: LatoWebBold;
+    font-size: 10px;
+    margin: 0;
+    color: #FFF;
+    opacity: 0.5;
+}
+
+.carousel-inner > .item  p.value
+{
+    font-family: LatoWebThin;
+    font-size: 24px;
+    color: #FFF;
+}
+
+.carousel-inner div.logo-mini
+{
+    position: absolute; top: 10px; right: 10px;
+}
+
+.carousel-inner div.footer-link
+{
+    position: absolute;
+    bottom: 70px; /*120px;*/
+    right: 0px;
+    text-align: right;
+    color: #FFFFFF;
+    padding: 4px;
+    font-family: LatoWeb;
+    font-size: 6px;
+    z-index: 10;
+}
+
+.carousel-caption
+{
+    bottom: 70px; /*120px;*/
+    left: 0;
+    background-color: #222222;
+    opacity: 0.8;
+    padding: 6px 0;
+    text-align: left;
+    width: 100%;
+    padding-left: 12px;
+}
+
+.carousel-caption > .ad-title
+{
+    font-family: LatoWebLight;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+
+.carousel-indicators
+{
+    bottom: -40px;
+    margin: 0;
+    left: 0;
+    text-align: left;
+}
+
+.carousel-indicators li {
+  background-color:#D7D7D7;
+  margin: 1px 5px;
+  border: none;
+  width: 8px;
+  height: 8px;
+}
+
+.carousel-indicators .active{
+  background-color:#E01A22;
+  margin: 1px 5px;
+  width: 8px;
+  height: 8px;
+}
+
+/* http://stackoverflow.com/questions/17859993/basic-css-how-to-overlay-a-div-with-semi-transparent-div-on-top */
+.dimmed
+{
+  position: relative;
+}
+
+.dimmed:before
+{
+  content: " ";
+  z-index: 10;
+  display: block;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #222222;
+  opacity: 0.5;
+}
+
+@media (min-width: 420px) {
+    .carousel-inner div.footer-link
+    {
+        bottom: 70px;
+    }
+    .carousel-caption
+    {
+        bottom: 70px;
+    }
+}
+
+@media (min-width: 768px) {
+
+    .carousel-inner > .item > div.pull-right
+    {
+        width: 170px;/*160px;*/
+        padding: 10px 10px 0px 15px;
+    }
+
+    .carousel-inner > .item > div.clickable
+    {
+        width: calc(100% - 160px); /* width of the div above */
+        min-height: 370px; /* height of the div above */
+    }
+    
+    .carousel-inner div.logo-mini
+    {
+        position: absolute;
+        top: 10px;
+        right: 170px;
+    }
+    
+    .carousel-inner div.footer-link
+    {
+        position: absolute;
+        bottom: 0;
+        right: 160px;
+        text-align: right;
+        color: #FFFFFF;
+        padding: 6px;
+        font-family: LatoWeb;
+        font-size: 8px;
+        z-index: 10;
+    }
+    
+    .carousel-caption
+    {
+        bottom: 0;
+        left: 0;
+        background-color: #222222;
+        opacity: 0.8;
+        padding: 13px 0;
+        text-align: left;
+        width: calc(100% - 160px);
+        padding-left: 24px;
+    }
+
+    .carousel-caption > .ad-title
+    {
+        font-size: 24px;
+        color: #FFFFFF;
+    }
+    
+    .carousel-inner > .item  p.caption
+    {
+        font-family: LatoWebBold;
+        font-size: 16px;
+        margin: 65px 0 0 0; /* 0; reach and frequency is not being populated for now */
+        color: #FFF;
+        opacity: 0.5;
+    }
+
+    .carousel-inner > .item  p.value
+    {
+        font-family: LatoWebThin;
+        font-size: 44px;
+        margin-top: -10px;
+        color: #FFF;
+    }
+    
+}

@@ -1,0 +1,79 @@
+
+.breadcrumb
+{
+	list-style: none;
+	overflow: hidden;
+    border-radius: 0px;
+    padding: 0px;
+    background: #FFFFFF;
+	float: left;
+}
+
+.breadcrumb > li
+{
+    border: none;
+    font: 16px LatoWeb;
+	padding: 5px 12.5px 5px 24px;
+	position: relative;
+    /*display: block;
+	float: left;*/
+	color: #a0a0a0;
+}
+
+.breadcrumb > li:first-child
+{
+    padding-left: 0px;
+}
+
+.breadcrumb > li:not(.active):after
+{
+	content: "";
+	display: block;
+	width: 0;
+	height: 0;
+	border-top: 8px solid transparent;           /* Go big on the size, and let overflow hide */
+	border-bottom: 8px solid transparent;
+	border-left: 10px solid #FFFFFF;
+	position: absolute;
+	top: 17px;
+	margin-top: -10px;
+	left: 100%;
+	z-index: 2;
+}
+
+.breadcrumb > li:not(.active):before {
+	content: ""; 
+	display: block; 
+	width: 0; 
+	height: 0;
+	border-top: 8px solid transparent;       
+	border-bottom: 8px solid transparent;
+	border-left: 10px solid #d7d7d7;
+	position: absolute;
+	top: 17px;
+	margin-top: -10px;
+	margin-left: 3px;
+	left: 100%;
+	z-index: 1;
+}
+
+.breadcrumb > li:hover { opacity: 0.8; }
+
+.breadcrumb > li+li:before { /* overwrite bootstrap '/' separator */
+    padding: 0;
+    content: "";
+}
+
+.breadcrumb > li.active
+{
+	font-family: LatoWebBlack;
+    color: #E01A22;
+	opacity: 1;
+	cursor: default;
+}
+
+.breadcrumb > li > a
+{
+    text-decoration: none;
+	color: #a0a0a0;
+}

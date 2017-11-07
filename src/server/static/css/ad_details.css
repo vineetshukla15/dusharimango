@@ -1,0 +1,146 @@
+#container-report [id*="container"]
+{
+  background: #FFFFFF;
+  min-height: 250px;
+  /*height: calc(100vh - 300px); Refer: http://stackoverflow.com/questions/1575141/make-div-100-height-of-browser-window */
+  height: 400px;
+  padding: 10px 20px;
+  background-clip: content-box;
+}
+
+#container-report #container-map > .gm-style
+{
+    /*top: 10px !important;
+    width: calc(100% - 20px) !important;*/
+    
+    height: calc(100% - 20px) !important;
+}
+
+#container-report #container-map { background: transparent !important; }
+
+/* No data to display message */
+.middle-center
+{
+    /* Ref: http://zerosixthree.se/vertical-align-anything-with-just-3-lines-of-css/ */
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    /*vertical-align: middle;*/
+}
+
+.middle-center i
+{
+  color: #D7D7D7;
+  font-size: 40px;
+}
+
+.middle-center p
+{
+  color: #BBBBBB;
+  font-family: LatoWeb;
+  font-weight: 300;
+  font-size: 20px;
+  margin: 0;
+}
+
+
+/* dropdown */
+button.dropdown-toggle
+{
+  padding: 2px 24px 2px 12px;
+  height: 32px;
+  min-width: 120px;
+  background-color: white;
+  text-align: left;
+  margin-bottom: 12px;
+  border-radius: 0px;
+}
+
+.btn.dropdown-toggle
+{ /* Refer: http://stackoverflow.com/questions/12200544/override-twitter-bootstrap-textbox-glow-and-shadows */
+  outline: none;
+  border: none !important;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+}
+
+button .caret {
+    /*float: right;
+    margin-top: 8px;*/
+    /*http://stackoverflow.com/questions/24002442/twitter-bootstrap-issue-right-align-the-caret-in-the-dropdown-header*/
+    top: 45%;
+    position: absolute;
+    right: 10px;
+}
+
+/* Date Range Picker */
+#reportrange
+{
+  cursor: pointer;
+  padding: 5px 10px;
+  min-height: 32px;
+  height: auto;
+  display: inline-block;
+  min-width: 120px;
+  background: white;
+  border-radius: 0px;
+  font-weight: normal;
+  vertical-align: top;
+}
+
+div.daterangepicker td.in-range
+{
+  background: #E7E7E7;
+}
+
+div.daterangepicker td.active, div.daterangepicker td.active:hover
+{
+  background: #222222;
+}
+
+div.daterangepicker div.ranges li
+{
+  color: #222222;
+}
+div.daterangepicker div.ranges li.active, div.daterangepicker div.ranges li:hover
+{
+  background: #222222;
+  border-color: #222222;
+}
+
+
+footer > button, #similarAdBlock button, #getReport, #getFullReport, #expand-dashboard
+{
+  margin-top: 50px;
+  margin-bottom: 20px;
+  background-color: transparent;
+  border: 1px solid #E01A22;
+  font: 16px LatoWeb;
+  color:  #E01A22;
+  height: 48px;
+  width: 192px;
+}
+
+footer > button:hover, #similarAdBlock button:hover, #getReport:hover, #getFullReport:hover, #expand-dashboard:hover
+{
+  background-color: #E01A22;
+  color:  #FFF;
+  transition: 0.4s ease 0s;
+}
+
+/* http://stackoverflow.com/questions/24222798/how-to-remove-the-blue-box-shadow-border-in-button-if-clicked */
+footer > button:focus, #similarAdBlock button:focus, #getReport:focus, #getFullReport:focus, #expand-dashboard:focus
+{
+  background-image: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+/*body .overlay > div > button*/
+#emailDetail > button
+{
+  width: 192px;
+}

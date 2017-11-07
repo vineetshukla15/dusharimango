@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <title>Alphonso TV Ad Insights</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-store" /> <!-- Caching of web page disabled -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="description" content="Search brands to browse their nationally airing television commercials. Compare airings, spend, share of voice, reach and frequency to draw insights.">
+<% if (config.env == 'prod') { %>
+    <meta name="google-site-verification" content="Yoqeqy096S7UkCR36-Fe1cNAPHbDxhPNczddAmmN5Kk" />
+<% } %>
+    <link rel="shortcut icon" href="./img/favicon.ico" />
+    
+    <!-- Bootstrap: http://getbootstrap.com/ -->
+    <link rel="stylesheet" type="text/css" href="./bootstrap/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./bootstrap/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    
+    <!-- Bootstrap Social: https://lipis.github.io/bootstrap-social/ -->
+    <link rel="stylesheet" type="text/css" href="./bootstrap/bootstrap-social-gh-pages/bootstrap-social.css">
+    
+    <!-- Font Awesome: https://fortawesome.github.io/Font-Awesome/ -->
+    <link rel="stylesheet" type="text/css" href="./font/font-awesome-4.5.0/css/font-awesome.min.css">
+    
+    <!-- Font Loto: http://www.latofonts.com/lato-free-fonts/ -->
+    <link rel="stylesheet" type="text/css" href="./font/Lato2OFLWeb/Lato/latofonts.css">
+    
+    <link rel="stylesheet" type="text/css" href="./css/dashboards.css">
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+    <link rel="stylesheet" type="text/css" href="./css/carousel.css">
+    <link rel="stylesheet" type="text/css" href="./css/leftnav.css">
+    
+<% if (config.env == 'prod') { %>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-79645980-1', 'auto');
+        ga('send', 'pageview');
+
+        !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";
+            analytics.load("koCdwr6IUm70VJ1784A8VbSdGVW8N1Ro");
+            analytics.page();
+        }}();
+
+    </script>
+<% } %>
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins): http://jquery.com/download/ -->
+    <script type="text/javascript" src="./jquery/jquery-2.1.4.min.js"></script>
+    <!-- Include the jQuery Mobile library -->
+    <script type="text/javascript" src="./jquery.mobile-1.4.5/jquery.mobile.custom.min.js"></script>
+    <!-- Bootstrap JS, required for Bootstrap's JavaScript plugins: http://getbootstrap.com/ -->
+    <script type="text/javascript" src="./bootstrap/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    
+    <!-- Searchable dropdown: https://github.com/twitter/typeahead.js -->
+    <script type="text/javascript" src="./bootstrap/typeahead.js/typeahead.jquery.min.js"></script>
+    
+    <script type="text/javascript" src="./js/dashboards.js"></script>
+    <script type="text/javascript" src="./js/leftnav.js"></script>
+    <script type="text/javascript" src="./js/carousel.js"></script>
+    
+    <script type="text/javascript">
+    
+    $(document).ready(function(){
+    
+        var featuredContent = <%- featuredContent %>;
+        populateCarousel(featuredContent);
+    
+        function populateCarousel(data) {
+            
+            var mainCarouselIndicators = $("#carousel-main > .carousel-indicators");
+            var mainCarouselInner = $("#carousel-main > .carousel-inner");
+            
+            var leftCarouselInner = $("#carousel-left > .carousel-inner");
+            var rightCarouselInner = $("#carousel-right > .carousel-inner");
+            var right2CarouselInner = $("#carousel-right-2 > .carousel-inner");
+
+            var itemClass = "item active";
+            var adDataLength = data.length;
+            for (i = 0; i < data.length; i++) {
+                
+                var index = i;
+                populateCarouselMaster (data[i], "#carousel-main", i, mainCarouselIndicators, mainCarouselInner, (i == 0 ? true : false) );
+                
+                // leftCarousel
+                index = getCyclicIndex((i-1), adDataLength);
+                populateCarouselSlave (data[index], leftCarouselInner, itemClass);
+                                
+                // rightCarousel
+                index = getCyclicIndex((i+1), adDataLength);
+                populateCarouselSlave (data[index], rightCarouselInner, itemClass);
+                                
+                // leftCarousel
+                index = getCyclicIndex((i+2), adDataLength);
+                populateCarouselSlave (data[index], right2CarouselInner, itemClass);
+                
+                itemClass = "item";
+            }
+            
+            // Invoke the init function to link and synchronize Carousels
+            synchronizeCarousels();
+            
+            /* On click of the ad redirect to the ad_details page */
+            $("#carousel-main .clickable").click(function(event){
+                //alert($(this).data('ad-id'));
+                window.location.href = "/commercial/" + $(this).data('ad-id');
+            });
+            
+            $(".popup-play-button").click(function(event){
+                //alert($(this).data('ad-id'));
+                window.location.href = "/commercial/" + $(this).parents(".clickable").data('ad-id') + "?playvideo=true";
+                /* http://stackoverflow.com/questions/22440903/clickable-image-inside-a-clickable-div-calls-both-onclick-handlers */
+                event.stopImmediatePropagation();
+            });
+            
+        }
+        
+        function populateCarouselMaster (adData, carouselId, dataIndex, carouselIndicatorsOl, carouselInnerDiv, markActive) {
+            
+            var li = document.createElement("li");
+            if (markActive) li.className = "active";
+            li.setAttribute("data-target", carouselId);
+            li.setAttribute("data-slide-to", dataIndex);
+            carouselIndicatorsOl.append(li);
+            
+            
+            var itemDiv = document.createElement('div');
+            if (markActive) itemDiv.className = "item active";
+            else itemDiv.className = "item";
+            
+            var dataDiv = document.createElement('div');
+            if (smallDeviceAndAbove) dataDiv.className = "pull-right";
+            else dataDiv.className = "h-justify data-block";
+            
+            populateSideBarCarouselData (dataDiv, "TOTAL AIRINGS", convertNumberToShortForm(adData.total_airings));
+            populateSideBarCarouselData (dataDiv, "EST. SPEND", getDollarConvertedShortValue(adData.total_spend));
+            //populateSideBarCarouselData (dataDiv, "REACH", convertNumberToMillionShortForm(adData.viewership));
+            //populateSideBarCarouselData (dataDiv, "FREQUENCY", calculateFraction(adData.total_impressions, adData.viewership));
+            
+            
+            var visualDiv = document.createElement('div');
+            visualDiv.className = "clickable";
+            visualDiv.setAttribute("data-ad-id", adData.content_id + '-' + adData.title.replace(/\s/g, '-').replace(/\//g, '').replace(/\%/g, 'percent'));
+            
+            var imgElement = document.createElement('img');
+            //imgElement.src = adData.thumbnail;
+            imgElement.src = adData.poster;
+            imgElement.className = "main-center";
+            visualDiv.appendChild(imgElement);
+            
+            var homeLogo = document.createElement('div');
+            homeLogo.className = "home-link logo-mini";
+            visualDiv.appendChild(homeLogo);
+            
+            var playbutton = document.createElement('img');
+            playbutton.src = "http://cds.w2n9q5a7.hwcdn.net/sb-app/img/play-icon.png";
+            playbutton.className = "popup-play-button pb-centered";
+            visualDiv.appendChild(playbutton);
+            
+            var carouselCaption = document.createElement('div');
+            carouselCaption.className = "carousel-caption";
+            var adTitle = document.createElement('span');
+            adTitle.className = "ad-title";
+            adTitle.innerText = getTextString(adData.title);
+            carouselCaption.appendChild(adTitle);
+            visualDiv.appendChild(carouselCaption);
+            
+            var footerLink = document.createElement('div');
+            footerLink.className = "footer-link";
+            footerLink.innerText = "Report Video";
+            footerLink.setAttribute("data-title", getTextString(adData.title));
+            footerLink.setAttribute("data-id", adData.content_id);
+            footerLink.onclick = function (event) {renderReportVideoOverlay(this);event.stopPropagation();};
+            visualDiv.appendChild(footerLink);
+            
+            if (smallDeviceAndAbove) {
+                itemDiv.appendChild(dataDiv);
+                itemDiv.appendChild(visualDiv);
+            } else {
+                itemDiv.appendChild(visualDiv);
+                itemDiv.appendChild(dataDiv);
+            }
+            
+            carouselInnerDiv.append(itemDiv);
+        }
+        
+        function populateCarouselSlave (adData, carouselInnerDiv, itemClass) {
+            
+                var itemDiv = document.createElement('div');
+                itemDiv.className = itemClass;
+                
+                var imgElement = document.createElement('img');
+                //imgElement.src = adData.thumbnail;
+                imgElement.src = adData.poster;
+                imgElement.className = "img-responsive";
+                
+                itemDiv.appendChild(imgElement);
+                carouselInnerDiv.append(itemDiv);
+        }
+        
+        function populateSideBarCarouselData (dataDiv, dataCaption, dataValue) {
+                
+                var containerDiv = document.createElement("div");
+                containerDiv.style.display = "inline-block";
+                
+                var caption = document.createElement("p");
+                caption.style.textAlign = "center";
+                caption.className = "caption";
+                caption.innerText = dataCaption;
+                containerDiv.appendChild(caption);
+                
+                var value = document.createElement("p");
+                value.style.textAlign = "center";
+                value.className = "value";
+                value.innerText = dataValue;
+                containerDiv.appendChild(value);
+                
+                dataDiv.appendChild(containerDiv);
+                /*
+                    http://stackoverflow.com/questions/21412641/text-align-justify-not-working-on-dynamically-created-content
+                    http://stackoverflow.com/questions/8562843/how-to-append-a-space-after-an-element 
+                */
+                dataDiv.appendChild (document.createTextNode (" "));
+            }
+        
+        function getCyclicIndex (flatIndex, arrayLength) {
+            var index = flatIndex;
+            
+            if (flatIndex >= arrayLength) index = flatIndex - arrayLength;
+            else if (flatIndex < 0) index = flatIndex + arrayLength;
+            
+            return index;
+        }
+        
+        var brandList = <%- brands %>;
+        //populateFooterBrandLinks ('brandLinks', brandList)
+        populateSearchList(brandList);
+        
+        function populateSearchList(data) {
+            
+            
+            // List / Array[string] that will be displayed in the dropdown search
+            var searchList = data;
+            var searchListName = 'Brands'; // The name of the list
+        
+            var substringMatcher = function(strs) {
+                return function findMatches(q, cb) {
+                    var matches, substrRegex;
+                
+                    // an array that will be populated with substring matches
+                    matches = [];
+                
+                    // regex used to determine if a string contains the substring `q`
+                    substrRegex = new RegExp(q, 'i');
+                
+                    // iterate through the pool of strings and for any string that
+                    // contains the substring `q`, add it to the `matches` array
+                    $.each(strs, function(i, brand) {
+                        if (substrRegex.test(brand.name)) {
+                            matches.push(brand);
+                        } else if (substrRegex.test(brand.name.replace(/\./g, ""))) {
+                            matches.push(brand);
+                        } else if (substrRegex.test(brand.name.replace(/\s/g, ""))) {
+                            matches.push(brand);
+                        } else if (substrRegex.test(brand.name.replace(/\s/g, "").replace(/\./g, ""))) {
+                            matches.push(brand);
+                        } else if (substrRegex.test(brand.name.replace(/'/g, ""))) {
+                            matches.push(brand);
+                        }
+                    });
+                    cb(matches);
+                };
+            };  
+            
+            
+            $('.typeahead').typeahead({
+                hint: false,
+                highlight: true,
+                minLength: 1
+            },
+            {
+                name: searchListName,
+                displayKey: 'name',
+                source: substringMatcher(searchList),
+                limit: 1000
+            });
+            
+        }
+        
+        
+        /*
+          The searchbox within the dropdown.
+          On select of search dropdown
+            set the html text on display
+            set the correct param(1/2)
+            trigger the fetchReportData
+        */	
+        $('.typeahead').on('typeahead:selected', function(event, datum) {
+          
+          //alert(datum.brand_id);
+          window.location.href = getSEOurl ('/brand/', datum.brand_id, datum.name);//"/brand/" + datum.brand_id + "-" + datum.name;
+        });
+
+        /* http://www.sitepoint.com/javascript-media-queries/ */
+        var smallDeviceAndAbove = false;
+        // media query event handler
+        if (matchMedia) {
+            var mq = window.matchMedia("(min-width: 768px)");
+            mq.addListener(WidthChange);
+            WidthChange(mq);
+        }
+
+        // media query change
+        function WidthChange(mq) {
+            if (mq.matches) {
+                smallDeviceAndAbove = true;
+                var dataDiv = $('.data-block');
+                dataDiv.removeClass("data-block");
+                dataDiv.removeClass("h-justify");
+                dataDiv.addClass("pull-right");
+                
+                $( ".item" ).each(function() {
+                    $(this).children(".pull-right").after($(this).children(".clickable"));
+                });
+                
+                $("#searchInput").attr("placeholder", "search thousands of brands to learn about the most popular ads");
+                
+            } else {
+                smallDeviceAndAbove = false;
+                var dataDiv = $('.pull-right');
+                dataDiv.removeClass("pull-right");
+                dataDiv.addClass("data-block");
+                dataDiv.addClass("h-justify");
+                
+                $( ".item" ).each(function() {
+                    $(this).children(".clickable").after($(this).children(".data-block"));
+                });
+                
+                $("#searchInput").attr("placeholder", "search thousands of brands");
+            }
+        }
+
+        var highlightMsgDisplayDuration = 15000;
+        setTimeout(closeHighlightMessageOverlay, highlightMsgDisplayDuration);
+        function closeHighlightMessageOverlay(){
+            $("#overlay-highlight").fadeOut(highlightMsgDisplayDuration);
+            return;
+        }
+
+        $(document).keyup(function(e) {
+            if (e.keyCode == 27) { // escape key maps to keycode `27`
+                $(".overlay").hide();
+                closeLeftNav();
+            }
+        });
+
+    });
+    
+    </script>
+    
+    <style>
+            @media (min-width: 768px) {
+                .carousel-slave {
+                     width: 500%; /* 2 col width 86.656px, 10 col width = 593.328px w/o padding of 20px each side, image width = 593.328-160 = 433.328px */ 
+                }
+                .dimmed-extendright:before
+                {
+                    right: -400%;
+                }
+            }
+            @media (min-width: 992px) {
+                .content-section > .container > .row {
+                    left: -81px; /* -81.656px; */
+                }
+                .carousel-shift-left {
+                    left: -1000%; /* width - 100% */
+                }
+                .carousel-slave {
+                     width: 1100%; /* 1 col width 41.656px, 10 col width = 776.656px w/o padding of 20px each side, image width = 776.656-160 = 616.656px */ 
+                }
+                .dimmed-extendleft:before
+                {
+                    left: -1000%;
+                }
+                .dimmed-extendright:before
+                {
+                    right: -1000%;
+                }
+            }
+            @media (min-width: 1200px) {
+                .content-section > .container > .row {
+                    left: -98px; /* -98.3281px; */
+                }
+                .carousel-shift-left {
+                    left: -700%; /* width - 100% */
+                }
+                .carousel-slave {
+                     width: 800%; /* 1 col width 58.328px, 9 col width = 845px w/o padding of 20px each side, image width = 845-160 = 685px */ 
+                }
+                .dimmed-extendleft:before
+                {
+                    left: -700%;
+                }
+                .dimmed-extendright:before
+                {
+                    right: -700%;
+                }
+            }
+            
+            .dashbtn{
+                height:48px;
+                font-family:LatoWebLight;
+                font-size:16px;
+                padding-left: 18px;
+                border-width: 1px;
+                border-color: #FFF;
+                background-color: #E01A22;
+                border-radius:0px;
+            }
+            .dashbtn:focus{
+                color: #FFF;
+            }
+            .dashbtn:hover{
+                color: #E01A22;
+                background-color: #FFF;
+                transition: 0.4s ease 0s;
+            }
+            
+            .hc{
+                padding: 3px 20px;
+                line-height: 32px;
+                font-family: LatoWeb;
+                font-size: 16px;
+                color: #222222;
+            }
+            .hc:hover{
+                cursor: pointer;
+                background-color: #D7D7D7;
+            }
+
+            #navButton{
+                position: absolute !important;
+            }
+    </style>
+    
+  </head>
+
+  <body>
+      <!--<img id='pvt-beta' src="./img/beta tag.png" style="position: absolute; z-index: 1;">-->
+      <%- include ../partials/leftnav.ejs %>
+
+        <div style="background: #E01A22; position: absolute; width: 100%;">
+            <div class="container" >
+                <span id="signinout" style="font: 14px LatoWeb;
+                                float: right;
+                                color: #fff;
+                                margin-left: 20px;
+                                margin-top: 28px;">
+                <% if (isSignedIn === true) { %>
+                        <%- signininfo %> | <span style="cursor: pointer;" onclick="signout();"> Sign Out </span></span>
+                <% } else { %>
+                        <span style="cursor: pointer;" onclick="signin();" data-toggle="tooltip" Title="Sign in to access all content.">Sign In</span><!-- | <span style="cursor: pointer;" onclick="javascript:renderFreeTrialOverlay();">Free Trial</span>--></span>
+                <% } %>
+            </div>
+        </div>
+        
+      <%- include ../partials/contactus.ejs %>
+      <%- include ../partials/reportvideo.ejs %>
+      <%- include ../partials/tnc.ejs %>
+      <%- include ../partials/copyright.ejs %>
+      <%- include ../partials/freetrial.ejs %>
+      <%- include ../partials/msghighlight.ejs %>
+
+      <header>
+        <div  class="container" style="text-align:left;">
+            <a href="http://www.alphonso.tv" class="home-link img-responsive"></a>
+            <h1>TV ADVERTISING INSIGHTS</h1><!--<h1>AD DISCOVERY PLATFORM</h1>-->
+            <div class="search-box btn-group">
+                <i id="searchIcon" class="fa fa-search"></i> <!-- clickable -->
+                <input id="searchInput" type="text" class="typeahead form-control" placeholder="search thousands of brands"/>
+            </div>
+            <div class="btn-group" style="vertical-align: top;
+                         font-family:LatoWebLight;
+                         font-size:16px;
+                         font-style:italic;
+                         margin:12px;">or</div>
+            <div id="explore-category" class="btn-group" style="vertical-align: top;">
+                <button class="btn dropdown-toggle dashbtn" data-toggle="dropdown">EXPLORE A CATEGORY<span class="caret" style="margin-left:10px;"></span></button>
+                    <ul class="dropdown-menu"
+                        style="border-radius:0px;
+                               margin:10px 0px;
+                               padding:0px;
+                               white-space: nowrap;
+                               height:calc(100vh - 300px); min-height: 300px;
+                               overflow:auto;">
+                        <li class="hc" onclick="window.location.href='/category/Apparel,-Accessories-&-Footwear';">Apparel, Accessories & Footwear</li>
+                        <li class="hc" onclick="window.location.href='/category/Business-&-Industrial';">Business & Industrial</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Education-&-Training';">Education & Training</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Electronics-&-Communication';">Electronics & Communication</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Financial-Services';">Financial Services</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Food-&-Beverage';">Food & Beverage</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Government-&-Non-profits';">Government & Non-profits</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Health-&-Beauty';">Health & Beauty</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Home-&-Garden';">Home & Garden</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Legal-&-Law-services';">Legal & Law services</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Life-&-Entertainment';">Life & Entertainment</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Miscellaneous';">Miscellaneous</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Pet-Supplies';">Pet Supplies</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Pharma-&-Medical';">Pharma & Medical</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Restaurants';">Restaurants</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Retail-&-Marketplaces';">Retail & Marketplaces</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Sporting-Goods';">Sporting Goods</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Toys';">Toys</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Travel';">Travel</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Vehicles-&-Parts';">Vehicles & Parts</a></li>
+                    </ul>
+            </div>
+        </div>
+      </header>
+      
+      <div class="content-section">
+          <div class="container">
+            <div class="row">
+                
+                <div class="col-xs-12 col-md-1 hidden-xs hidden-sm vcenter">
+                    <div id="carousel-left" class="carousel slide carousel-sync dimmed dimmed-extendleft clickable" data-ride="carousel" data-interval="">
+                        <div class="carousel-inner carousel-shift-left carousel-slave" role="listbox">
+                        </div>
+                    </div>
+                </div><!--
+
+            --><div class="col-xs-12 col-sm-10 col-md-10 col-lg-9 vcenter">
+                    <div id="carousel-main" class="carousel slide" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                        </ol>
+                        <div class="carousel-inner" role="listbox">
+                        </div>
+                    </div>
+                </div><!--
+
+            --><div class="col-xs-12 col-sm-2 col-md-1 col-lg-1 hidden-xs vcenter">
+                    <div id="carousel-right" class="carousel slide carousel-sync dimmed dimmed-extendright clickable" data-ride="carousel" data-interval="">
+                        <div class="carousel-inner carousel-slave" role="listbox">
+                        </div>
+                    </div>
+                </div><!--
+
+            --><div class="col-xs-12 col-lg-1 hidden-xs hidden-sm hidden-md vcenter">
+                    <div id="carousel-right-2" class="carousel slide carousel-sync dimmed dimmed-extendright clickable" data-ride="carousel" data-interval="" style="left: 700%;">
+                        <div class="carousel-inner carousel-slave" role="listbox">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+          </div>
+      </div>
+      
+      <footer>
+          <div class="container-fluid">
+            <div class="row" style="margin-bottom: 20px;">
+                <div class="col-xs-12 col-sm-1 hidden-xs"></div>
+                <div class="col-xs-12 col-sm-10">
+                    <div id="brandLinks" class="row">
+                        <%- include ../partials/brandlinks.ejs %>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-1 hidden-xs"></div>
+            </div>
+        </div>
+        <%- include ../partials/footer.ejs %>
+      </footer>
+
+  </body>
+</html>

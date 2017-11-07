@@ -1,0 +1,6 @@
+- for (var j = 0; j < campaigns.length; j++)  
+        div(class="col-lg-4") 
+          h3= campaigns[j].campaign_id
+          p= campaigns[j].campaign_name 
+          p= campaigns[j].campaign_url
+          a(href='/edit_campaign?campaign_id=#{campaigns[j].campaign_id}') Edit

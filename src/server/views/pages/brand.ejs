@@ -1,0 +1,3111 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <title><%- title %> TV Commercials - Alphonso Insights</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-store" /> <!-- Caching of web page disabled -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="description" content="Explore <%- title %> TV commercials. Compare <%- title %> with other brands for airings, spend, share of voice, reach and frequency to draw insights.">
+    <link rel="shortcut icon" href="../img/favicon.ico" />
+    
+    <!-- Bootstrap: http://getbootstrap.com/ -->
+    <link rel="stylesheet" type="text/css" href="../bootstrap/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    
+    <!-- Font Awesome: https://fortawesome.github.io/Font-Awesome/ -->
+    <link rel="stylesheet" type="text/css" href="../font/font-awesome-4.5.0/css/font-awesome.min.css">
+    
+    <!-- Font Loto: http://www.latofonts.com/lato-free-fonts/ -->
+    <link rel="stylesheet" type="text/css" href="../font/Lato2OFLWeb/Lato/latofonts.css">
+    
+<% if (config.env == 'prod') { %>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-79645980-1', 'auto');
+        ga('send', 'pageview');
+
+        !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";
+            analytics.load("koCdwr6IUm70VJ1784A8VbSdGVW8N1Ro");
+            analytics.page();
+        }}();
+        
+    </script>
+<% } %>
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins): http://jquery.com/download/ -->
+    <script type="text/javascript" src="../jquery/jquery-2.1.4.min.js"></script>
+    <!-- Bootstrap JS, required for Bootstrap's JavaScript plugins: http://getbootstrap.com/ -->
+    <script type="text/javascript" src="../bootstrap/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    
+    <!-- Highcharts for graphs -->
+    <!-- <script src="../highcharts/Highcharts-4.1.9/js/highcharts.js"></script>
+    <script src="../highcharts/Highcharts-4.1.9/js/modules/exporting.js"></script> -->
+    <script src="../highcharts/Highstock-5.0.2/code/highstock.js"></script>
+    <script src="../highcharts/Highstock-5.0.2/code/modules/exporting.js"></script>
+    <script src="../highcharts/Highstock-5.0.2/code/modules/no-data-to-display.js"></script>
+    
+    <!-- Include Date Range Picker: http://www.daterangepicker.com/#ex4 -->
+    <script type="text/javascript" src="../bootstrap/bootstrap-daterangepicker-master/moment.min.js"></script>
+    <script type="text/javascript" src="../bootstrap/bootstrap-daterangepicker-master/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="../bootstrap/bootstrap-daterangepicker-master/daterangepicker.css" />
+    
+    <!-- Searchable dropdown: https://github.com/twitter/typeahead.js -->
+    <script type="text/javascript" src="../bootstrap/typeahead.js/typeahead.jquery.min.js"></script>
+    
+    <!-- Customization -->
+    <link rel="stylesheet" type="text/css" href="../css/dashboards.css">
+    <link rel="stylesheet" type="text/css" href="../css/breadcrumb.css">
+    <link rel="stylesheet" type="text/css" href="../css/ad_details.css">
+    <link rel="stylesheet" type="text/css" href="../css/leftnav.css">
+    
+    <script type="text/javascript" src="../js/dashboards.js"></script>
+    <script type="text/javascript" src="../js/leftnav.js"></script>
+    
+
+    <!-- Java Script (Google Map)
+     ================================================== -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyAFZJPMLtsWjPN_1RGevOIy2_37Qc4HXPo">
+    </script>
+    <script type="text/javascript" src="../js/map.js"></script>
+    
+    <script type="text/javascript">
+    
+    $(document).ready(function(){
+
+        $.urlParam = function(name){
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            if (results != null)
+                return decodeURIComponent(results[1]);
+            else
+                return "";
+        }
+
+        var charts = [];
+        var prevParams; // Previous report params
+        var currTransId; // Transaction Id to keep tab of stale ajax reponses that will be discarded
+        var refreshCommercialList = false;
+        var expandedView = false;
+        
+        // Hide all the reports pane
+        $('.reports-pane').hide();
+        $('.reports-pane.active').show();
+        
+        $("#brand-reports-nav a").click(function(){
+            // Check if the target pane is same as the active one, if so avoid any transition
+            if (('#'+$('.reports-pane.active').attr('id')) != $(this).attr('href')) {
+                $('.reports-pane.active').hide();
+                $($(this).attr('href')).show();
+            }
+            // Check if its click on the active nav-pill, if so avoid any transition
+            if ($('#brand-reports-nav li.active > a').attr('id') != this.id) {
+                activeNavId = this.id;
+                fetchReportData();
+            }
+        });
+
+        $('[id*="expand-dashboard"]').click(function(){
+            /*$("#container1").removeClass("col-md-6");
+            $("#container2").removeClass("col-md-6");
+            $("#container3").removeClass("col-md-5");
+            $("#container4").removeClass("col-md-7");
+            $("#nav_content").removeClass("col-xs-12").addClass("col-xs-9");
+            $('#container-report [id*="container"]').css("max-height", "none").addClass("tab-pane").addClass("fade");
+            $('#brandsummary').addClass("tab-pane").addClass("fade").addClass("in").addClass("active");*/
+            
+            $(".collapse").collapse('toggle');
+            expandedView = true;
+            activeNavId = $('#brand-reports-nav li.active > a').attr('id');
+            fetchReportData();
+            setTimeout(function() {
+                $("#container-report").css("max-height", "none").css("height", "auto").css("overflow", "inherit"); 
+                $("#container1").html('');
+                $("#container2").html('');
+                $("#container3").html('');
+                $("#container4").html('');
+                $("#commercials-t").html('');
+            }, 200);
+        });
+        
+        var loc_attr_rpt = <%- JSON.stringify(loc_attr_rpt) %>;
+        
+        //{"brand_id":205,"brand_name":"Walmart","airing_start":"01/01/2017","airing_end":"01/15/2017","visit_start":"01/16/2017","visit_end":"01/31/2017","visit_rate_exposed":0.5265,"visit_rate_unexposed":0.346,"lift":52.17,"report_name":"Content Test 7","contents":"3223913,3209855"};
+        
+        function populateLARCharts(data) {
+            //alert(JSON.stringify(data));
+            if (data.report_id) {
+                $("#lar-rpt-name").text(data.brand_name + ' Location Attribution Report');
+                $("#lar-rpt-airing-dates").text('TV Flight Dates ' + data.airing_start + ' - ' + data.airing_end);
+                $("#lar-rpt-visit-dates").text('Visitation between ' + data.visit_start + ' - ' + data.visit_end);
+                renderLARComparision(data.brand_name, data.visit_rate_exposed, data.visit_rate_unexposed, "#container-lar-rpt-1");
+                renderLARLiftIn(data.brand_name, data.lift, "#container-lar-rpt-2");
+            } else {
+                $("#lar_nav").parent().hide();
+            }
+        }
+
+        function renderLARComparision(brand_name, exposed, unexposed, container) {
+            // hack to clean the graph before recreate.
+            $(container).html("");
+
+            var chartTitle = 'VISITATION WALK-IN FOR ' + brand_name.toUpperCase() + ' TV COMMERCIALS';
+            $(container).highcharts({
+                chart: {
+                    //marginRight: 25,
+                    style: {
+                        fontFamily: 'LatoWeb', // default font
+                        fontSize: '13px'
+                    },
+                    type: 'bar'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                title: {
+                    text: chartTitle,
+                    align: 'left',
+                    style: {
+                        fontSize: '16px',
+                        fontFamily: 'LatoWebHeavy',
+                        textShadow: 'none',
+                        fontWeight: 'normal'
+                    }
+                },
+                xAxis: {
+                    categories: ['Exposed to TV Commercial', 'Not Exposed to TV Commercial'],
+                    labels: {
+                        style: {
+                            fontSize: '10px',
+                            width: '70px',
+                            whiteSpace:'normal'
+                        },
+                        useHTML : true,
+                        formatter: function () {// http://stackoverflow.com/questions/34037118/setting-highcharts-x-axis-labels-width
+                                        return '<div align="right" style="word-wrap: break-word;word-break: break-all;width:70px">' + this.value + '</div>';
+                                    }
+                    },
+                    tickLength: 0
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: null
+                    },
+                    gridLineDashStyle: 'ShortDot'
+                },
+                legend: {
+                    enabled: false
+                },
+                tooltip: {
+                    enabled: false
+                },
+                plotOptions: {
+                    bar: {
+                        stacking: 'normal',
+                        maxPointWidth: 30
+                    },
+                    series: {
+                        animation: {
+                            duration: 500
+                        }
+                    }
+                },
+                series: [{
+                            name: brand_name,
+                            data: [exposed, unexposed],
+                            color: '#E01A22'
+                        }]
+            });
+        }
+
+        function renderLARLiftIn(brand_name, liftIn, container) {
+            // hack to clean the graph before recreate.
+            $(container).html("");
+            
+            var processedJSON = [];
+            processedJSON.push({
+              name: 'Visitation Lift-In',
+              y: parseInt(liftIn),
+              color: '#E01A22'
+            });
+
+          // Create the chart
+          $(container).highcharts({
+              chart: {
+                  style: {
+                    fontFamily: 'LatoWeb', // default font
+                    fontSize: '13px'
+                  },
+                  type: 'pie'
+              },
+              credits: {
+                  enabled: false
+              },
+              exporting: {
+                  enabled: false
+              },
+              title: {
+                  text: 'VISITATION LIFT-IN',
+                  align: 'left',
+                  style: {
+                      fontSize: '16px',
+                      fontFamily: 'LatoWebHeavy',
+                      textShadow: 'none',
+                      fontWeight: 'normal'
+                  }
+              },
+              yAxis: {
+                  title: {
+                      text: 'Lift-In Percentage'
+                  }
+              },
+              plotOptions: {
+                  pie: {
+                      shadow: false,
+                      startAngle: 180,
+                      dataLabels: {
+                          enabled: true
+                      },
+                      showInLegend: false,
+                      borderWidth: 0
+                  },
+                    series: {
+                        animation: {
+                            duration: 500
+                        }
+                    }
+              },
+              tooltip: {
+                  enabled: false
+              },
+              series: [{
+                  name: 'Lift-In',
+                  data: processedJSON,
+                  size: '100%',
+                  /*innerSize: '0%',*/
+                  dataLabels: {
+                      format: '{point.y}%',
+                      style: {
+                          fontSize: '36px',
+                          fontFamily: 'LatoWebThin',
+                          fontWeight: 500,
+                          textShadow: 'none',
+                          fontWeight: 'normal'
+                      },
+                      distance: -85
+                  }
+              }]
+          });
+
+        }
+
+
+
+
+
+        //var brandAdList = <%- brandAdList %>;
+        //populateAdList(brandAdList);
+
+        var brandCat = <%- brandCat %>;
+        var param1;
+        var brand_id1;
+
+        /* populate the breadcrumb */
+        {
+            $("ol.breadcrumb > #categoryBreadCrumb > a").text(getTextString(brandCat.category_name).toUpperCase());
+            var catURL = (isEmptyValue(brandCat.category_name) ? "#" : "/category/" + getTextString(brandCat.category_name));
+            $("ol.breadcrumb > #categoryBreadCrumb > a").attr("href", catURL.replace(/\s/g, "-"));
+            $("ol.breadcrumb > li.active").text(getTextString(brandCat.brand_name).toUpperCase());
+            $("#header-data").text(getTextString(brandCat.brand_name) + " Brand Data");
+            $("#header-commercials").text(getTextString(brandCat.brand_name) + " Commercials");
+            $("#brandBtn").text(getTextString(brandCat.brand_name));
+            param1 = getTextString(brandCat.brand_name);
+            brand_id1 = brandCat.brand_id;
+        }
+
+        function populateAdList(data, transId) {
+            if (typeof transId !== 'undefined' && transId != currTransId) { // stale response. Discard it.
+                //alert(transId + ":" + currTransId + ":" + (transId==currTransId));
+                return;
+            }
+        
+            var adListContainerId = "#commercials";
+            if (!expandedView) adListContainerId = "#commercials-t";
+            var adListContainer = $(adListContainerId);
+            adListContainer.html(""); // Hack to clean the element before recreate
+
+            for (i = 0; i < data.length; i++) {
+                var adContainer = document.createElement('div');
+                adContainer.className = "col-xs-6 col-md-4 col-lg-3";
+                
+                var visualDiv = document.createElement('div');
+                visualDiv.className = "clickable";
+                visualDiv.style.backgroundColor = '#222222';
+                visualDiv.setAttribute ('data-ad-id', data[i].content_id + "-" + data[i].title.replace(/\s/g, '-').replace(/\//g, '').replace(/\%/g, 'percent'));
+                
+                var imgElement = document.createElement('img');
+                imgElement.src = data[i].thumbnail;
+                imgElement.className = "img-responsive";
+                visualDiv.appendChild(imgElement);
+                
+                var homeLogo = document.createElement('div');
+                homeLogo.className = "home-link logo-micro";
+                visualDiv.appendChild(homeLogo);
+                
+                var adTitle = document.createElement('div');
+                adTitle.className = "ad-title";
+                adTitle.innerText = data[i].title;
+                visualDiv.appendChild(adTitle);
+                
+                var footerLink = document.createElement('div');
+                footerLink.className = "footer-link";
+                footerLink.innerText = "Report Video";
+                footerLink.setAttribute("data-title", getTextString(data[i].title));
+                footerLink.setAttribute("data-id", data[i].content_id);
+                footerLink.onclick = function (event) {renderReportVideoOverlay(this);event.stopPropagation();};
+                visualDiv.appendChild(footerLink);
+                
+                var dataDiv = document.createElement('div');
+                dataDiv.className = "h-justify data-block";
+
+                populateBottomBarCarouselData (dataDiv, "TOTAL AIRINGS", convertNumberToShortForm(data[i].total_airings));
+                populateBottomBarCarouselData (dataDiv, "EST. SPEND", getDollarConvertedShortValue(data[i].total_spend));
+                
+                adContainer.appendChild(visualDiv);
+                adContainer.appendChild(dataDiv);
+                
+                adListContainer.append(adContainer);
+            }
+            
+            
+            function populateBottomBarCarouselData (dataDiv, dataCaption, dataValue) {
+                
+                var containerDiv = document.createElement("div");
+                containerDiv.style.display = "inline-block";
+                
+                var natlAiringsCaption = document.createElement("p");
+                natlAiringsCaption.className = "caption";
+                natlAiringsCaption.innerText = dataCaption;
+                containerDiv.appendChild(natlAiringsCaption);
+                
+                var natlAiringsVal = document.createElement("p");
+                natlAiringsVal.className = "value";
+                natlAiringsVal.innerText = dataValue;
+                containerDiv.appendChild(natlAiringsVal);
+                
+                dataDiv.appendChild(containerDiv);
+                /*
+                    http://stackoverflow.com/questions/21412641/text-align-justify-not-working-on-dynamically-created-content
+                    http://stackoverflow.com/questions/8562843/how-to-append-a-space-after-an-element 
+                */
+                dataDiv.appendChild (document.createTextNode (" "));
+            }
+            
+            /* On click of the ad redirect to the ad_details page
+                http://stackoverflow.com/questions/17351282/jquery-cant-get-data-attribute-value
+            */
+            $("div.clickable").click(function(){
+                //alert($(this).data('ad-id'));
+                window.location.href = "/commercial/" + $(this).data('ad-id');
+            });
+
+            // display the footer message
+            if (data.length > 0) $('footer *').show();
+            
+        }
+
+        var brandList = <%- brands %>;
+        populateSearchList(brandList);
+        
+        function populateSearchList(data) {
+            
+            
+            // List / Array[string] that will be displayed in the dropdown search
+            var searchList = data;
+            var searchListName = 'Brands'; // The name of the list
+        
+            var substringMatcher = function(strs) {
+                return function findMatches(q, cb) {
+                    var matches, substrRegex;
+                
+                    // an array that will be populated with substring matches
+                    matches = [];
+                
+                    // regex used to determine if a string contains the substring `q`
+                    substrRegex = new RegExp(q, 'i');
+                
+                    // iterate through the pool of strings and for any string that
+                    // contains the substring `q`, add it to the `matches` array
+                    $.each(strs, function(i, brand) {
+                        if (substrRegex.test(brand.name)) {
+                            matches.push(brand);
+                        } else if (substrRegex.test(brand.name.replace(/\./g, ""))) {
+                            matches.push(brand);
+                        } else if (substrRegex.test(brand.name.replace(/\s/g, ""))) {
+                            matches.push(brand);
+                        } else if (substrRegex.test(brand.name.replace(/\s/g, "").replace(/\./g, ""))) {
+                            matches.push(brand);
+                        } else if (substrRegex.test(brand.name.replace(/'/g, ""))) {
+                            matches.push(brand);
+                        }
+                    });
+                    cb(matches);
+                };
+            };  
+            
+            
+            $('.typeahead').typeahead({
+                hint: false,
+                highlight: true,
+                minLength: 1
+            },
+            {
+                name: searchListName,
+                displayKey: 'name',
+                source: substringMatcher(searchList),
+                limit: 1000
+            });
+            
+        }
+
+        function clearBrandSelection(paramIdx, event, clearBrandUIElement) {
+            //alert(paramIdx);
+            switch(paramIdx){
+                case 2:
+                    param2 = param3;
+                    brand_id2 = brand_id3;
+                    if (typeof mapOverlay.param2 !== 'undefined' || mapOverlay.param2 != null) { mapOverlay.param2.setMap(null); mapOverlay.param2 = null; }
+                    if (typeof param3 === 'undefined' || param3 == '') {
+                        $(clearBrandUIElement).parents(".btn-group").find('.btn').css("background-color", "white").css("color", "inherit").html("Select Brand <span class=\"caret\"></span>");
+                        $('#param3').parents(".btn-group").hide();
+                        enableCoOp();
+                    } else {
+                        $(clearBrandUIElement).parents(".btn-group").find('.btn').html(param2 + '<i class="fa fa-times" style="top: 9px; position: absolute; right: 10px;"></i>');
+                        $('#param2').parents(".btn-group").find('.btn > i.fa-times').click(function (event) { clearBrandSelection (2, event, this); });
+                        if (typeof mapOverlay.param3.data !== 'undefined' || mapOverlay.param3.data != null) renderAudienceNetwork (mapOverlay.param3.data, 2);
+                        clearBrandSelection(3, event, $('#param3'));
+                    }
+                    break;
+                case 3:
+                    param3 = param4;
+                    brand_id3 = brand_id4;
+                    if (typeof mapOverlay.param3 !== 'undefined' || mapOverlay.param3 != null) { mapOverlay.param3.setMap(null); mapOverlay.param3 = null; }
+                    if (typeof param4 === 'undefined' || param4 == '') {
+                        $(clearBrandUIElement).parents(".btn-group").find('.btn').css("background-color", "white").css("color", "inherit").html("Select Brand <span class=\"caret\"></span>");
+                        $('#param4').parents(".btn-group").hide();
+                    } else {
+                        $(clearBrandUIElement).parents(".btn-group").find('.btn').html(param3 + '<i class="fa fa-times" style="top: 9px; position: absolute; right: 10px;"></i>');
+                        $('#param3').parents(".btn-group").find('.btn > i.fa-times').click(function (event) { clearBrandSelection (3, event, this); });
+                        if (typeof mapOverlay.param4.data !== 'undefined' || mapOverlay.param4.data != null) renderAudienceNetwork (mapOverlay.param4.data, 3);
+                        clearBrandSelection(4, event, $('#param4'));
+                    }
+                    break;
+                case 4:
+                    param4 = param5;
+                    brand_id4 = brand_id5;
+                    if (typeof mapOverlay.param4 !== 'undefined' || mapOverlay.param4 != null) { mapOverlay.param4.setMap(null); mapOverlay.param4 = null; }
+                    if (typeof param5 === 'undefined' || param5 == '') {
+                        $(clearBrandUIElement).parents(".btn-group").find('.btn').css("background-color", "white").css("color", "inherit").html("Select Brand <span class=\"caret\"></span>");
+                        $('#param5').parents(".btn-group").hide();
+                    } else {
+                        $(clearBrandUIElement).parents(".btn-group").find('.btn').html(param4 + '<i class="fa fa-times" style="top: 9px; position: absolute; right: 10px;"></i>');
+                        $('#param4').parents(".btn-group").find('.btn > i.fa-times').click(function (event) { clearBrandSelection (4, event, this); });
+                        if (typeof mapOverlay.param5.data !== 'undefined' || mapOverlay.param5.data != null) renderAudienceNetwork (mapOverlay.param5.data, 4);
+                        clearBrandSelection(5, event, $('#param5'));
+                    }
+                    break;
+                case 5:
+                    param5 = param6;
+                    brand_id5 = brand_id6;
+                    if (typeof mapOverlay.param5 !== 'undefined' || mapOverlay.param5 != null) { mapOverlay.param5.setMap(null); mapOverlay.param5 = null; }
+                    if (typeof param6 === 'undefined' || param6 == '') {
+                        $(clearBrandUIElement).parents(".btn-group").find('.btn').css("background-color", "white").css("color", "inherit").html("Select Brand <span class=\"caret\"></span>");
+                        $('#param6').parents(".btn-group").hide();
+                    } else {
+                        $(clearBrandUIElement).parents(".btn-group").find('.btn').html(param5 + '<i class="fa fa-times" style="top: 9px; position: absolute; right: 10px;"></i>');
+                        $('#param5').parents(".btn-group").find('.btn > i.fa-times').click(function (event) { clearBrandSelection (5, event, this); });
+                        if (typeof mapOverlay.param6.data !== 'undefined' || mapOverlay.param6.data != null) renderAudienceNetwork (mapOverlay.param6.data, 5);
+                        clearBrandSelection(6, event, $('#param6'));
+                    }
+                    break;
+                case 6:
+                    param6 = '';
+                    brand_id6 = '';
+                    if (typeof mapOverlay.param6 !== 'undefined' || mapOverlay.param6 != null) { mapOverlay.param6.setMap(null); mapOverlay.param6 = null; }
+                    $(clearBrandUIElement).parents(".btn-group").find('.btn').css("background-color", "white").css("color", "inherit").html("Select Brand <span class=\"caret\"></span>");
+                    break;
+            }
+            fetchReportData();
+            event.stopPropagation();
+        }
+        
+        /*
+          The searchbox within the dropdown.
+          On select of search dropdown
+            set the html text on display
+            set the correct param(1/2)
+            trigger the fetchReportData
+        */	
+        $('.typeahead').on('typeahead:selected', function(event, datum) {
+
+          var color = reportColors[0];
+          var paramIdx = 0;
+          
+          var parent_ul_id = $(this).parents("ul").attr("id");
+          
+          switch (parent_ul_id){
+            case 'param1':
+              param1 = datum.name;
+              brand_id1 = datum.brand_id;
+              color = reportColors[1];
+              paramIdx = 1;
+              break;
+            case 'param2':
+              param2 = datum.name;
+              brand_id2 = datum.brand_id;
+              color = reportColors[2];
+              paramIdx = 2;
+              break;
+            case 'param3':
+              param3 = datum.name;
+              brand_id3 = datum.brand_id;
+              color = reportColors[3];
+              paramIdx = 3;
+              break;
+            case 'param4':
+              param4 = datum.name;
+              brand_id4 = datum.brand_id;
+              color = reportColors[4];
+              paramIdx = 4;
+              break;
+            case 'param5':
+              param5 = datum.name;
+              brand_id5 = datum.brand_id;
+              color = reportColors[5];
+              paramIdx = 5;
+              break;
+            case 'param6':
+              param6 = datum.name;
+              brand_id6 = datum.brand_id;
+              color = reportColors[6];
+              paramIdx = 6;
+              break;
+            default: // this has been initiated by the brand search to move to brandlist page
+              //alert(datum.brand_id);
+              window.location.href = getSEOurl ('/brand/', datum.brand_id, datum.name);//"/brand/" + datum.brand_id + "-" + datum.name;
+          }
+          
+          if (color !== reportColors[0]) {
+              $(this).parents(".btn-group").find('.btn').css("background-color", color).css("color", reportColors[0]).html(datum.name + '<i class="fa fa-times" style="top: 9px; position: absolute; right: 10px;"></i>');//"<span class=\"caret\"></span>");
+              $(this).parents(".btn-group").find('.btn > i.fa-times').click(function (event) { clearBrandSelection (paramIdx, event, this); });
+              disableCoOp();
+              // Trigger the fetchReportData
+              fetchReportData();
+          }
+          
+        });
+
+        // Persist the selected value in the dropdown menu
+        $(".dropdown-menu li.hc>a").click(function(){
+          if(!$(this).hasClass('disabled')) {
+            $(this).parents(".btn-group").find('.btn').html(
+            $(this).text()+" <span class=\"caret\"></span>");
+            //alert('$(".dropdown-menu li.hc>a").click(function()');
+          }
+        });
+
+        $(".dropdown-toggle").click(function () {
+            var toFocusElem = $(this).parent().find("input.typeahead");
+            setTimeout(function() { toFocusElem.focus(); });
+        });
+        
+        /* Identify the value selected in the dropdown
+           And then trigger the fetchReportData
+        */
+        //var param1 = brand;
+        /*$('#param1 li.hc').on('click', function(){
+          param1 = $(this).find('a').html();
+          $(this).parents(".btn-group").find('.btn').css("background-color", reportColors[1]);
+          // Trigger the fetchReportData
+          fetchReportData();
+        });*/
+        
+        var param2;
+        var tp2 = $.urlParam('b2');
+        var brand_id2 = $.urlParam('bi2');
+        if (tp2 != ''){
+            param2 = tp2;
+            $('#param2').parents(".btn-group").find('.btn').css("background-color", reportColors[2]).css("color", reportColors[0]).html(param2 + '<i class="fa fa-times" style="top: 9px; position: absolute; right: 10px;"></i>');//"<span class=\"caret\"></span>");
+            $('#param2').parents(".btn-group").find('.btn > i.fa-times').click(function (event) { clearBrandSelection (2, event, this); });
+            disableCoOp();
+        }
+        /* This function will be called after $(".dropdown-menu li.hc>a").click(function(), hence will override */
+        $('#param2 li.hc>a').on('click', function(){
+          param2 = $(this).html();
+          brand_id2 = $(this).data('brand-id') + ""; // this returns an integer otherwise, unlike the urlparam method.
+          $(this).parents(".btn-group").find('.btn').css("background-color", reportColors[2]).css("color", reportColors[0]).html(param2 + '<i class="fa fa-times" style="top: 9px; position: absolute; right: 10px;"></i>');//"<span class=\"caret\"></span>");
+          $(this).parents(".btn-group").find('.btn > i.fa-times').click(function (event) { clearBrandSelection (2, event, this); });
+          //alert("$('#param2 li.hc>a').on('click', function()");
+          disableCoOp();
+          // Trigger the fetchReportData
+          fetchReportData();
+        });
+        
+        var param3;
+        var tp3 = $.urlParam('b3');
+        var brand_id3 = $.urlParam('bi3');
+        if (tp3 != ''){
+            param3 = tp3;
+            $('#param3').parents(".btn-group").find('.btn').css("background-color", reportColors[3]).css("color", reportColors[0]).html(param3 + '<i class="fa fa-times" style="top: 9px; position: absolute; right: 10px;"></i>');//"<span class=\"caret\"></span>");
+            $('#param3').parents(".btn-group").find('.btn > i.fa-times').click(function (event) { clearBrandSelection (3, event, this); });
+        }
+        $('#param3 li.hc>a').on('click', function(){
+          param3 = $(this).html();
+          brand_id3 = $(this).data('brand-id') + "";
+          $(this).parents(".btn-group").find('.btn').css("background-color", reportColors[3]).css("color", reportColors[0]).html(param3 + '<i class="fa fa-times" style="top: 9px; position: absolute; right: 10px;"></i>');//"<span class=\"caret\"></span>");
+          $(this).parents(".btn-group").find('.btn > i.fa-times').click(function (event) { clearBrandSelection (3, event, this); });
+          // Trigger the fetchReportData
+          fetchReportData();
+        });
+        
+        var param4;
+        var tp4 = $.urlParam('b4');
+        var brand_id4 = $.urlParam('bi4');
+        if (tp4 != ''){
+            param4 = tp4;
+            $('#param4').parents(".btn-group").find('.btn').css("background-color", reportColors[4]).css("color", reportColors[0]).html(param4 + '<i class="fa fa-times" style="top: 9px; position: absolute; right: 10px;"></i>');//"<span class=\"caret\"></span>");
+            $('#param4').parents(".btn-group").find('.btn > i.fa-times').click(function (event) { clearBrandSelection (4, event, this); });
+        }
+        $('#param4 li.hc>a').on('click', function(){
+          param4 = $(this).html();
+          brand_id4 = $(this).data('brand-id') + "";
+          $(this).parents(".btn-group").find('.btn').css("background-color", reportColors[4]).css("color", reportColors[0]).html(param4 + '<i class="fa fa-times" style="top: 9px; position: absolute; right: 10px;"></i>');//"<span class=\"caret\"></span>");
+          $(this).parents(".btn-group").find('.btn > i.fa-times').click(function (event) { clearBrandSelection (4, event, this); });
+          // Trigger the fetchReportData
+          fetchReportData();
+        });
+        
+        var param5;
+        var tp5 = $.urlParam('b5');
+        var brand_id5 = $.urlParam('bi5');
+        if (tp5 != ''){
+            param5 = tp5;
+            $('#param5').parents(".btn-group").find('.btn').css("background-color", reportColors[5]).css("color", reportColors[0]).html(param5 + '<i class="fa fa-times" style="top: 9px; position: absolute; right: 10px;"></i>');//"<span class=\"caret\"></span>");
+            $('#param5').parents(".btn-group").find('.btn > i.fa-times').click(function (event) { clearBrandSelection (5, event, this); });
+        }
+        $('#param5 li.hc>a').on('click', function(){
+          param5 = $(this).html();
+          brand_id5 = $(this).data('brand-id') + "";
+          $(this).parents(".btn-group").find('.btn').css("background-color", reportColors[5]).css("color", reportColors[0]).html(param5 + '<i class="fa fa-times" style="top: 9px; position: absolute; right: 10px;"></i>');//"<span class=\"caret\"></span>");
+          $(this).parents(".btn-group").find('.btn > i.fa-times').click(function (event) { clearBrandSelection (5, event, this); });
+          // Trigger the fetchReportData
+          fetchReportData();
+        });
+        
+        var param6;
+        var tp6 = $.urlParam('b6');;
+        var brand_id6 = $.urlParam('bi6');
+        if (tp6 != ''){
+            param6 = tp6;
+            $('#param6').parents(".btn-group").find('.btn').css("background-color", reportColors[6]).css("color", reportColors[0]).html(param6 + '<i class="fa fa-times" style="top: 9px; position: absolute; right: 10px;"></i>');//"<span class=\"caret\"></span>");
+            $('#param6').parents(".btn-group").find('.btn > i.fa-times').click(function (event) { clearBrandSelection (6, event, this); });
+        }
+        $('#param6 li.hc>a').on('click', function(){
+          param6 = $(this).html();
+          brand_id6 = $(this).data('brand-id') + "";
+          $(this).parents(".btn-group").find('.btn').css("background-color", reportColors[6]).css("color", reportColors[0]).html(param6 + '<i class="fa fa-times" style="top: 9px; position: absolute; right: 10px;"></i>');//"<span class=\"caret\"></span>");
+          $(this).parents(".btn-group").find('.btn > i.fa-times').click(function (event) { clearBrandSelection (6, event, this); });
+          // Trigger the fetchReportData
+          fetchReportData();
+        });
+
+        var paramN =  $.urlParam('n');
+        if (paramN == '') paramN = 'a'; // a(all) / b(broadcast only) / c (cable only)
+        $('#paramN').parents(".btn-group").find('.btn').html(getParamNText(paramN) + ' <span class="caret"></span>');
+        
+        $('#paramN li.hc').on('click', function(){
+          paramN = $(this).find('a').html();
+          
+          switch (paramN){
+            case 'Broadcast':
+              paramN = 'b';
+              break;
+            case 'Cable':
+              paramN = 'c';
+              break;
+            default:
+              paramN = 'a';
+          }
+          
+          // Trigger the fetchReportData
+          fetchReportData();
+        });
+        
+        function getParamNText(paramN) {
+            var paramNtext;
+            
+            switch (paramN){
+                case 'b':
+                    paramNtext = 'Broadcast';
+                    break;
+                case 'c':
+                    paramNtext = 'Cable';
+                    break;
+                default:
+                    paramNtext = 'All Networks';
+            }
+            
+            return paramNtext;
+        }
+
+        var paramCO =  $.urlParam('co');
+        if (paramCO == 'i') disableBrandComparison(); // e(exclue co-op commercials) / i(include co-op commercials) / o (only co-op commercials)
+        else paramCO = 'e';
+
+        $('#paramCO').parents(".btn-group").find('.btn').html(getParamCOText(paramCO) + ' <span class="caret"></span>');
+        
+        $('#paramCO li.hc').on('click', function(){
+          if(!$(this).hasClass('disabled')) {
+            paramCO = $(this).find('a').html();
+            
+            switch (paramCO){
+              case 'Exclude Co-Op':
+                paramCO = 'e';
+                enableBrandComparison();
+                break;
+              case 'Include Co-Op':
+                paramCO = 'i';
+                disableBrandComparison();
+                break;
+              case 'Only Co-Op':
+                paramCO = 'o';
+                break;
+              default:
+                paramCO = $(this).find('a').data('brand-id');
+                enableBrandComparison();
+                break;
+            }
+            
+            // Trigger the fetchReportData
+            fetchReportData();
+          }
+        });
+        
+        function getParamCOText(paramCO) {
+            var paramCOtext;
+            
+            switch (paramCO){
+                case 'i':
+                    paramCOtext = 'Include Co-Op';
+                    break;
+                case 'o':
+                    paramCOtext = 'Only Co-Op';
+                    break;
+                default:
+                    paramCOtext = 'Exclude Co-Op';
+            }
+            
+            return paramCOtext;
+        }
+        
+        /* Date Picer functions
+          Refer: http://www.daterangepicker.com/#ex4
+        */
+        var startDateParam;
+        var endDateParam;
+        // DateRangeCallback function
+        function drcb(start, end) {
+          if (displayDateShortForm)
+            $('#reportrange span').html(start.format('MMM D, YY') + ' - ' + end.format('MMM D, YY'));
+          else
+            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+          startDateParam = start.format('YYYY-MM-DD');
+          initStartDate = start;
+          endDateParam = end.format('YYYY-MM-DD');
+          initEndDate = end;
+          // Trigger the fetchReportData
+          fetchReportData();
+        }
+        
+        var initStartDate =  $.urlParam('s');
+        if (initStartDate == '') initStartDate = <% if (sinceStart) { %> moment('2016-01-01', 'YYYY-MM-DD'); <% } else { %>moment().subtract(3, 'month').startOf('quarter');//moment('2016-07-01', 'YYYY-MM-DD');//moment().subtract(1, 'month').startOf('month'); <% } %>
+        else initStartDate = moment(initStartDate, 'YYYY-MM-DD');
+        var initEndDate =  $.urlParam('e');
+        if (initEndDate == '') initEndDate = moment();//moment().subtract(1, 'month').endOf('month');
+        else initEndDate = moment(initEndDate, 'YYYY-MM-DD');
+        
+        /* http://www.sitepoint.com/javascript-media-queries/ */
+        var displayDateShortForm = false;
+        // media query event handler
+        if (matchMedia) {
+            var mq = window.matchMedia("(min-width: 768px)");//321 for Android One Karbonn Sparkle V, Chrome for date range Sept,29-30 373px
+            mq.addListener(WidthChange);
+            WidthChange(mq);
+        }
+
+        // media query change
+        function WidthChange(mq) {
+
+            if (mq.matches) {
+                displayDateShortForm = false;
+                //$('#reportrange').addClass("pull-right");
+                mapZoomLevel = 4;
+            } else {
+                displayDateShortForm = true;
+                //$('#reportrange').removeClass("pull-right");
+                mapZoomLevel = 3;
+            }
+            
+            drcb(initStartDate, initEndDate); // Call the DateRangeCallback function to set the correct date in the HTML view
+        }
+
+        $('#reportrange').daterangepicker({
+          minDate: "01/01/2016",
+          maxDate: moment(),
+          autoApply: true,
+          ranges: {
+            'Last Week': [moment().subtract(7, 'days').startOf('week'), moment().subtract(1, 'week').endOf('week')],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+            'Last Quarter': [moment().subtract(3, 'month').startOf('quarter'), moment().subtract(3, 'month').endOf('quarter')]
+          },
+          startDate: initStartDate,
+          endDate: initEndDate,
+          "opens": "left"
+        }, drcb);
+        
+        
+        // Usage:
+        //   var data = { 'first name': 'George', 'last name': 'Jetson', 'age': 110 };
+        //   var querystring = EncodeQueryData(data);
+        // 
+        function EncodeQueryData(data)
+        {
+            var ret = [];
+            for (var d in data)
+                ret.push(encodeURIComponent(d) + "=" + encodeURIComponent(data[d]));
+            return ret.join("&");
+        }
+
+        function changeUrl(url) {
+            //alert(url);
+            if (typeof (history.pushState) != "undefined") {
+                var obj = { Title: 'Alphonso', Url: '?' + url + '#report-header'};
+                history.pushState(obj, obj.Title, obj.Url);
+            } else {
+                //alert("Browser does not support HTML5.");
+            }
+        }
+
+        function fetchReportData(){
+          if (typeof param1 !== 'undefined') {
+              var params = {};
+              params.param1 = param1;
+              params.brand_id1 = brand_id1;
+              
+              var urlParam = {};
+              urlParam.br = 'true' // report type
+                
+              $('#param2').parents(".btn-group").show();
+              
+              if (typeof param2 !== 'undefined' && param2 != '') {
+                params.param2 = param2;
+                params.brand_id2 = brand_id2;
+                $('#param3').parents(".btn-group").show();
+                
+                urlParam.b2 = param2;
+                urlParam.bi2 = brand_id2;
+
+                if (paramCO == 'i' && activeNavId != 'getrpt_nav') {
+                    paramCO = 'e';
+                    $('#paramCO').parents(".btn-group").find('.btn').html(getParamCOText(paramCO) + ' <span class="caret"></span>');
+                    disableCoOp();
+                }
+
+              } else if (paramCO == 'i') disableBrandComparison();
+              
+              if (typeof param3 !== 'undefined' && param3 != '') {
+                params.param3 = param3;
+                params.brand_id3 = brand_id3;
+                $('#param4').parents(".btn-group").show();
+                
+                urlParam.b3 = param3;
+                urlParam.bi3 = brand_id3;
+              }
+              if (typeof param4 !== 'undefined' && param4 != '') {
+                params.param4 = param4;
+                params.brand_id4 = brand_id4;
+                $('#param5').parents(".btn-group").show();
+                
+                urlParam.b4 = param4;
+                urlParam.bi4 = brand_id4;
+              }
+              if (typeof param5 !== 'undefined' && param5 != '') {
+                params.param5 = param5;
+                params.brand_id5 = brand_id5;
+                $('#param6').parents(".btn-group").show();
+                
+                urlParam.b5 = param5;
+                urlParam.bi5 = brand_id5;
+              }
+              if (typeof param6 !== 'undefined' && param6 != '') {
+                params.param6 = param6
+                params.brand_id6 = brand_id6;
+                
+                urlParam.b6 = param6;
+                urlParam.bi6 = brand_id6;
+              }
+              
+              params.paramN = paramN;
+              params.paramCO = paramCO;
+              params.startDate = startDateParam;
+              params.endDate = endDateParam;
+              //params.limit = 20;
+              
+              // duplicate in urlParam object to modify the browser address bar url
+              urlParam.n = params.paramN;
+              if (typeof param2 !== 'undefined' && param2 != '' && activeNavId == 'getrpt_nav' && paramCO == 'i') urlParam.co = 'e';
+              else urlParam.co = params.paramCO;
+              urlParam.s = params.startDate;
+              urlParam.e = params.endDate;
+
+              var transId = currTransId;
+              if (JSON.stringify(params) != JSON.stringify(prevParams)) {
+                //alert(JSON.stringify(params) + "\n\n" + JSON.stringify(prevParams));
+
+                charts = [];// Clean the reports cache
+
+                // change the url on the browser address bar
+                if (typeof prevParams !== 'undefined') changeUrl(EncodeQueryData(urlParam));
+
+                // generate a random transaction Id for this.
+                transId = Math.random();
+                currTransId = transId;
+                refreshCommercialList = true;
+
+                chartColors = {}; colorCount = 0; // hack, TODO: fix this
+              }
+              
+              var rpttransitiondelay = 400;
+              //alert(activeNavId);
+              switch (activeNavId){
+                case 'bs_nav':
+                    $('#brand-reports-inputs').hide();
+                    $('#getReport').parent().hide();
+                    $('footer *').hide();
+                    break;
+                case 'abn_nav':
+                    showReportFilters();
+                    $('#brand-reports-inputs').show();
+                    $('#getReport').parent().show();
+                    $('footer *').hide();
+                    $('#container-rpt').html('<div class="middle-center"><i class="fa fa-bar-chart"></i><p><i style="font-size: 20px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading Report...</p></div>');
+                    if (brandComparisonEnabled == true)
+                        if (typeof charts[false] !== 'undefined') setTimeout(function() {
+                            renderShareOfVoice (charts[false].data, charts[false].transId, false); }, rpttransitiondelay);
+                        else
+                            $.get("/brand_network", params, function(data, status){
+                                                                    //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                                                    renderShareOfVoice(data, transId);
+                                                                });
+                    else
+                        if (typeof charts['CooPBrandNetworkAirings'] !== 'undefined')  setTimeout(function() {
+                            renderBrandNetworkCoopAirings (charts['CooPBrandNetworkAirings'].data, charts['CooPBrandNetworkAirings'].transId); }, rpttransitiondelay);
+                        else
+                            $.get("/brand_network_coop_airings", params, function(data, status){
+                                                                    //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                                                    renderBrandNetworkCoopAirings(data, transId);
+                                                                });
+                    break;
+                case 'abs_nav':
+                    showReportFilters();
+                    $('#brand-reports-inputs').show();
+                    $('#getReport').parent().show();
+                    $('footer *').hide();
+                    $('#container-rpt').html('<div class="middle-center"><i class="fa fa-bar-chart"></i><p><i style="font-size: 20px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading Report...</p></div>');
+                    if (brandComparisonEnabled == true)
+                        if (typeof charts[true] !== 'undefined') setTimeout(function() {
+                            renderShareOfVoice (charts[true].data, charts[true].transId, true); }, rpttransitiondelay);
+                        else
+                            $.get("/brand_network_show", params, function(data, status){
+                                                                    //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                                                    renderShareOfVoice(data, transId, true);
+                                                                });
+                    else
+                        if (typeof charts['CooPBrandShowAirings'] !== 'undefined') setTimeout(function() {
+                            renderBrandShowCoopAirings (charts['CooPBrandShowAirings'].data, charts['CooPBrandShowAirings'].transId); }, rpttransitiondelay);
+                        else
+                            $.get("/brand_show_coop_airings", params, function(data, status){
+                                                                    //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                                                    renderBrandShowCoopAirings(data, transId);
+                                                                });
+                    break;
+                case 'spend_nav':
+                    showReportFilters();
+                    $('#brand-reports-inputs').show();
+                    $('#getReport').parent().show();
+                    $('footer *').hide();
+                    $('#container-rpt').html('<div class="middle-center"><i class="fa fa-pie-chart"></i><p><i style="font-size: 20px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading Report...</p></div>');
+                    if (typeof charts['PieChart'] !== 'undefined') setTimeout(function() {
+                        renderShareOfSpend (charts['PieChart'].data, charts['PieChart'].transId); }, rpttransitiondelay);
+                    else
+                        $.get("/brand_spend", params, function(data, status){
+                                                                    //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                                                    renderShareOfSpend(data, transId);
+                                                                });
+                    break;
+                case 'amap_nav':
+                    showReportFilters();
+                    $('#brand-reports-inputs').show();
+                    $('#getReport').parent().show();
+                    $('footer *').hide();
+                    $('#container-rpt').html ( "<div id='overlay-map' style='position: absolute;" +
+                                                                            "height: 100%;" +
+                                                                            "width: calc(100% - 40px);" +
+                                                                            "background-color:" +
+                                                                            "rgba(34, 34, 34, 0.8);" +
+                                                                            "z-index: 1;" +
+                                                                            "cursor: pointer;" +
+                                                                            "display: none;' onclick='javascript:renderOverlayForDetailsInput();'>" +
+                                                    "<span style='text-align: center; position: absolute; top: 45%; left: 0; right: 0; color: #E01A22; font: LatoWebThin; font-size: 20px;'>Need location data ? Contact us.</span>" +
+                                                "</div>" +
+                                                "<div id='container-map'></div>");
+
+
+                    initMap();
+
+                    // Code duplication below. TODO fix this.
+                    var dt = 50; // data threshold
+                    var showOverlay = false;
+                    
+                    if (typeof mapOverlay.param1 !== 'undefined' && mapOverlay.param1 != null && mapOverlay.param1.data.length < dt) showOverlay = true;
+                    if (typeof mapOverlay.param2 !== 'undefined' && mapOverlay.param2 != null && mapOverlay.param2.data.length < dt) showOverlay = true;
+                    if (typeof mapOverlay.param3 !== 'undefined' && mapOverlay.param3 != null && mapOverlay.param3.data.length < dt) showOverlay = true;
+                    if (typeof mapOverlay.param4 !== 'undefined' && mapOverlay.param4 != null && mapOverlay.param4.data.length < dt) showOverlay = true;
+                    if (typeof mapOverlay.param5 !== 'undefined' && mapOverlay.param5 != null && mapOverlay.param5.data.length < dt) showOverlay = true;
+                    if (typeof mapOverlay.param6 !== 'undefined' && mapOverlay.param6 != null && mapOverlay.param6.data.length < dt) showOverlay = true;
+                    
+                    if (showOverlay) {
+                        $("#overlay-map").show();
+                        if (typeof mapOverlay.param1 !== 'undefined' || mapOverlay.param1 != null) mapOverlay.param1.setMap(null);
+                        if (typeof mapOverlay.param2 !== 'undefined' || mapOverlay.param2 != null) mapOverlay.param2.setMap(null);
+                        if (typeof mapOverlay.param3 !== 'undefined' || mapOverlay.param3 != null) mapOverlay.param3.setMap(null);
+                        if (typeof mapOverlay.param4 !== 'undefined' || mapOverlay.param4 != null) mapOverlay.param4.setMap(null);
+                        if (typeof mapOverlay.param5 !== 'undefined' || mapOverlay.param5 != null) mapOverlay.param5.setMap(null);
+                        if (typeof mapOverlay.param6 !== 'undefined' || mapOverlay.param6 != null) mapOverlay.param6.setMap(null);
+                    }
+                    /*
+                        Identify the trigger for the report data fetch
+                        Add a map update request in the paramsForMapFetch array
+                    */
+                    if (typeof prevParams === 'undefined') {
+                        // do nothing the map has already been fetched with teaser UI
+                    }
+                    else if (prevParams.startDate !== startDateParam || prevParams.endDate !== endDateParam || prevParams.paramCO !== paramCO) {
+                        
+                        // All the map layers should be refreshed
+                        if(typeof params.param1 !== 'undefined') processAudienceNetwork(1, params.brand_id1, params.paramN, params.paramCO , params.startDate, params.endDate, transId);
+                        if(typeof params.param2 !== 'undefined') processAudienceNetwork(2, params.brand_id2, params.paramN, params.paramCO, params.startDate, params.endDate, transId);
+                        if(typeof params.param3 !== 'undefined') processAudienceNetwork(3, params.brand_id3, params.paramN, params.paramCO, params.startDate, params.endDate, transId);
+                        if(typeof params.param4 !== 'undefined') processAudienceNetwork(4, params.brand_id4, params.paramN, params.paramCO, params.startDate, params.endDate, transId);
+                        if(typeof params.param5 !== 'undefined') processAudienceNetwork(5, params.brand_id5, params.paramN, params.paramCO, params.startDate, params.endDate, transId);
+                        if(typeof params.param6 !== 'undefined') processAudienceNetwork(6, params.brand_id6, params.paramN, params.paramCO, params.startDate, params.endDate, transId);
+                                        
+                    } else if (prevParams.param1 !== params.param1) {
+                        processAudienceNetwork(1, params.brand_id1, params.paramN, params.paramCO, params.startDate, params.endDate, transId);
+                        if (prevParams.param2 !== params.param2) {
+                            processAudienceNetwork(2, params.brand_id2, params.paramN, params.paramCO, params.startDate, params.endDate, transId);
+                        }
+                    } else if (prevParams.param2 !== params.param2 && prevParams.param3 !== params.param2) {
+                        processAudienceNetwork(2, params.brand_id2, params.paramN, params.paramCO, params.startDate, params.endDate, transId);
+                    } else if (prevParams.param3 !== params.param3 && prevParams.param4 !== params.param3) {
+                        processAudienceNetwork(3, params.brand_id3, params.paramN, params.paramCO, params.startDate, params.endDate, transId);
+                    } else if (prevParams.param4 !== params.param4 && prevParams.param5 !== params.param4) {
+                        processAudienceNetwork(4, params.brand_id4, params.paramN, params.paramCO, params.startDate, params.endDate, transId);
+                    } else if (prevParams.param5 !== params.param5 && prevParams.param6 !== params.param5) {
+                        processAudienceNetwork(5, params.brand_id5, params.paramN, params.paramCO, params.startDate, params.endDate, transId);
+                    } else if (prevParams.param6 !== params.param6 && params.param6 != '' ) {
+                        processAudienceNetwork(6, params.brand_id6, params.paramN, params.paramCO, params.startDate, params.endDate, transId);
+                    }
+                    break;
+            <% if (showPremimumReports === true || isSignedIn === true) { %>
+                case 'wa_nav':
+                    showReportFilters();
+                    $('#brand-reports-inputs').show();
+                    $('#getReport').parent().show();
+                    $('footer *').hide();
+                    $('#container-rpt').html('<div class="middle-center"><i class="fa fa-bar-chart"></i><p><i style="font-size: 20px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading Report...</p></div>');
+                    if (typeof charts['CooPBrandAiringsWeekly'] !== 'undefined') setTimeout(function() {
+                        renderBrandCoopAiringsWeekly (charts['CooPBrandAiringsWeekly'].data, charts['CooPBrandAiringsWeekly'].transId); }, rpttransitiondelay);
+                    else
+                        $.get("/brand_coop_airings_weekly", params, function(data, status){
+                                                                    //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                                                    renderBrandCoopAiringsWeekly(data, transId);
+                                                                });
+                    break;
+                case 'abp_nav':
+                    showReportFilters();
+                    $('#brandBtn').parent().parent().hide();
+                    $('#brand-reports-inputs').show();
+                    $('#getReport').parent().show();
+                    $('footer *').hide();
+                    $('#container-rpt').html('<div class="middle-center"><i class="fa fa-bar-chart"></i><p><i style="font-size: 20px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading Report...</p></div>');
+                    if (typeof charts['CooPProductAirings'] !== 'undefined') setTimeout(function() {
+                        renderProductCoopAirings (charts['CooPProductAirings'].data, charts['CooPProductAirings'].transId); }, rpttransitiondelay);
+                    else
+                        $.get("/product_coop_airings", params, function(data, status){
+                                                                    //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                                                    renderProductCoopAirings(data, transId);
+                                                                });
+                    break;
+                case 'abnap_nav':
+                    showReportFilters();
+                    $('#brandBtn').parent().parent().hide();
+                    $('#brand-reports-inputs').show();
+                    $('#getReport').parent().show();
+                    $('footer *').hide();
+                    $('#container-rpt').html('<div class="middle-center"><i class="fa fa-bar-chart"></i><p><i style="font-size: 20px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading Report...</p></div>');
+                    if (typeof charts['CooPProductNetworkAirings'] !== 'undefined') setTimeout(function() {
+                        renderProductNetworkCoopAirings (charts['CooPProductNetworkAirings'].data, charts['CooPProductNetworkAirings'].transId); }, rpttransitiondelay);
+                    else
+                        $.get("/product_network_coop_airings", params, function(data, status){
+                                                                    //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                                                    renderProductNetworkCoopAirings(data, transId);
+                                                                });
+                    break;
+                case 'abd_nav':
+                    showReportFilters();
+                    $('#brandBtn').parent().parent().hide();
+                    $('#brand-reports-inputs').show();
+                    $('#getReport').parent().show();
+                    $('footer *').hide();
+                    $('#container-rpt').html('<div class="middle-center"><i class="fa fa-pie-chart"></i><p><i style="font-size: 20px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading Report...</p></div>');
+                    if (typeof charts['CooPProductDaypartAirings'] !== 'undefined') setTimeout(function() {
+                        renderProductDaypartCoopAirings (charts['CooPProductDaypartAirings'].data, charts['CooPProductDaypartAirings'].transId); }, rpttransitiondelay);
+                    else
+                        $.get("/product_daypart_coop_airings", params, function(data, status){
+                                                                    //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                                                    renderProductDaypartCoopAirings(data, transId);
+                                                                });
+                    break;
+                case 'wabp_nav':
+                    showReportFilters();
+                    $('#brandBtn').parent().parent().hide();
+                    $('#brand-reports-inputs').show();
+                    $('#getReport').parent().show();
+                    $('footer *').hide();
+                    $('#container-rpt').html('<div class="middle-center"><i class="fa fa-bar-chart"></i><p><i style="font-size: 20px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading Report...</p></div>');
+                    if (typeof charts['CooPProductAiringsWeekly'] !== 'undefined') setTimeout(function() {
+                        renderProductCoopAiringsWeekly (charts['CooPProductAiringsWeekly'].data, charts['CooPProductAiringsWeekly'].transId); }, rpttransitiondelay);
+                    else
+                        $.get("/product_coop_airings_weekly", params, function(data, status){
+                                                                    //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                                                    renderProductCoopAiringsWeekly(data, transId);
+                                                                });
+                    break;
+                case 'abcl_nav':
+                    showReportFilters();
+                    $('#brand-reports-inputs').show();
+                    $('#getReport').parent().show();
+                    $('footer *').hide();
+                    $('#container-rpt').html('<div class="middle-center"><i class="fa fa-bar-chart"></i><p><i style="font-size: 20px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading Report...</p></div>');
+                    if (typeof charts['CooPContentAirings'] !== 'undefined') setTimeout(function() {
+                        renderContentCoopAirings (charts['CooPContentAirings'].data, charts['CooPContentAirings'].transId); }, rpttransitiondelay);
+                    else
+                        $.get("/content_coop_airings", params, function(data, status){
+                                                                    //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                                                    renderContentCoopAirings(data, transId);
+                                                                });
+                    break;
+                case 'lar_nav':
+                    $('#brand-reports-inputs').hide();
+                    $('#getReport').parent().hide();
+                    $('footer *').hide();
+                    populateLARCharts(loc_attr_rpt);
+                    break;
+            <% } %>
+                case 'getrpt_nav':
+                    showReportFilters();
+                    enableBrandComparison();
+                    enableCoOp();
+                    $('#brand-reports-inputs').show();
+                    $('#getReport').parent().hide();
+                    $('footer *').hide();
+                    break;
+                case 'commercials_nav':
+                    $('#brand-reports-inputs').show();
+                    hideReportFilters();
+                    $('#getReport').parent().hide();
+                    $('#commercials').html('<div class="middle-center" style="margin-top: 200px;"><p style="font-size: 36px;"><i class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading ...</p></div>');
+                    if (refreshCommercialList) // Repopulate the commercial list
+                        $.get("/brandscontent", params, function(data, status){
+                                                                    //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                                                    populateAdList(data, transId);
+                                                                });
+                    break;
+                default:
+                    // populate the teaser charts
+                    if (brandComparisonEnabled == true) {
+                        $.get("/brand_network", params, function(data, status){
+                                                                    //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                                                    renderShareOfVoice(data, transId);
+                                                                });
+                        if (loc_attr_rpt.brand_id) {
+                            renderLARComparision(loc_attr_rpt.brand_name, loc_attr_rpt.visit_rate_exposed, loc_attr_rpt.visit_rate_unexposed, "#container2");
+                        } else {
+                            $("#lar_nav").parent().hide();
+                            $.get("/brand_network_show", params, function(data, status){
+                                                                    //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                                                    renderShareOfVoice(data, transId, true);
+                                                                });
+                        }
+                    }
+                    else {
+                        $.get("/brand_network_coop_airings", params, function(data, status){
+                                                                    //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                                                    renderBrandNetworkCoopAirings(data, transId);
+                                                                });
+                        if (loc_attr_rpt.brand_id) {
+                            renderLARComparision(loc_attr_rpt.brand_name, loc_attr_rpt.visit_rate_exposed, loc_attr_rpt.visit_rate_unexposed, "#container2");
+                        } else {
+                            $("#lar_nav").parent().hide();
+                            $.get("/brand_show_coop_airings", params, function(data, status){
+                                                                    //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                                                    renderBrandShowCoopAirings(data, transId);
+                                                                });
+                        }
+                    }
+                    $.get("/brand_spend", params, function(data, status){
+                                                                    //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                                                    renderShareOfSpend(data, transId);
+                                                                });
+                    // All the map layers should be refreshed
+                    if(typeof params.param1 !== 'undefined') processAudienceNetwork(1, params.brand_id1, params.paramN, params.paramCO, params.startDate, params.endDate, transId);
+                    if(typeof params.param2 !== 'undefined') processAudienceNetwork(2, params.brand_id2, params.paramN, params.paramCO, params.startDate, params.endDate, transId);
+                    if(typeof params.param3 !== 'undefined') processAudienceNetwork(3, params.brand_id3, params.paramN, params.paramCO, params.startDate, params.endDate, transId);
+                    if(typeof params.param4 !== 'undefined') processAudienceNetwork(4, params.brand_id4, params.paramN, params.paramCO, params.startDate, params.endDate, transId);
+                    if(typeof params.param5 !== 'undefined') processAudienceNetwork(5, params.brand_id5, params.paramN, params.paramCO, params.startDate, params.endDate, transId);
+                    if(typeof params.param6 !== 'undefined') processAudienceNetwork(6, params.brand_id6, params.paramN, params.paramCO, params.startDate, params.endDate, transId);
+
+                    params.allcontents = true;
+                    $.get("/brandscontent", params, function(data, status){
+                                                                    //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                                                    populateAdList(data, transId);
+                                                                });
+              }
+              
+              prevParams = params;
+                                            
+          }
+        }
+
+        function hideReportFilters() {
+            $('#brandBtn').parent().parent().hide();
+            $('#paramN').parent().hide();
+            $('#optCoOp').parent().hide();
+        }
+        function showReportFilters() {
+            $('#brandBtn').parent().parent().show();
+            $('#paramN').parent().show();
+            $('#optCoOp').parent().show();
+        }
+
+        $('#getEmailBtn').on('click', function(){
+            var emailAddress = $("#reportEmailInput").val();
+            // http://stackoverflow.com/questions/19605773/html5-email-validation
+            var validation = new RegExp('^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$');
+            if (!validation.test(emailAddress)) alert('Please enter a valid email address');
+            else {
+                var params =  jQuery.extend(true, {}, prevParams); //http://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-clone-an-object
+                //params.name = $("#nameInput").val();
+                params.email = emailAddress;
+                if (dtlrpt) params.dtlrpt = dtlrpt;
+                //params.company = $("#companyInput").val();
+                
+                //alert(JSON.stringify(params));
+                
+                $.get("/email_request", params, function(data, status){
+                                                //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                                handleReportsReqResponse(data);
+                                            });
+            }
+            
+        
+        });
+        
+        function processAudienceNetwork (paramIdx, paramB, paramN, paramCO, startDate, endDate, transId) {
+            
+            var paramsForMapFetch = {};
+            paramsForMapFetch.paramB = paramB;
+            paramsForMapFetch.paramN = paramN;
+            paramsForMapFetch.paramCO=paramCO;
+            paramsForMapFetch.startDate = startDate;
+            paramsForMapFetch.endDate = endDate;
+            
+            $.get("/brand_viewer", paramsForMapFetch, function(data, status){
+                                            //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                            renderAudienceNetwork(data, paramIdx);
+                                          });
+        }
+        
+        function renderAudienceNetwork (data, paramIdx){
+            
+            var prevOverlay;
+            var color = reportColors[paramIdx];
+
+            var overlay = new NetworkAudienceOverlay(data, color);
+            
+            switch (paramIdx){
+                case 1:
+                    prevOverlay =  mapOverlay.param1;
+                    mapOverlay.param1 = overlay;
+                    break;
+                case 2:
+                    prevOverlay =  mapOverlay.param2;
+                    mapOverlay.param2 = overlay;
+                    break;
+                case 3:
+                    prevOverlay =  mapOverlay.param3;
+                    mapOverlay.param3 = overlay;
+                    break;
+                case 4:
+                    prevOverlay =  mapOverlay.param4;
+                    mapOverlay.param4 = overlay;
+                    break;
+                case 5:
+                    prevOverlay =  mapOverlay.param5;
+                    mapOverlay.param5 = overlay;
+                    break;
+                case 6:
+                    prevOverlay =  mapOverlay.param6;
+                    mapOverlay.param6 = overlay;
+                    break;
+                default:
+                    prevOverlay =  mapOverlay.param1;
+                    mapOverlay.param1 = overlay;
+            }
+            
+            if (typeof prevOverlay !== 'undefined' && prevOverlay != null) prevOverlay.setMap(null);
+            
+            $("#overlay-map").hide();
+            var dt = 50; // data threshold
+            var showOverlay = false;
+            
+            if (typeof mapOverlay.param1 !== 'undefined' && mapOverlay.param1 != null && mapOverlay.param1.data.length < dt) showOverlay = true;
+            if (typeof mapOverlay.param2 !== 'undefined' && mapOverlay.param2 != null && mapOverlay.param2.data.length < dt) showOverlay = true;
+            if (typeof mapOverlay.param3 !== 'undefined' && mapOverlay.param3 != null && mapOverlay.param3.data.length < dt) showOverlay = true;
+            if (typeof mapOverlay.param4 !== 'undefined' && mapOverlay.param4 != null && mapOverlay.param4.data.length < dt) showOverlay = true;
+            if (typeof mapOverlay.param5 !== 'undefined' && mapOverlay.param5 != null && mapOverlay.param5.data.length < dt) showOverlay = true;
+            if (typeof mapOverlay.param6 !== 'undefined' && mapOverlay.param6 != null && mapOverlay.param6.data.length < dt) showOverlay = true;
+            
+            if (showOverlay) {
+                $("#overlay-map").show();
+                if (typeof mapOverlay.param1 !== 'undefined' || mapOverlay.param1 != null) mapOverlay.param1.setMap(null);
+                if (typeof mapOverlay.param2 !== 'undefined' || mapOverlay.param2 != null) mapOverlay.param2.setMap(null);
+                if (typeof mapOverlay.param3 !== 'undefined' || mapOverlay.param3 != null) mapOverlay.param3.setMap(null);
+                if (typeof mapOverlay.param4 !== 'undefined' || mapOverlay.param4 != null) mapOverlay.param4.setMap(null);
+                if (typeof mapOverlay.param5 !== 'undefined' || mapOverlay.param5 != null) mapOverlay.param5.setMap(null);
+                if (typeof mapOverlay.param6 !== 'undefined' || mapOverlay.param6 != null) mapOverlay.param6.setMap(null);
+            }
+        }
+        
+        NetworkAudienceOverlay.prototype = new google.maps.OverlayView();
+        /** @constructor */
+        function NetworkAudienceOverlay(data, color) {
+            
+            // Initialize all properties.
+            this.data = data;
+            this.color = color;
+            
+            // Define a property to hold the image's div. We'll
+            // actually create this div upon receipt of the onAdd()
+            // method so we'll leave it null for now.
+            this.div = null;
+
+            //if (typeof map === 'undefined') setTimeout(doNothingTillMapLoads(), 1000); // The function call in setTimeout shouldn't have a bracket.
+
+            // Explicitly call setMap on this overlay.
+            //alert(map);
+            if (typeof map !== 'undefined') this.setMap(map);
+            //else setOverlayMap = this;
+        }
+        
+        /**
+         * onAdd is called when the map's panes are ready and the overlay has been
+         * added to the map.
+         */
+        NetworkAudienceOverlay.prototype.onAdd = function() {
+            this.div = document.createElement('div');
+            // Add the element to the "overlayLayer" pane.
+            var panes = this.getPanes();
+            panes.overlayLayer.appendChild(this.div);
+        };
+
+        NetworkAudienceOverlay.prototype.draw = function() {
+            // We use the south-west and north-east
+            // coordinates of the overlay to peg it to the correct position and size.
+            // To do this, we need to retrieve the projection from the overlay.
+            var overlayProjection = this.getProjection();
+            
+            // First reset the container div
+            this.div.innerHTML = '';
+            var pointSize = (mapZoomLevel*3/4) + 'px';
+            var offset = mapZoomLevel*3/8;
+            
+            for (viewer in this.data) {
+                
+                var latLng = new google.maps.LatLng({lat: this.data[viewer].lat, lng: this.data[viewer].lng});
+                var point = overlayProjection.fromLatLngToDivPixel(latLng);
+                var div = document.createElement('div');
+                div.style.left = (point.x - offset) + 'px';
+                div.style.top = (point.y - offset) + 'px';
+                div.style.backgroundColor = this.color;
+                div.style.opacity = 0.6;
+                div.style.width = pointSize;
+                div.style.height = pointSize;
+                div.style.position = 'absolute';
+                div.style.borderColor = this.color;
+                div.style.borderWidth = 'thick';
+                div.style.zIndex = 100 + parseInt(Math.random() * 10);
+                        
+                this.div.appendChild(div);
+            }
+            
+        };
+        
+        // The onRemove() method will be called automatically from the API if
+        // we ever set the overlay's map property to 'null'.
+        NetworkAudienceOverlay.prototype.onRemove = function() {
+            this.div.parentNode.removeChild(this.div);
+            this.div = null;
+        };
+        
+        /*
+         Now create the bar chart
+         Refer: http://www.highcharts.com/demo/column-rotated-labels
+                http://jsfiddle.net/gh/get/jquery/1.9.1/highslide-software/highcharts.com/tree/master/samples/highcharts/demo/column-rotated-labels/
+        */
+        function renderShareOfVoice (data, transId, isShowData){
+          
+          if (transId != currTransId) { // stale response. Discard it.
+            //alert(transId + ":" + currTransId + ":" + (transId==currTransId));
+            return;
+          }
+
+          var chartParam = {};
+          chartParam.data = data;
+          chartParam.transId = transId;
+
+          var numColumnsToShow = 4; /* 5 -1 = 4 */
+          if (expandedView) numColumnsToShow = null;
+
+          if (isShowData) {
+
+            if (!expandedView)
+                renderStackedColumnChart(data, '#container2', 'AIRINGS BY SHOWS', numColumnsToShow);
+            else if (activeNavId === 'abs_nav')
+                renderStackedColumnChart(data, '#container-rpt', 'AIRINGS BY SHOWS', numColumnsToShow);
+
+            charts[true] = chartParam;
+          }
+          else {
+            if (!expandedView)
+                renderStackedColumnChart(data, '#container1', 'AIRINGS BY NETWORK', numColumnsToShow);
+            else if (activeNavId === 'abn_nav')
+                renderStackedColumnChart(data, '#container-rpt', 'AIRINGS BY NETWORK', numColumnsToShow);
+                
+            charts[false] = chartParam;
+          }
+        }
+        
+        function renderStackedColumnChart(dataList, containerId, chartTitle, numColumnsToShow){
+           
+           // hack to clean the graph before recreate.
+           if (dataList.length == 0) {
+            $(containerId).html('<div class="middle-center"><i class="fa fa-bar-chart"></i><p>No applicable data found within specified date range.</p></div>');
+            return;
+           }
+           $(containerId).html("");
+ 
+           var categoriesToFeed = [];
+           var dataSet1 = [];
+           var dataSet2 = [];
+           var dataSet3 = [];
+           var dataSet4 = [];
+           var dataSet5 = [];
+           var dataSet6 = [];
+           var hasNAData = false;
+           var naData = [0,0,0,0,0,0];
+            
+            for (i = 0; i < dataList.length; i++) {
+            //for (i = 0; i < dataList.length && i < 5; i++) {
+                var mergedData = dataList[i];
+                if (mergedData.cat == 'undefined' || mergedData.cat =='null'){
+                    naData[0] = naData[0] + mergedData.b1;
+                    naData[1] = naData[0] + mergedData.b2;
+                    naData[2] = naData[0] + mergedData.b3;
+                    naData[3] = naData[0] + mergedData.b4;
+                    naData[4] = naData[0] + mergedData.b5;
+                    naData[5] = naData[0] + mergedData.b6;
+                    hasNAData = true;
+                } else {
+                    categoriesToFeed.push(mergedData.cat);
+                    try {
+                        dataSet1.push(mergedData.b1);
+                        dataSet2.push(mergedData.b2);
+                        dataSet3.push(mergedData.b3);
+                        dataSet4.push(mergedData.b4);
+                        dataSet5.push(mergedData.b5);
+                        dataSet6.push(mergedData.b6);
+                    } catch (err) { // Interestingly no error is being thrown in case of missing b(?) fields in the response
+                        alert(err.message);
+                    }
+                }
+            }
+
+            if (hasNAData) {
+                categoriesToFeed.push('NA');
+                dataSet1.push(naData[0]);
+                dataSet2.push(naData[1]);
+                dataSet3.push(naData[2]);
+                dataSet4.push(naData[3]);
+                dataSet5.push(naData[4]);
+                dataSet6.push(naData[5]);
+            }
+
+            var columnsToShow = 19;
+            var enableScroll = true;
+            //alert(numColumnsToShow + " : " + (numColumnsToShow !== null) + " : " + isNaN(numColumnsToShow));
+            if (numColumnsToShow !== null &&  !isNaN(numColumnsToShow)) {
+                columnsToShow = numColumnsToShow;
+                enableScroll = false;
+            }
+            // Max column should be less then equal to the number of possible columns
+            if ((categoriesToFeed.length - 1) <= columnsToShow) {
+                columnsToShow = categoriesToFeed.length - 1;
+                enableScroll = false;
+            }
+
+            var seriesToFeed = [];
+            if (typeof param1 !== 'undefined'){
+                seriesToFeed.push({name: param1,
+                                    data: dataSet1,
+                                    color: reportColors[1]});
+            }
+            if (typeof param2 !== 'undefined')
+                seriesToFeed.push({name: param2,
+                                    data: dataSet2,
+                                    color: reportColors[2]});
+            if (typeof param3 !== 'undefined')
+                seriesToFeed.push({name: param3,
+                                    data: dataSet3,
+                                    color: reportColors[3]});
+            if (typeof param4 !== 'undefined')
+                seriesToFeed.push({name: param4,
+                                    data: dataSet4,
+                                    color: reportColors[4]});
+            if (typeof param5 !== 'undefined')
+                seriesToFeed.push({name: param5,
+                                    data: dataSet5,
+                                    color: reportColors[5]});
+            if (typeof param6 !== 'undefined')
+                seriesToFeed.push({name: param6,
+                                    data: dataSet6,
+                                    color: reportColors[6]});
+
+            $(containerId).highcharts({
+                chart: {
+                    //marginRight: 25,
+                    style: {
+                        fontFamily: 'LatoWeb', // default font
+                        fontSize: '13px'
+                    },
+                    type: 'column'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                enabled: false
+                },
+                title: {
+                    text: chartTitle,//# of Airings / Networks'
+                    align: 'left',
+                    style: {
+                        fontSize: '16px',
+                        fontFamily: 'LatoWebHeavy',
+                        textShadow: 'none',
+                        fontWeight: 'normal'
+                    }
+                },
+                /*subtitle: {
+                    text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+                },*/
+                xAxis: {
+                    //type: 'category',
+                    categories: categoriesToFeed,
+                    labels: {
+                        //rotation: -45,
+                        style: {
+                            fontSize: '10px',
+                            //fontFamily: 'Verdana, sans-serif'
+                        }
+                    },
+                    scrollbar: {
+                        enabled: enableScroll
+                    },
+                    min: 0,
+                    max: columnsToShow
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '# of Airings'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size: 10px">{series.name}</span><br/>',
+                    pointFormat: '<span style="color:{point.color}">\u25CF</span> # of Airings: <b>{point.y:.0f}</b><br/>'
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        maxPointWidth: 26
+                    },
+                    series: {
+                        animation: {
+                            duration: 500
+                        }
+                    }
+                },
+                series: seriesToFeed
+            });
+        }
+
+        function renderProductCoopAirings (data, transId){
+          
+          if (transId != currTransId) { // stale response. Discard it.
+            //alert(transId + ":" + currTransId + ":" + (transId==currTransId));
+            return;
+          }
+
+          var chartParam = {};
+          chartParam.data = data;
+          chartParam.transId = transId;
+          
+          if (expandedView == true && activeNavId === 'abp_nav') //renderStackedChart(false, data, '#container6', 'AIRINGS BY PRODUCTS', 'product', 'brand', 'airings', true);
+            renderStackedChart(false, data, '#container-rpt', 'AIRINGS BY PRODUCTS', 'product', 'brand', 'airings', true);
+          charts['CooPProductAirings'] = chartParam;
+
+        }
+
+        function renderProductCoopAiringsWeekly (data, transId){
+          
+          if (transId != currTransId) { // stale response. Discard it.
+            //alert(transId + ":" + currTransId + ":" + (transId==currTransId));
+            return;
+          }
+
+          var chartParam = {};
+          chartParam.data = data;
+          chartParam.transId = transId;
+          
+          if (expandedView == true && activeNavId === 'wabp_nav') //renderStackedChart(true, data, '#container11', 'WEEKLY AIRINGS BY PRODUCTS', 'weekof', 'product', 'airings', true);
+            renderStackedChart(true, data, '#container-rpt', 'WEEKLY AIRINGS BY PRODUCTS', 'weekof', 'product', 'airings', true);
+          charts['CooPProductAiringsWeekly'] = chartParam;
+
+        }
+
+        function renderBrandCoopAiringsWeekly (data, transId){
+          
+          if (transId != currTransId) { // stale response. Discard it.
+            //alert(transId + ":" + currTransId + ":" + (transId==currTransId));
+            return;
+          }
+
+          var chartParam = {};
+          chartParam.data = data;
+          chartParam.transId = transId;
+          
+          if (expandedView == true && activeNavId === 'wa_nav') //renderStackedChart(true, data, '#container12', 'WEEKLY AIRINGS', 'weekof', 'brand', 'airings', true);
+            renderStackedChart(true, data, '#container-rpt', 'WEEKLY AIRINGS', 'weekof', 'brand', 'airings', true);
+          charts['CooPBrandAiringsWeekly'] = chartParam;
+
+        } 
+
+        function renderContentCoopAirings (data, transId){
+          
+          if (transId != currTransId) { // stale response. Discard it.
+            //alert(transId + ":" + currTransId + ":" + (transId==currTransId));
+            return;
+          }
+
+          var chartParam = {};
+          chartParam.data = data;
+          chartParam.transId = transId;
+          
+          if (expandedView == true && activeNavId === 'abcl_nav') //renderStackedChart(false, data, '#container7', 'AIRINGS BY CREATIVE LENGTH', 'duration', 'title', 'airings', true, true);
+            renderStackedChart(false, data, '#container-rpt', 'AIRINGS BY CREATIVE LENGTH', 'duration', 'title', 'airings', true, true);
+          charts['CooPContentAirings'] = chartParam;
+
+        }
+
+        function renderProductNetworkCoopAirings (data, transId){
+          
+          if (transId != currTransId) { // stale response. Discard it.
+            //alert(transId + ":" + currTransId + ":" + (transId==currTransId));
+            return;
+          }
+
+          var chartParam = {};
+          chartParam.data = data;
+          chartParam.transId = transId;
+          
+          //renderStackedChart(true, data, '#container8', param1.toUpperCase() + ' DIRECT - AIRINGS BY NETWORK AND PRODUCT', 'network', 'product', 'airings');
+          if (expandedView == true && activeNavId === 'abnap_nav') //renderStackedChart(true, data, '#container8', 'AIRINGS BY NETWORK AND PRODUCT', 'network', 'product', 'airings');
+            renderStackedChart(true, data, '#container-rpt', 'AIRINGS BY NETWORK AND PRODUCT', 'network', 'product', 'airings');
+          charts['CooPProductNetworkAirings'] = chartParam;
+
+        }
+
+        function renderBrandNetworkCoopAirings (data, transId){
+          
+          if (transId != currTransId) { // stale response. Discard it.
+            //alert(transId + ":" + currTransId + ":" + (transId==currTransId));
+            return;
+          }
+
+          var chartParam = {};
+          chartParam.data = data;
+          chartParam.transId = transId;
+          
+          if (!expandedView)
+            renderStackedChart(true, data, '#container1', 'AIRINGS BY NETWORK', 'network', 'brand', 'airings');
+          else if (activeNavId === 'abn_nav')
+            renderStackedChart(true, data, '#container-rpt', 'AIRINGS BY NETWORK', 'network', 'brand', 'airings');
+          charts['CooPBrandNetworkAirings'] = chartParam;
+
+        }
+
+        function renderBrandShowCoopAirings (data, transId){
+          
+          if (transId != currTransId) { // stale response. Discard it.
+            //alert(transId + ":" + currTransId + ":" + (transId==currTransId));
+            return;
+          }
+
+          var chartParam = {};
+          chartParam.data = data;
+          chartParam.transId = transId;
+          
+          if (!expandedView)
+            renderStackedChart(true, data, '#container2', 'AIRINGS BY SHOW', 'showT', 'brand', 'airings');
+          else if (activeNavId === 'abs_nav')
+            renderStackedChart(true, data, '#container-rpt', 'AIRINGS BY SHOW', 'showT', 'brand', 'airings');
+          charts['CooPBrandShowAirings'] = chartParam;
+
+        }
+        
+        function renderStackedChart(isColumnType, dataList, containerId, chartTitle, categoryName, dataName, dataValName, sortbyDataName, legendOnRight){
+
+           if (dataList.length == 0) {
+            $(containerId).html('<div class="middle-center"><i class="fa fa-bar-chart"></i><p>No applicable data found within specified date range.</p></div>');
+            return;
+           }
+
+           // hack to clean the graph before recreate.
+           $(containerId).html("");
+
+           var chartType = 'bar';
+           if (isColumnType) chartType = 'column';
+ 
+          // Random colors
+          //var colors = Highcharts.getOptions().colors;
+
+
+           var seriesToFeed = [];
+
+           var categories = [];
+           //var brands = []; // TODO: remove this hack
+           var dataNames = [];
+           var dataSet = [];
+            
+            for (i = 0; i < dataList.length; i++) {
+                var data = dataList[i];
+                var cat = data[categoryName];
+                var isDupCat = false;
+                for (var j = 0; j < categories.length; j++) {
+                    try{
+                    if ((cat == categories[j]) || (cat.toUpperCase() == categories[j].toUpperCase())) { // if duplicate found
+                        isDupCat = true;
+                        break;
+                    } }catch(error){
+                        //alert(cat + " : " + categories + " : " + error);
+                    }
+                }
+                if (!isDupCat) categories.push(cat); // Populate the categories array
+
+                var dn = data[dataName];
+                var isDupDN = false;
+                for (var j = 0; j < dataNames.length; j++) {
+                    if (dn == dataNames[j].dn) { // if duplicate found
+                        isDupDN = true;
+                        break;
+                    }
+                }
+                if (!isDupDN) {
+                    var brandName = data['brand'];
+                    if (typeof brandName === 'undefined') brandName = param1;
+                    var dnobj = {};
+                    dnobj.dn = dn;
+                    dnobj.brand = brandName;
+                    dataNames.push(dnobj); // Populate the data names
+
+                    //brands.push(brandName);
+                }
+            }
+            //alert(categories); //alert(dataNames);
+
+            //if (categories.length > 20) categories = categories.slice(0,20);
+            // Sort the array to plot the chart in correct order
+            //if (sortbyDataName) categories.sort();
+            //alert(categories);
+            var columnsToShow = 4;
+            if (expandedView && isColumnType) columnsToShow = 19;
+            if ((categories.length - 1) < columnsToShow) columnsToShow = categories.length - 1;
+            
+            dataNames.sort(function(a,b) {return (a.dn > b.dn) ? 1 : ((b.dn > a.dn) ? -1 : 0);} ); 
+
+            for (i = 0; i < dataNames.length; i++) {
+                data = [];
+                for (var j = 0; j < categories.length; j++) {
+                    data.push(0);
+                }
+                dataSet.push(data);
+                /*var color = colors[i];
+                if (i+1 < reportColors.length) color = reportColors[i+1];
+                if (dataNames[i] == param1) {
+                    if (seriesToFeed.length > 0) seriesToFeed[0].color = color;
+                    color = reportColors[1];
+                }*/
+                var color;
+                if (dataName === 'brand') color = getChartColor(dataNames[i].dn, param1);
+                else color = getChartColor(dataNames[i].brand, param1, dataName, dataNames[i].dn);
+                
+                var dataDisplayName = dataNames[i].dn;
+                if (dataDisplayName.length > 40) dataDisplayName = dataDisplayName.substring(0,40) + '..';
+                seriesToFeed.push({name: dataDisplayName,
+                                    data: data,
+                                    color: color});
+            }
+            //alert(JSON.stringify(seriesToFeed));
+            //alert(JSON.stringify(chartColors));
+            
+            for (i = 0; i < dataList.length; i++) {
+                var data = dataList[i];
+                var cat = data[categoryName];
+                var dn = data[dataName];
+                var dataVal = data[dataValName];
+                var datasetidx = 0;
+                var datarecidx = 0;
+                for (var j = 0; j < dataNames.length; j++) {
+                    if (dn == dataNames[j].dn){
+                        datasetidx = j;
+                        break;
+                    }
+                }
+                var catMatch = false;
+                for (var j = 0; j < categories.length; j++) {
+                    if (cat == categories[j]){
+                        datarecidx = j;
+                        catMatch = true;
+                        break;
+                    }
+                }
+
+                if (catMatch) dataSet[datasetidx][datarecidx] = dataVal;
+            }
+
+            if (legendOnRight)
+            $(containerId).highcharts({
+                chart: {
+                    //marginRight: 25,
+                    style: {
+                        fontFamily: 'LatoWeb', // default font
+                        fontSize: '13px'
+                    },
+                    type: chartType
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                enabled: false
+                },
+                title: {
+                    text: chartTitle,//# of Airings / Networks'
+                    align: 'left',
+                    style: {
+                        fontSize: '16px',
+                        fontFamily: 'LatoWebHeavy',
+                        textShadow: 'none',
+                        fontWeight: 'normal'
+                    }
+                },
+                /*subtitle: {
+                    text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+                },*/
+                xAxis: {
+                    scrollbar: {
+                        enabled: true
+                    },
+                    min: 0,
+                    max: columnsToShow,
+                    //type: 'category',
+                    categories: categories,
+                    labels: {
+                        //rotation: -45,
+                        style: {
+                            fontSize: '10px',
+                            //fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '# of Airings'
+                    }
+                },
+                legend: {
+                    enabled: true,
+                    reversed: false,
+                    verticalAlign: 'middle',
+                    align: 'right',
+                    layout: 'vertical',
+                    maxHeight: 300,
+                    width: 300,
+                    symbolRadius: 0
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size: 10px">{series.name}</span><br/>',
+                    pointFormat: '<span style="color:{point.color}">\u25CF</span> # of Airings: <b>{point.y:.0f}</b><br/>'
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        maxPointWidth: 26
+                    },
+                    bar: {
+                        stacking: 'normal',
+                        maxPointWidth: 26
+                    },
+                    series: {
+                        animation: {
+                            duration: 500
+                        }
+                    }
+                },
+                series: seriesToFeed
+            });
+
+            else 
+            $(containerId).highcharts({
+                chart: {
+                    //marginRight: 25,
+                    style: {
+                        fontFamily: 'LatoWeb', // default font
+                        fontSize: '13px'
+                    },
+                    type: chartType
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                enabled: false
+                },
+                title: {
+                    text: chartTitle,//# of Airings / Networks'
+                    align: 'left',
+                    style: {
+                        fontSize: '16px',
+                        fontFamily: 'LatoWebHeavy',
+                        textShadow: 'none',
+                        fontWeight: 'normal'
+                    }
+                },
+                /*subtitle: {
+                    text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
+                },*/
+                xAxis: {
+                    scrollbar: {
+                        enabled: expandedView
+                    },
+                    min: 0,
+                    max: columnsToShow,
+                    //type: 'category',
+                    categories: categories,
+                    labels: {
+                        //rotation: -45,
+                        style: {
+                            fontSize: '10px'//,
+                            //fontFamily: 'Verdana, sans-serif'
+                        }
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: '# of Airings'
+                    }
+                },
+                legend: {
+                    enabled: true,
+                    reversed: true,
+                    symbolRadius: 0
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size: 10px">{series.name}</span><br/>',
+                    pointFormat: '<span style="color:{point.color}">\u25CF</span> # of Airings: <b>{point.y:.0f}</b><br/>'
+                },
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        maxPointWidth: 26
+                    },
+                    bar: {
+                        stacking: 'normal',
+                        maxPointWidth: 26
+                    },
+                    series: {
+                        animation: {
+                            duration: 500
+                        }
+                    }
+                },
+                series: seriesToFeed
+            });
+        }
+
+        var products;
+        var selectedProduct;
+        function renderProductDaypartCoopAirings (data, transId){
+          
+          if (transId != currTransId) { // stale response. Discard it.
+            //alert(transId + ":" + currTransId + ":" + (transId==currTransId));
+            return;
+          }
+
+          var chartParam = {};
+          chartParam.data = data;
+          chartParam.transId = transId;
+          
+          if (expandedView == true && activeNavId === 'abd_nav') {
+          $('#container-rpt').html( '<div class="row">' +
+                                    '<div class="btn-group col-xs-9" style="padding-bottom: 0;">' +
+                                        '<button class="btn dropdown-toggle" data-toggle="dropdown" style="color: #333333; font-size: 16px; font-family: LatoWebHeavy; text-shadow: none; font-weight: normal; fill: #333333;">AIRINGS BY DAYPARTS - All Products<span class="caret"></span></button>' +
+                                        '<ul class="dropdown-menu" id="paramP" style="margin-left: 200px;">' +
+                                        '</ul>' +
+                                    '</div>' +
+                                    '<div id="container-rpt-b" class="btn-group col-xs-12 col-md-6" style="height: calc(400px - 84px);"><div class="middle-center"><i class="fa fa-pie-chart"></i><p><i style="font-size: 20px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading Report...</p></div></div>' +
+                                    '<div id="container-rpt-c" class="btn-group col-xs-12 col-md-6" style="height: calc(400px - 84px);"><div class="middle-center"><i class="fa fa-pie-chart"></i><p><i style="font-size: 20px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading Report...</p></div></div>' +
+                                    '</div>');
+          var paramPContainer = $("#paramP");
+          //paramPContainer.html("");
+          products = [];
+          var productName = 'All Products';
+          var maxAirings = 0;
+          for (i = 0; i < data.length; i++) {
+              var row = data[i];
+              if (typeof products[row.product] === 'undefined') {
+                products[row.product] = {};
+
+                var liContainer = document.createElement('li');
+                liContainer.className = "hc";
+
+                var aContainer = document.createElement('a');
+                aContainer.innerText = row.product;
+
+                liContainer.appendChild(aContainer);
+                paramPContainer.append(liContainer);
+              }
+              
+              var product = products[row.product];
+              if (typeof product.broadcast === 'undefined')
+                product.broadcast = [];
+              if (typeof product.cable === 'undefined')
+                product.cable = [];
+              
+              var broadcast = {};
+              broadcast.daypart = row.daypart;
+              broadcast.airings = row.broadcast;
+              product.broadcast.push(broadcast);
+              
+              var cable = {};
+              cable.daypart = row.daypart;
+              cable.airings = row.cable;
+              product.cable.push(cable);
+
+              if (row.product == selectedProduct) {
+                  productName = row.product;
+              }
+              if (productName != selectedProduct) {
+                var airings = broadcast.airings + cable.airings;
+                if (airings > maxAirings) {
+                    maxAirings = airings;
+                    productName = row.product;
+                }
+              }
+          }
+          //alert(JSON.stringify(products));
+          paramPContainer.parents(".btn-group").find('.btn').html("AIRINGS BY DAYPARTS - " + productName + " <span class=\"caret\"></span>");
+          renderProductAiringsByDaypart(productName);
+        
+          $('#paramP > li.hc').on('click', function(){
+            paramP = $(this).find('a').html();
+            var productName = $(this).text();
+            $(this).parents(".btn-group").find('.btn').html("AIRINGS BY DAYPARTS - " + productName + " <span class=\"caret\"></span>");
+            renderProductAiringsByDaypart(productName);
+          });}
+          
+          charts['CooPProductDaypartAirings'] = chartParam;
+
+        }
+
+        function renderProductAiringsByDaypart(productName){
+          //alert(productName);
+          selectedProduct = productName;
+          var data = products[productName];
+          
+          if (typeof data === 'undefined') {
+            $('#container-rpt-b').html('<div class="middle-center"><i class="fa fa-pie-chart"></i><p>No applicable data found within specified date range.</p></div>');
+            $('#container-rpt-c').html('<div class="middle-center"><i class="fa fa-pie-chart"></i><p>No applicable data found within specified date range.</p></div>');
+          } else {
+            plotPieChart(data.broadcast, 'daypart', 'airings', '#container-rpt-b', 'Broadcast');
+            plotPieChart(data.cable, 'daypart', 'airings', '#container-rpt-c', 'Cable');
+          }
+        }
+
+        function plotPieChart(data, sliceNameKey, sliceValKey, containerId, chartTitle) {
+          // hack to clean the graph before recreate.
+          $(containerId).html("");
+          var processedJSON = [];
+          var total_airings = 0;
+        
+          // Build the data arrays
+          for (i = 0; i < data.length; i++) {
+            total_airings = total_airings + parseInt(data[i][sliceValKey]);
+            processedJSON.push({
+              name: data[i][sliceNameKey],
+              y: parseInt(data[i][sliceValKey]),
+              tt: parseInt(data[i][sliceValKey]),
+              color: reportColors[i+1]
+            });
+            //alert(JSON.stringify(processedJSON));
+          }
+
+          if (total_airings == 0) processedJSON = [];
+          
+          // Create the chart
+          $(containerId).highcharts({
+              chart: {
+                  style: {
+                    fontFamily: 'LatoWeb', // default font
+                    fontSize: '13px'
+                  },
+                  type: 'pie'
+              },
+              credits: {
+                  enabled: false
+              },
+              exporting: {
+                  enabled: false
+              },
+              legend: {
+                  align: "right",
+                  verticalAlign: "middle",
+                  itemMarginTop: 25,
+                  //floating: true,
+                  itemWidth: 160,
+                  labelFormat: '{name}: {y}',
+                  layout: "vertical",
+                  margin: 30,
+                  itemStyle: {
+                      fontSize: '13px',
+                      fontFamily: 'LatoWebBold',
+                      textShadow: 'none',
+                      fontWeight: 'normal'
+                  },
+                  symbolRadius: 0
+              },
+              title: {
+                  text: chartTitle.toUpperCase(),
+                  align: 'left',
+                  style: {
+                      fontSize: '14px',
+                      fontFamily: 'LatoWebHeavy',
+                      textShadow: 'none',
+                      fontWeight: 'normal'
+                  }
+              },
+              yAxis: {
+                  title: {
+                      text: 'Airings By Daypart'
+                  }
+              },
+              plotOptions: {
+                  pie: {
+                      shadow: false,
+                      center: ['60%', '50%'],
+                      startAngle: -90,
+                      dataLabels: {
+                          enabled: false
+                      },
+                      showInLegend: true
+                  },
+                    series: {
+                        animation: {
+                            duration: 500
+                        }
+                    }
+              },
+              tooltip: {
+                  //enabled: false,
+                  //pointFormat: '<span style="color:{point.color}">\u25CF</span> Share of {series.name}: <b>{point.percentage:.2f}%</b><br/>'//,
+                  pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.tt}</b><br/>'//,
+                  //valueSuffix: 'M'
+              },
+              series: [{
+                  name: 'Airings',
+                  data: processedJSON,
+                  size: '110%',
+                  innerSize: '70%',
+                  dataLabels: {
+                      format: '{point.name}: {y}',
+                      style: {
+                          fontSize: '13px',
+                          fontFamily: 'LatoWeb',
+                          textShadow: 'none',
+                          fontWeight: 'normal'
+                      },
+                      distance: -50
+                  }
+              }]
+          });
+        }
+
+        /* Global highcharts options */
+        Highcharts.setOptions({
+            lang: {
+                noData: "No applicable data found within specified date range."
+            }
+        });
+ 
+        /*
+         Now create the pie chart
+         Refer: http://www.highcharts.com/demo/pie-donut
+                http://jsfiddle.net/gh/get/jquery/1.9.1/highslide-software/highcharts.com/tree/master/samples/highcharts/demo/pie-donut/
+        */       
+        function renderShareOfSpend (data, transId){
+          
+          if (transId != currTransId) { // stale response. Discard it.
+              //alert(transId + ":" + currTransId + ":" + (transId==currTransId));
+              return;
+          }
+
+          var chartParam = {};
+          chartParam.data = data;
+          chartParam.transId = transId;
+          charts['PieChart'] = chartParam;
+
+          if (!expandedView || activeNavId === 'spend_nav') { // render chart if it is the selected nav or teaser view
+
+            var containerId = "#container-rpt";
+            if (!expandedView) containerId = "#container3";
+
+            if (data.length == 1) {
+                $(containerId).html("<div class='btn-group' style='font: 16px LatoWebHeavy; color: #222222; position: absolute; top: 20px; left: 30px;'>TOTAL SPEND</div><div class='middle-center'><span style='font: 72px LatoWebLight; color: #222222;'>" + getDollarConvertedShortValue(data[0].spend) +"</span></div>");
+                return;
+            } else if (data.length == 0) {
+                $(containerId).html("<div class='middle-center'><span style='font: 16px LatoWebHeavy; color: #222;'>TOTAL SPEND: </span><span style='font: 24px LatoWebLight; color: #222;'>NA</span>" +
+                                            "<br /><br /><i class='fa fa-pie-chart'></i><p>Select another brand to do spend comparison.</p></div>");
+                return;
+            }
+
+          // hack to clean the graph before recreate.
+          $(containerId).html("");
+        
+          // Random colors
+          //var colors = Highcharts.getOptions().colors;
+
+          var processedJSON = [];
+        
+          // Build the data arrays
+          for (i = 0; i < data.length; i++) {
+
+            var brand = data[i].brand.toUpperCase();
+            //var color = reportColors[0];
+            var color = getChartColor(data[i].brand, param1);
+            var rank = 0;
+            //if (singleAd) color = reportColors[1];
+            //else
+            switch (brand){
+                case param1.toUpperCase():
+                    color = reportColors[1];
+                    rank = 1;
+                    // Switch the color and rank in the processed json
+                    if (processedJSON.length > 0 && processedJSON[0].rank == 1) {
+                        processedJSON[0].color = reportColors[i+1];
+                        processedJSON[0].rank = i+1;
+                    }
+                    break;
+                case (typeof param2 === 'undefined' ? param2 : param2.toUpperCase()):
+                    color = reportColors[2];
+                    rank = 2;
+                    break;
+                case (typeof param3 === 'undefined' ? param3 : param3.toUpperCase()):
+                    color = reportColors[3];
+                    rank = 3;
+                    break;
+                case (typeof param4 === 'undefined' ? param4 : param4.toUpperCase()):
+                    color = reportColors[4];
+                    rank = 4;
+                    break;
+                case (typeof param5 === 'undefined' ? param5 : param5.toUpperCase()):
+                    color = reportColors[5];
+                    rank = 5;
+                    break;
+                case (typeof param6 === 'undefined' ? param6 : param6.toUpperCase()):
+                    color = reportColors[6];
+                    rank = 6;
+                    break;
+                default:
+                    // This is assuming reportColors will have enough colors
+                    //color = reportColors[i+1];
+                    rank = i+1;
+            }
+            //alert(getDollarConvertedShortValue(data[i].spend));
+            // add spend data
+            processedJSON.push({
+              name: data[i].brand,
+              //y: parseInt(data[i].spend)/1000000,
+              y: parseInt(data[i].spend),
+              tt: getDollarConvertedShortValue(data[i].spend),
+              color: color,
+              rank: rank
+            });
+            //alert(JSON.stringify(processedJSON));
+          }
+          
+          // Sort the array to plot the chart in correct order
+          processedJSON.sort(function(data1, data2){
+            return data1.rank - data2.rank; // sort ascending as per rank value
+          });
+        
+          // Create the chart
+          $(containerId).highcharts({
+              chart: {
+                  style: {
+                    fontFamily: 'LatoWeb', // default font
+                    fontSize: '13px'
+                  },
+                  type: 'pie'
+              },
+              credits: {
+                  enabled: false
+              },
+              exporting: {
+                  enabled: false
+              },
+              legend: {
+                  align: "right",
+                  verticalAlign: "middle",
+                  itemMarginTop: 25,
+                  itemWidth: 200,
+                  labelFormat: '{name}: {percentage:.2f}%',//{percentage:.2f}% (${y:.2f}M)',//'{name}: {percentage:.2f}% (${y:.2f}M)',
+                  layout: "vertical",
+                  margin: 60,
+                  itemStyle: {
+                      fontSize: '13px',
+                      fontFamily: 'LatoWebBold',
+                      textShadow: 'none',
+                      fontWeight: 'normal'
+                  },
+                  symbolRadius: 0
+              },
+              title: {
+                  text: 'SHARE OF SPEND (ESTIMATE)',
+                  align: 'left',
+                  style: {
+                      fontSize: '16px',
+                      fontFamily: 'LatoWebHeavy',
+                      textShadow: 'none',
+                      fontWeight: 'normal'
+                  }
+              },
+              yAxis: {
+                  title: {
+                      text: 'Percent Spend Share'
+                  }
+              },
+              plotOptions: {
+                  pie: {
+                      shadow: false,
+                      center: ['60%', '50%'],
+                      startAngle: -90,
+                      dataLabels: {
+                          enabled: false
+                      },
+                      showInLegend: true
+                  },
+                    series: {
+                        animation: {
+                            duration: 500
+                        }
+                    }
+              },
+              tooltip: {
+                  //enabled: false,
+                  pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.tt}</b><br/>'
+              },
+              series: [{
+                  name: 'Spend',
+                  data: processedJSON,
+                  size: '110%',
+                  innerSize: '70%',
+                  dataLabels: {
+                      format: '{point.name}: {percentage:.2f}%',//'{point.name}: {percentage:.2f}% (${y:.2f}M)',
+                      style: {
+                          fontSize: '13px',
+                          fontFamily: 'LatoWeb',
+                          textShadow: 'none',
+                          fontWeight: 'normal'
+                      },
+                      distance: -50
+                  }
+              }]
+          });}
+        }
+        
+        // Populate the email input for GET REPORT
+        $('#reportEmailInput').val (decodeURIComponent(getCookie("LIEmailAddress")));
+        
+        /* Sign in disabled for now
+        if (getCookie("LIAccessToken") === '')
+            renderOverlay('overlay-premium-content');
+        */
+        
+        $('[data-toggle="tooltip"]').tooltip();
+
+
+        $(document).keyup(function(e) {
+            if (e.keyCode == 27) { // escape key maps to keycode `27`
+                $(".overlay").hide();
+                closeLeftNav();
+            }
+        });
+        
+    });
+
+    var activeNavId;
+    var dtlrpt = false;
+    var brandComparisonEnabled = true;
+    function disableBrandComparison () {
+        if (activeNavId != 'getrpt_nav') {
+            $('[id*="optParam"]').each(function( index ) {
+                //alert( index + ": " + $( this ) );
+                $(this).addClass("disabled");
+                $(this).attr("data-toggle", "tooltip");
+                $(this).attr("Title", "Brand comparison available with 'Exclude Co-Op' option");
+            });
+            brandComparisonEnabled = false;
+        }
+    }
+
+    function enableBrandComparison () {
+        $('[id*="optParam"]').each(function( index ) {
+            //alert( index + ": " + $( this ) );
+            $(this).removeClass("disabled");
+            $(this).attr("data-toggle", "dropdown");
+            $(this).removeAttr("Title");
+            $(this).removeAttr("data-original-title");
+        });
+        brandComparisonEnabled = true;
+    }
+
+    function disableCoOp (toolTipText) {
+        if (activeNavId != 'getrpt_nav') {
+            var toolTip = 'Deselect other brands to enable Co-Op reports';
+            if (toolTipText) toolTip = toolTipText;
+            <% if (showPremimumReports === true) { %>
+            
+            <% } %>
+            //$('#optCoOp').addClass("disabled").attr("data-html", "true").attr("data-toggle", "tooltip").attr("Title", toolTip);
+            $('#optCoOp_i').addClass("disabled").attr("data-html", "true").attr("data-toggle", "tooltip").attr("Title", toolTip);
+            $('#optCoOp_i > a').addClass("disabled");
+        }
+    }
+
+    function enableCoOp () {
+        <% if (showPremimumReports === true) { %>
+        
+        <% } %>
+        //$('#optCoOp').removeClass("disabled").removeAttr("data-html").attr("data-toggle", "dropdown").removeAttr("Title").removeAttr("data-original-title");
+        $('#optCoOp_i').removeClass("disabled").removeAttr("data-html").attr("data-toggle", "dropdown").removeAttr("Title").removeAttr("data-original-title");
+        $('#optCoOp_i > a').removeClass("disabled");
+    }
+    
+    /* http://www.w3schools.com/js/js_cookies.asp */
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    
+    /* https://css-tricks.com/snippets/jquery/append-site-overlay-div/ */
+    function renderOverlay (overlayId) {
+        var docHeight = $(document).height();
+        $('#' + overlayId).css( "height", docHeight);
+        $('#' + overlayId).show();
+    }
+    
+    function handleReportsReqResponse(data) {
+        alert(data[0].status);
+        $("body > #overlay-email").hide();        
+    }
+    
+    function detailedView() {
+        //window.location.href = '/reports/lar';
+        //alert(window.location.href);
+    }
+
+    </script>
+    
+    <style>
+        
+        body
+        {
+            background: #F0F0F0;
+        }
+        
+        #pvt-beta
+        {
+            width: calc(0.77 * 171px);
+            /*width: calc(0.45 * 171px);*/
+            position: fixed;
+            z-index: 10;
+        }
+
+        header {
+            padding: 20px 5px!important;
+            height: 72px;
+        }
+
+        .home-link
+        {
+            /* actual image size 170px X 53px */
+            width: 109px;
+            height: 36px;
+        }
+
+        div.search-box {
+            margin-bottom: 0;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+        }
+
+        div.search-box > i {
+            font-size: 18px;
+            padding: 5px 6px;
+            color: #FFFFFF;
+            background: #E01A22;
+        }
+
+        ul.brand div.search-box > i {
+            color: #BBBBBB;
+            background: #fff;
+        }
+
+        .typeahead,
+        .tt-query,
+        .tt-hint {
+            padding-left: 30px;
+            width: 260px;
+            height: 29px;
+            color: #FFFFFF;
+        }
+
+        .typeahead {
+            background-color: #E01A22;
+            border: none;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        ul.brand .typeahead {
+            background-color: #fff;
+            color: #555;
+        }
+
+        .typeahead:focus {
+            border: none;
+        }
+
+        #searchInput
+        {
+            box-shadow: none;
+        }
+
+        .tt-menu {
+            width: 260px;
+            text-align: left;
+        }
+        
+        div.logo-micro {
+            position: absolute; top: 25px; right: 25px;
+        }
+        
+        div.ad-title {
+            position: absolute; bottom: 68px; left: 20px; width: calc(100% - 40px); text-align: left; background-color: #222222;
+            opacity: 0.8; color: #FFFFFF; padding: 6px 12px; font-size: 10px; font-family: LatoWebLight;
+        }
+        
+        div.footer-link {
+            position: absolute; right: 20px; text-align: right; color: #FFFFFF; padding: 4px; font-family: Lato; font-size: 6px;
+        }
+        
+        div.data-block {
+            height: 48px; background-color: #222222; padding: 10px;
+        }
+        
+        p.caption {
+            color: #fff; opacity: 0.5; font-family: LatoWebHeavy; font-size: 8px; margin: 0 30px; text-align: center;
+        }
+        
+        p.value {
+            color: #FFF; font-family: LatoWebLight; font-size: 12px; margin: 0 30px; text-align: center;
+        }
+
+        /* Google Map
+        #container-map > div {
+            height: calc(100% - 10px) !important;
+            top: -10px !important;
+            left: 0px !important;
+        } */
+
+        @media (min-width: 992px) { /* col-md-* cases */
+            #container-report #container1.col-md-6 { padding-right: 10px !important; }
+            #container-report #container2.col-md-6 { padding-left: 10px !important; }
+            #container-report [id*="container"].col-md-5 { padding-right: 10px !important; }
+            #lar-rpt [id*="container"].col-md-5 { padding-left: 10px !important; padding-right: 20px !important; }
+            #container-report [id*="container"].col-md-7 { padding-left: 10px !important; }
+            #lar-rpt [id*="container"].col-md-7 { padding-left: 20px !important; padding-right: 10px !important; }
+            #container-report #overlay-map { width: calc(100% - 30px) !important; }
+        }
+
+
+        .nav-pills {
+            border: none;
+            text-align: left;
+        }
+        .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+            color: #222222;
+            cursor: default;
+            background: #E7E7E7;
+            border: none;
+            border-radius: 0px;
+            border-left: 4px solid #E01A22;
+        }
+        .nav-pills>li>a {
+            color: #A0A0A0;
+            border: none;
+            font: 16px LatoWeb;
+            border-radius: 0px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            border-left: 4px solid transparent;
+        }
+        .nav-pills>li>a:hover {
+            color: #777777;
+            background: #E7E7E7;
+        }
+        .nav-pills hr {
+            margin: 10px 15px;
+            border: none;
+            border-bottom: 1px solid #D7D7D7;
+        }
+
+        #lar-rpt button {
+            margin-top: 10px;
+            background-color: #F0F0F0;
+            border: 1px solid #E01A22;
+            /* font: 14px LatoWebThin; */
+            color: #E01A22;
+            height: auto;
+            width: auto;
+            outline: none !important;
+            padding: 10px 20px;
+        }
+        #lar-rpt [id*="container"] {
+            background: #FFFFFF;
+            min-height: 250px;
+            height: 300px;
+            /* padding: 10px 16px 10px 0px; */
+            background-clip: content-box;
+        }
+
+        #expand-dashboard-new:hover
+        {
+            background-color: #E01A22 !important;
+            color:  #FFF !important;
+            transition: 0.4s ease 0s;
+        }
+
+    </style>
+    
+  </head>
+
+  <body>
+      <!--<img id='pvt-beta' src="../img/beta tag.png">-->
+      <%- include ../partials/leftnav.ejs %>
+      <%- include ../partials/contactus.ejs %>
+      <%- include ../partials/reportvideo.ejs %>
+      <%- include ../partials/tnc.ejs %>
+      <%- include ../partials/copyright.ejs %>
+      <%- include ../partials/freetrial.ejs %>
+      
+      <div id='overlay-email' class='overlay'>
+        <!-- http://stackoverflow.com/questions/18032220/css-change-image-src-on-imghover -->
+        <img src="/img/X icon.png" style="position: fixed; top: 20px; right: 20px;" onmouseover="this.src='/img/X icon_hover.png';this.style.cursor='pointer';" onmouseout="this.src='/img/X icon.png'" onclick="javascript:$('body > #overlay-email').hide();">
+        <div id="emailDetail" style="position: fixed; top: 20%; left: 0; right: 0;">
+            <input id="reportEmailInput" type="text" placeholder="Email Address" /><br/>
+            <button type="button" id='getEmailBtn'>GET REPORT</button>
+        </div>
+      </div>
+      
+      <div style="position: fixed; z-index: 10; width: 100%;">      
+      <header>
+        <div class="container"><div class="h-justify">
+            <div class="btn-group">
+                <a href="http://www.alphonso.tv" class="home-link" style="vertical-align: middle;"></a>
+                <span style="font: 22px LatoWebThin;">insights</span>
+            </div>
+            <div class="btn-group pull-right">
+                <div class="btn-group search-box">
+                    <i id="searchIcon" class="fa fa-search"></i>
+                    <input id="searchInput" type="text" class="typeahead form-control"/>
+                </div>
+                <div class="btn-group">
+                    <span id="signinout" style="font: 14px LatoWeb;
+                                 color: #fff;
+                                 vertical-align: -7px;
+                                 margin-left: 20px;">
+                    <% if (isSignedIn === true) { %>
+                          <%- signininfo %> | <span style="cursor: pointer;" onclick="signout();"> Sign Out </span><% if (showPremimumReports !== true) { %><!-- | <span style="cursor: pointer;" onclick="javascript:renderFreeTrialOverlay();">Free Trial</span>--><% } %></span>
+                    <% } else { %>
+                          <span style="cursor: pointer;" onclick="signin();" data-toggle="tooltip" Title="Sign in to access all content.">Sign In</span><!-- | <span style="cursor: pointer;" onclick="javascript:renderFreeTrialOverlay();">Free Trial</span>--></span>
+                    <% } %>
+                </div>
+            </div>
+        </div></div>
+      </header>
+      <div style="background: #FFFFFF; height: 56px; padding-left: 5px; padding-right: 5px; padding-top: 13px; border-bottom: 1px solid #D7D7D7;"> <div class="container">
+        <div class="btn-group" style="overflow: auto; max-width: 100%; white-space: nowrap;">
+            <ol class="breadcrumb" style="margin-bottom: 0;">
+                <li id="homeBreadCrumb" class="clickable"><a href="/">HOME</a></li>
+                <li id="categoryBreadCrumb" class="clickable"><a href="#"></a></li>
+                <li id="brandBreadCrumb" class="active"></li>
+            </ol>
+        </div>
+      </div> </div>
+      </div>
+      <div class="content-section"><div class="container">
+        <h1 id="header-data" class="btn-group" style="font-family: LatoWebLight; font-size: 28px; margin: 0 0 20px 0; text-align: left;"><%- title %> Brand Data</h1>
+        <button id="expand-dashboard-new" type="button" style="background-color: #F0F0F0;
+                                        border: 1px solid #E01A22;
+                                        font: 14px LatoWeb;
+                                        color: #E01A22;
+                                        height: auto;
+                                        width: auto;
+                                        outline: none !important;
+                                        padding: 10px 20px;" class="pull-right collapse in">SEE DETAILED VIEW</button>
+
+        <div id="container-report" class="row" style="max-height: 450px; height: calc(100vh - 300px); min-height: 150px; overflow: hidden;">
+
+            <!-- Teaser UI -->
+            <div class="col-xs-12 col-md-6 collapse in" id="container1" style="max-height: 275px;">
+                <div class="middle-center"><i class="fa fa-bar-chart"></i><p><i style="font-size: 20px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading Report...</p></div>
+            </div>
+            <div class="col-xs-12 col-md-6 collapse in" id="container2" style="max-height: 275px;">
+                <div class="middle-center"><i class="fa fa-bar-chart"></i><p><i style="font-size: 20px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading Report...</p></div>
+            </div>
+            <div class="col-xs-12 col-md-5 collapse in" id="container3" style="max-height: 275px;">
+                <div class="middle-center"><i class="fa fa-pie-chart"></i><p><i style="font-size: 20px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading Report...</p></div>
+            </div>
+            <div class="col-xs-12 col-md-7 collapse in" id="container4" style="max-height: 275px;">
+                <div id='overlay-map' style='position: absolute; 
+                                             height: calc(100% - 20px); 
+                                             width: calc(100% - 40px); 
+                                             background-color: 
+                                             rgba(34, 34, 34, 0.8); 
+                                             z-index: 1; 
+                                             cursor: pointer; 
+                                             display: none;' onclick="javascript:renderOverlayForDetailsInput();">
+                    <span style="text-align: center; position: absolute; top: 45%; left: 0; right: 0; color: #E01A22; font: LatoWebThin; font-size: 20px;">Need location data ? Contact us.</span>
+                </div>
+                <div id="container-map"></div>
+            </div>
+            <!-- End Teaser UI -->
+
+            <div id="brand-reports-nav" class="col-xs-3 collapse" style="font-family: LatoWebLight;">
+                <ul class="nav nav-pills nav-stacked">
+                    <!--<li><a data-toggle="tab" href="#brandsummary" id='bs_nav'>Brand Summary</a></li>-->
+                    <li class="active"><a data-toggle="tab" href="#container-rpt" id='abn_nav'>Airings by Network</a></li>
+                    <li><a data-toggle="tab" href="#container-rpt" id='abs_nav'>Airings by Shows</a></li>
+                    <li><a data-toggle="tab" href="#container-rpt" id='spend_nav'>Spend</a></li>
+                    <li><a data-toggle="tab" href="#container-rpt" id='amap_nav'>Audience Map</a></li>
+                    <% if (showPremimumReports === true || isSignedIn === true) { %>
+                    <li><a data-toggle="tab" href="#container-rpt" id='wa_nav'>Weekly Airings</a></li>
+                    <li><a data-toggle="tab" href="#container-rpt" id='abp_nav'>Airings by Products</a></li>
+                    <li><a data-toggle="tab" href="#container-rpt" id='abnap_nav'>Airings by Network and Product</a></li>
+                    <li><a data-toggle="tab" href="#container-rpt" id='abd_nav'>Airings by Dayparts</a></li>
+                    <li><a data-toggle="tab" href="#container-rpt" id='wabp_nav'>Weekly Airings by Products</a></li>
+                    <li><a data-toggle="tab" href="#container-rpt" id='abcl_nav'>Airings by Creative Length</a></li>
+                    <li><a data-toggle="tab" href="#lar-rpt" id='lar_nav'>Location Attribution</a></li>
+                    <li><a data-toggle="tab" href="#get-full-rpt" id='getrpt_nav'>Airings Report</a></li>
+                    <% } %>
+                    <hr></hr>
+                    <li><a data-toggle="tab" href="#commercials" id='commercials_nav'>Commercials</a></li>
+                </ul>
+            </div>
+
+            <div id="brand-reports-inputs" class="col-xs-9 collapse" style="padding-bottom: 0;"><div class="h-justify"><div style="text-align: left; display: inline-block;">
+                <div class="btn-group">
+                    <button id="brandBtn" class="btn dropdown-toggle" style="background-color: #E01A22; text-align: center; pointer-events: none; color: white;"></span></button>
+                </div>
+            
+                <div class="btn-group" style="display:none;">
+                    <button id="optParam2" class="btn dropdown-toggle" data-toggle="dropdown">Select Brand <span class="caret"></span></button>
+                    <ul class="dropdown-menu scrollable-menu brand" id="param2">
+                        <li class="dropdown-header">Search for brands</li>
+                        <li>
+                        <div class="search-box">
+                            <i class="glyphicon glyphicon-search"></i>
+                            <input type="text" class="typeahead form-control"/>
+                        </div>
+                        </li>
+                        <% if (ccb.length > 0) { %>
+                        <li class="dropdown-header">or Select from below</li>
+                        <li class="hc ccb">
+                            <% for (var i = 0; i < ccb.length; i++) { %>
+                            <a data-brand-id="<%- ccb[i].brand_id %>"><%= ccb[i].brand_name %></a>
+                            <% } %>
+                        </li>
+                        <% } %>
+                    </ul>
+                </div>
+            
+                <div class="btn-group" style="display:none;">
+                    <button id="optParam3" class="btn dropdown-toggle" data-toggle="dropdown">Select Brand <span class="caret"></span></button>
+                    <ul class="dropdown-menu scrollable-menu brand" id="param3">
+                        <li class="dropdown-header">Search for brands</li>
+                        <li>
+                        <div class="search-box">
+                            <i class="glyphicon glyphicon-search"></i>
+                            <input type="text" class="typeahead form-control"/>
+                        </div>
+                        </li>
+                        <% if (ccb.length > 0) { %>
+                        <li class="dropdown-header">or Select from below</li>
+                        <li class="hc ccb">
+                            <% for (var i = 0; i < ccb.length; i++) { %>
+                            <a data-brand-id="<%- ccb[i].brand_id %>"><%= ccb[i].brand_name %></a>
+                            <% } %>
+                        </li>
+                        <% } %>
+                    </ul>
+                </div>
+            
+                <div class="btn-group" style="display:none;">
+                    <button id="optParam4" class="btn dropdown-toggle" data-toggle="dropdown">Select Brand <span class="caret"></span></button>
+                    <ul class="dropdown-menu scrollable-menu brand" id="param4">
+                        <li class="dropdown-header">Search for brands</li>
+                        <li>
+                        <div class="search-box">
+                            <i class="glyphicon glyphicon-search"></i>
+                            <input type="text" class="typeahead form-control"/>
+                        </div>
+                        </li>
+                        <% if (ccb.length > 0) { %>
+                        <li class="dropdown-header">or Select from below</li>
+                        <li class="hc ccb">
+                            <% for (var i = 0; i < ccb.length; i++) { %>
+                            <a data-brand-id="<%- ccb[i].brand_id %>"><%= ccb[i].brand_name %></a>
+                            <% } %>
+                        </li>
+                        <% } %>
+                    </ul>
+                </div>
+            
+                <div class="btn-group" style="display:none;">
+                    <button id="optParam5" class="btn dropdown-toggle" data-toggle="dropdown">Select Brand <span class="caret"></span></button>
+                    <ul class="dropdown-menu scrollable-menu brand" id="param5">
+                        <li class="dropdown-header">Search for brands</li>
+                        <li>
+                        <div class="search-box">
+                            <i class="glyphicon glyphicon-search"></i>
+                            <input type="text" class="typeahead form-control"/>
+                        </div>
+                        </li>
+                        <% if (ccb.length > 0) { %>
+                        <li class="dropdown-header">or Select from below</li>
+                        <li class="hc ccb">
+                            <% for (var i = 0; i < ccb.length; i++) { %>
+                            <a data-brand-id="<%- ccb[i].brand_id %>"><%= ccb[i].brand_name %></a>
+                            <% } %>
+                        </li>
+                        <% } %>
+                    </ul>
+                </div>
+            
+                <div class="btn-group" style="display:none;">
+                    <button id="optParam6" class="btn dropdown-toggle" data-toggle="dropdown">Select Brand <span class="caret"></span></button>
+                    <ul class="dropdown-menu scrollable-menu brand" id="param6">
+                        <li class="dropdown-header">Search for brands</li>
+                        <li>
+                        <div class="search-box">
+                            <i class="glyphicon glyphicon-search"></i>
+                            <input type="text" class="typeahead form-control"/>
+                        </div>
+                        </li>
+                        <% if (ccb.length > 0) { %>
+                        <li class="dropdown-header">or Select from below</li>
+                        <li class="hc ccb">
+                            <% for (var i = 0; i < ccb.length; i++) { %>
+                            <a data-brand-id="<%- ccb[i].brand_id %>"><%= ccb[i].brand_name %></a>
+                            <% } %>
+                        </li>
+                        <% } %>
+                    </ul>
+                </div></div>
+            
+                <div class="btn-group">
+                    <button class="btn dropdown-toggle" data-toggle="dropdown">All Networks <span class="caret"></span></button>
+                    <ul class="dropdown-menu" id="paramN">
+                        <li class="hc"><a>All Networks</a></li>
+                        <li class="hc"><a>Broadcast</a></li>
+                        <li class="hc"><a>Cable</a></li>
+                    </ul>
+                </div>
+
+                <div class="btn-group<% if (coop_brands.length == 0) { %> hidden<% } %>">
+                    <% if (showPremimumReports === true) { %>
+                    <button id="optCoOp" class="btn dropdown-toggle" data-toggle="dropdown">Exclude Co-Op <span class="caret"></span></button>
+                    <% } else { %>
+                    <!--<button id="optCoOp" class="btn dropdown-toggle disabled" data-html="true" data-toggle="tooltip" Title="Premium feature.<br />To enable contact insights@alphonso.tv">Exclude Co-Op <span class="caret"></span></button>-->
+                    <button id="optCoOp" class="btn dropdown-toggle" data-toggle="dropdown">Exclude Co-Op <span class="caret"></span></button>
+                    <% } %>
+                    <ul class="dropdown-menu" id="paramCO">
+                        <li id="optCoOp_e" class="hc"><a>Exclude Co-Op</a></li>
+                        <li id="optCoOp_i" class="hc"><a>Include Co-Op</a></li>
+                        <!--<li class="hc"><a>Only Co-Op</a></li>-->
+                        
+                        <li class="dropdown-header">or Select Co-Op Brand from below</li>
+                        <% for (var i = 0; i < coop_brands.length; i++) { %>
+                        <li class="hc"><a data-brand-id="<%- coop_brands[i].brand_id %>"><%= coop_brands[i].brand_name %></a></li>
+                        <% } %>
+                        
+                    </ul>
+                </div>
+
+                <!-- Refer: http://www.daterangepicker.com/#ex4 -->
+                <div id="reportrange" class="btn-group">
+                    <!--<div id="reportrange">-->
+                    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;
+                    <span></span> <b class="caret"></b>
+                </div>
+            </div></div>
+
+            <div class="col-xs-9 reports-pane fade collapse" id="get-full-rpt" style="text-align: center;"><button id="getFullReport" type="button" onclick="dtlrpt=true;javascript:renderOverlay('overlay-email');">GET FULL REPORT</button></div>
+
+            <div class="col-xs-9 reports-pane fade active collapse" id="container-rpt"><!-- in  -->
+                <div class="middle-center"><i class="fa fa-bar-chart"></i><p><i style="font-size: 20px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading Report...</p></div>
+            </div>
+
+            <div class="col-xs-9 reports-pane fade collapse" id="lar-rpt">
+                <div class="h-justify">
+                    <h1 id="lar-rpt-name" class="btn-group" id="header-data" style="font-family: LatoWebLight; font-size: 28px; margin: 0px; text-align: left;">Location Attribution Report</h1>
+                    <button type="button" onclick="window.location.href = '/reports/lar?t=<%-loc_attr_rpt.report_id%>';">INITIATE NEW ANALYSIS</button>
+                </div>
+                <div class="row" style="min-height: 150px; overflow: hidden;">
+                    <!-- The charts will go inside this one -->
+                    <div class="btn-group col-xs-12 col-md-7" id="container-lar-rpt-1">
+                        <div class="middle-center"><i class="fa fa-bar-chart"></i><p><i style="font-size: 20px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading Report...</p></div>
+                    </div>
+                    <div class="btn-group col-xs-12 col-md-5" id="container-lar-rpt-2">
+                        <div class="middle-center"><i class="fa fa-pie-chart"></i><p><i style="font-size: 20px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading Report...</p></div>
+                    </div>
+                </div>
+                <div class="h-justify">
+                    <div class="btn-group">
+                        <p id="lar-rpt-airing-dates" class="btn-group" style="font:14px LatoWeb; margin: 0;">TV Flight Dates</p>
+                        <BR />
+                        <p id="lar-rpt-visit-dates" class="btn-group" style="font:14px LatoWeb; margin: 0;">Visitation between</p>
+                    </div>
+                    <div class="btn-group" style="text-align: center;">
+                        <button type="button" onclick="javascript:renderOverlayForDetailsInput();"><span style="font-size:10px;">Need a detailed report ?</span><BR />CONTACT US</button>
+            </div></div></div>
+
+            <div class="col-xs-9 reports-pane fade collapse" id="brandsummary">
+                <h3>Select left Menu for Reports</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            </div>
+            <div class="col-xs-9 col-xs-offset-3 collapse" style="text-align: center;"><button id="getReport" type="button" onclick="javascript:dtlrpt=false;renderOverlay('overlay-email');">GET REPORT</button></div>
+            <div id="commercials" class="reports-pane fade collapse"></div>
+
+        </div>
+        
+        <div style="max-height: 70px;" class="collapse in">
+            <div style="height: 75px; top: -100px; position: relative;text-align: center; background: linear-gradient(rgba(240,240,240,0), rgba(240,240,240,0.75)); vertical-align: middle;"></div>
+            <div style="height: 25px; top: -100px; position: relative;text-align: center; background: linear-gradient(rgba(240,240,240,0.75) 0%, #F0F0F0 100%); vertical-align: middle;">
+                <button id="expand-dashboard" type="button" style="width: auto; padding: 10px 20px;">SEE DETAILED VIEW</button>
+            </div>
+        </div>
+        <BR/>
+        <!--<h1 id="header-commercials" class="collapse in" style="font-family: LatoWebLight; font-size: 28px; margin: 20px 0; text-align: left;"><%- title %> Commercials</h1>-->
+
+        <div id="commercials-t" class="row collapse in"></div>
+
+        </div>
+
+        <footer>
+            <p style="display: none">Don't see the ad you're looking for?</p>
+            <button type="button" style="display: none" onclick="javascript:renderOverlayForDetailsInput();">CONTACT US</button>
+        </footer>
+
+  </body>
+</html>

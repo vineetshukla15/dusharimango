@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <title>Alphonso TV Ad Insights</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-store" /> <!-- Caching of web page disabled -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="description" content="Search brands to browse their nationally airing television commercials. Compare airings, spend, share of voice, reach and frequency to draw insights.">
+    
+<% if (config.env == 'prod') { %>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-79645980-1', 'auto');
+        ga('send', 'pageview');
+
+        !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";
+            analytics.load("koCdwr6IUm70VJ1784A8VbSdGVW8N1Ro");
+            analytics.page();
+        }}();
+
+    </script>
+<% } %>
+
+<% if (report_id > 0) { %>
+    <link rel="shortcut icon" href="../../img/favicon.ico" />
+    
+    <!-- Bootstrap: http://getbootstrap.com/ -->
+    <link rel="stylesheet" type="text/css" href="../../bootstrap/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../bootstrap/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    
+    <!-- Font Awesome: https://fortawesome.github.io/Font-Awesome/ -->
+    <link rel="stylesheet" type="text/css" href="../../font/font-awesome-4.5.0/css/font-awesome.min.css">
+    
+    <!-- Font Loto: http://www.latofonts.com/lato-free-fonts/ -->
+    <link rel="stylesheet" type="text/css" href="../../font/Lato2OFLWeb/Lato/latofonts.css">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins): http://jquery.com/download/ -->
+    <script type="text/javascript" src="../../jquery/jquery-2.1.4.min.js"></script>
+    <!-- Bootstrap JS, required for Bootstrap's JavaScript plugins: http://getbootstrap.com/ -->
+    <script type="text/javascript" src="../../bootstrap/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    
+    <!-- Include Date Range Picker: http://www.daterangepicker.com/#ex4 -->
+    <script type="text/javascript" src="../../bootstrap/bootstrap-daterangepicker-master/moment.min.js"></script>
+    <script type="text/javascript" src="../../bootstrap/bootstrap-daterangepicker-master/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../bootstrap/bootstrap-daterangepicker-master/daterangepicker.css" />
+    
+    <!-- Searchable dropdown: https://github.com/twitter/typeahead.js -->
+    <script type="text/javascript" src="../../bootstrap/typeahead.js/typeahead.jquery.min.js"></script>
+    
+    <!-- Customization -->
+    <link rel="stylesheet" type="text/css" href="../../css/dashboards.css">
+    <link rel="stylesheet" type="text/css" href="../../css/breadcrumb.css">
+    <link rel="stylesheet" type="text/css" href="../../css/leftnav.css">
+    
+    <script type="text/javascript" src="../../js/dashboards.js"></script>
+    <script type="text/javascript" src="../../js/leftnav.js"></script>
+<% } else { %>
+    <link rel="shortcut icon" href="../img/favicon.ico" />
+    
+    <!-- Bootstrap: http://getbootstrap.com/ -->
+    <link rel="stylesheet" type="text/css" href="../bootstrap/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    
+    <!-- Font Awesome: https://fortawesome.github.io/Font-Awesome/ -->
+    <link rel="stylesheet" type="text/css" href="../font/font-awesome-4.5.0/css/font-awesome.min.css">
+    
+    <!-- Font Loto: http://www.latofonts.com/lato-free-fonts/ -->
+    <link rel="stylesheet" type="text/css" href="../font/Lato2OFLWeb/Lato/latofonts.css">
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins): http://jquery.com/download/ -->
+    <script type="text/javascript" src="../jquery/jquery-2.1.4.min.js"></script>
+    <!-- Bootstrap JS, required for Bootstrap's JavaScript plugins: http://getbootstrap.com/ -->
+    <script type="text/javascript" src="../bootstrap/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    
+    <!-- Include Date Range Picker: http://www.daterangepicker.com/#ex4 -->
+    <script type="text/javascript" src="../bootstrap/bootstrap-daterangepicker-master/moment.min.js"></script>
+    <script type="text/javascript" src="../bootstrap/bootstrap-daterangepicker-master/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="../bootstrap/bootstrap-daterangepicker-master/daterangepicker.css" />
+    
+    <!-- Searchable dropdown: https://github.com/twitter/typeahead.js -->
+    <script type="text/javascript" src="../bootstrap/typeahead.js/typeahead.jquery.min.js"></script>
+    
+    <!-- Customization -->
+    <link rel="stylesheet" type="text/css" href="../css/dashboards.css">
+    <link rel="stylesheet" type="text/css" href="../css/breadcrumb.css">
+    <link rel="stylesheet" type="text/css" href="../css/leftnav.css">
+    
+    <script type="text/javascript" src="../js/dashboards.js"></script>
+    <script type="text/javascript" src="../js/leftnav.js"></script>
+<% } %>        
+    <script type="text/javascript">
+    
+    $(document).ready(function(){
+        
+        var brandList = <%- brands %>;
+        populateSearchList(brandList);
+        
+        function populateSearchList(data) {
+
+            // List / Array[string] that will be displayed in the dropdown search
+            var searchList = data;
+            var searchListName = 'Brands'; // The name of the list
+            var restrictedList = <%- JSON.stringify(larBrands) %>;
+        
+            var substringMatcher = function(strs, restrict) {
+                return function findMatches(q, cb) {
+                    var matches, substrRegex;
+                
+                    // an array that will be populated with substring matches
+                    matches = [];
+                
+                    // regex used to determine if a string contains the substring `q`
+                    substrRegex = new RegExp(q, 'i');
+                
+                    // iterate through the pool of strings and for any string that
+                    // contains the substring `q`, add it to the `matches` array
+                    $.each(strs, function(i, brand) {
+                        var matched = false;
+                        if (substrRegex.test(brand.name)) {
+                            matched = true;
+                        } else if (substrRegex.test(brand.name.replace(/\./g, ""))) {
+                            matched = true;
+                        } else if (substrRegex.test(brand.name.replace(/\s/g, ""))) {
+                            matched = true;
+                        } else if (substrRegex.test(brand.name.replace(/\s/g, "").replace(/\./g, ""))) {
+                            matched = true;
+                        } else if (substrRegex.test(brand.name.replace(/'/g, ""))) {
+                            matched = true;
+                        }
+                        if (matched) {
+                            if (!restrict) matches.push(brand);
+                            else if (restrict && restrictedList.indexOf(brand.brand_id) >= 0) matches.push(brand);
+                        }
+
+                    });
+                    cb(matches);
+                };
+            };
+            
+            $('.typeahead:not(.typeahead-restricted)').typeahead({
+                hint: false,
+                highlight: true,
+                minLength: 1
+            },
+            {
+                name: searchListName,
+                displayKey: 'name',
+                source: substringMatcher(searchList),
+                limit: 1000
+            });
+            $('.typeahead.typeahead-restricted').typeahead({
+                hint: false,
+                highlight: true,
+                minLength: 1
+            },
+            {
+                name: searchListName,
+                displayKey: 'name',
+                source: substringMatcher(searchList, true),
+                limit: 1000
+            });
+
+        }
+        
+        
+        /*
+          The searchbox within the dropdown.
+          On select of search dropdown
+            set the html text on display
+            set the correct param(1/2)
+            trigger the fetchReportData
+        */
+        var lar_brand_id;
+        var lar_brand_name;
+
+        <% if (template.brand_id) { %>
+        lar_brand_id = <%-template.brand_id%>;
+        lar_brand_name = '<%-template.brand_name%>';
+        $("#lar-brandsInput").typeahead('val', lar_brand_name);
+        <% } %>
+
+        $('.typeahead:not(.typeahead-restricted)').on('typeahead:selected', function(event, datum) {
+          //if (this.id == 'searchInput') {
+            window.location.href = getSEOurl ('/brand/', datum.brand_id, datum.name);//"/brand/" + datum.brand_id + "-" + datum.name;
+        });
+        $('.typeahead.typeahead-restricted').on('typeahead:selected', function(event, datum) {
+          //} else {
+            lar_brand_id = datum.brand_id;
+            lar_brand_name = datum.name;
+            //alert (lar_brand_id + " : " + lar_brand_name);
+            $(this).typeahead('close');
+
+            // set default report name
+            $("#lar-reportname").attr("placeholder", lar_brand_name + "_" + initAiringStartDate.format('YYYY-MMM'));
+            fetchCommercials();
+          //}
+        });
+
+        /* Date Picer functions
+          Refer: http://www.daterangepicker.com/#ex4
+        */
+        var airingStartDateParam;
+        var airingEndDateParam;
+        var visitStartDateParam;
+        var visitEndDateParam;
+        // DateRangeCallback function
+        function drcb_airing(start, end) {
+          $('#lar-airingdaterange span').html(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
+          airingStartDateParam = start.format('YYYY-MM-DD');
+          initAiringStartDate = start;
+          airingEndDateParam = end.format('YYYY-MM-DD');
+          initAiringEndDate = end;
+
+          // set default report name
+          if (typeof lar_brand_name !== 'undefined') {
+            $("#lar-reportname").attr("placeholder", lar_brand_name + "_" + initAiringStartDate.format('YYYY-MMM'));
+            fetchCommercials();
+          }
+        }
+        function drcb_visit(start, end) {
+          $('#lar-visitdaterange span').html(start.format('MMM D, YYYY') + ' - ' + end.format('MMM D, YYYY'));
+          visitStartDateParam = start.format('YYYY-MM-DD');
+          initVisitStartDate = start;
+          visitEndDateParam = end.format('YYYY-MM-DD');
+          initVisitEndDate = end;
+        }
+        
+        var initAiringStartDate = moment(<% if (template.airing_start) { %>"<%-template.airing_start%>"<% } else { %>"05/01/2017"<% } %>);
+        var initAiringEndDate = moment(<% if (template.airing_end) { %>"<%-template.airing_end%>"<% } else { %>"05/31/2017"<% } %>);
+        var initVisitStartDate = moment(<% if (template.visit_start) { %>"<%-template.visit_start%>"<% } else { %>"06/01/2017"<% } %>);
+        var initVisitEndDate = moment(<% if (template.visit_end) { %>"<%-template.visit_end%>"<% } else { %>"06/15/2017"<% } %>);
+
+        $('#lar-airingdaterange').daterangepicker({
+          minDate: "11/01/2016",
+          maxDate: "06/16/2017",
+          autoApply: true,
+          ranges: {
+            'Nov 2016': ["11/01/2016", "11/30/2016"],
+            'Dec 2016': ["12/01/2016", "12/31/2016"],
+            'Jan 2017': ["01/01/2017", "01/31/2017"],
+            'Feb 2017': ["02/01/2017", "02/28/2017"],
+            'Mar 2017': ["03/01/2017", "03/31/2017"],
+            'Apr 2017': ["04/01/2017", "04/30/2017"],
+            'May 2017': ["05/01/2017", "05/31/2017"]
+          },
+          startDate: initAiringStartDate,
+          endDate: initAiringEndDate
+        }, drcb_airing);
+        $('#lar-visitdaterange').daterangepicker({
+          minDate: "11/01/2016",
+          maxDate: "06/16/2017",
+          autoApply: true,
+          ranges: {
+            'Nov 2016': ["11/01/2016", "11/30/2016"],
+            'Dec 2016': ["12/01/2016", "12/31/2016"],
+            'Jan 2017': ["01/01/2017", "01/31/2017"],
+            'Feb 2017': ["02/01/2017", "02/28/2017"],
+            'Mar 2017': ["03/01/2017", "03/31/2017"],
+            'Apr 2017': ["04/01/2017", "04/30/2017"],
+            'May 2017': ["05/01/2017", "05/31/2017"]
+          },
+          startDate: initVisitStartDate,
+          endDate: initVisitEndDate
+        }, drcb_visit);
+
+        drcb_airing(initAiringStartDate, initAiringEndDate);
+        drcb_visit(initVisitStartDate, initVisitEndDate);
+
+        var currTransId; // Transaction Id to keep tab of stale ajax reponses that will be discarded
+        function fetchCommercials () {
+
+            var transId = Math.random(); // generate a random transaction Id for this.
+            currTransId = transId;
+            var params = {};
+            params.brand_id1 = lar_brand_id;
+            params.startDate = airingStartDateParam;
+            params.endDate = airingEndDateParam;
+            //alert(JSON.stringify(params));
+            $.get("/brandscontent", params, function(data, status){
+                                //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                populateAdList(data, transId);
+            });
+        }
+
+        var selectedContents = [];
+        <% if (template.contents) { 
+            var contents = template.contents.split(",");
+            for (i = 0; i < contents.length; i++) { %>
+                selectedContents[<%-contents[i]%>] = true;
+            <% }
+        } %>
+        var applicableContents = [];
+        function populateAdList(data, transId) {
+
+            if (typeof transId !== 'undefined' && transId != currTransId) { // stale response. Discard it.
+                //alert(transId + ":" + currTransId + ":" + (transId==currTransId));
+                return;
+            }
+
+            var adListContainer = $("#lar-commercials");
+            adListContainer.html(""); // Hack to clean the element before recreate
+
+            if (data.length == 0) adListContainer.html('<p style="font: 16px LatoWebHeavy; margin-left: 35px;">No commercial aired during the specified airing dates</p>');
+
+            applicableContents = [];
+            for (i = 0; i < data.length; i++) {
+                var adContainer = document.createElement('div');
+                adContainer.className = "col-xs-6 col-md-4 col-lg-3";
+                
+                var visualDiv = document.createElement('div');
+                visualDiv.className = "clickable";
+                visualDiv.style.backgroundColor = '#222222';
+                visualDiv.setAttribute ('data-ad-id', data[i].content_id);
+                applicableContents.push(data[i].content_id);
+                
+                var imgElement = document.createElement('img');
+                imgElement.src = data[i].thumbnail;
+                imgElement.className = "img-responsive";
+                visualDiv.appendChild(imgElement);
+                
+                var homeLogo = document.createElement('div');
+                homeLogo.className = "home-link logo-micro";
+                visualDiv.appendChild(homeLogo);
+                
+                var adTitle = document.createElement('div');
+                adTitle.className = "ad-title";
+                adTitle.innerText = data[i].title;
+                visualDiv.appendChild(adTitle);
+                
+                var footerLink = document.createElement('div');
+                footerLink.className = "footer-link";
+                footerLink.innerText = "Report Video";
+                footerLink.setAttribute("data-title", getTextString(data[i].title));
+                footerLink.setAttribute("data-id", data[i].content_id);
+                footerLink.onclick = function (event) {renderReportVideoOverlay(this);event.stopPropagation();};
+                visualDiv.appendChild(footerLink);
+
+                var overlay = document.createElement('div');
+                overlay.className = 'overlay-select';
+                overlay.innerHTML = '<span><i class="fa fa-check" aria-hidden="true"></i></span>';
+                if (!selectedContents[data[i].content_id]) overlay.style.display = 'none';
+                visualDiv.appendChild(overlay);
+                
+                var dataDiv = document.createElement('div');
+                dataDiv.className = "h-justify data-block";
+
+                populateBottomBarCarouselData (dataDiv, "TOTAL AIRINGS", convertNumberToShortForm(data[i].total_airings));
+                populateBottomBarCarouselData (dataDiv, "EST. SPEND", getDollarConvertedShortValue(data[i].total_spend));
+                
+                adContainer.appendChild(visualDiv);
+                adContainer.appendChild(dataDiv);
+                
+                adListContainer.append(adContainer);
+            }
+            
+            function populateBottomBarCarouselData (dataDiv, dataCaption, dataValue) {
+                
+                var containerDiv = document.createElement("div");
+                containerDiv.style.display = "inline-block";
+                
+                var natlAiringsCaption = document.createElement("p");
+                natlAiringsCaption.className = "caption";
+                natlAiringsCaption.innerText = dataCaption;
+                containerDiv.appendChild(natlAiringsCaption);
+                
+                var natlAiringsVal = document.createElement("p");
+                natlAiringsVal.className = "value";
+                natlAiringsVal.innerText = dataValue;
+                containerDiv.appendChild(natlAiringsVal);
+                
+                dataDiv.appendChild(containerDiv);
+                /*
+                    http://stackoverflow.com/questions/21412641/text-align-justify-not-working-on-dynamically-created-content
+                    http://stackoverflow.com/questions/8562843/how-to-append-a-space-after-an-element 
+                */
+                dataDiv.appendChild (document.createTextNode (" "));
+            }
+            
+            /* On click of the ad redirect to the ad_details page
+                http://stackoverflow.com/questions/17351282/jquery-cant-get-data-attribute-value
+            */
+            $("div.clickable").click(function(){
+                var ad_id = $(this).data('ad-id');
+                $(this).find(".overlay-select").toggle();
+                if (selectedContents[ad_id]) selectedContents[ad_id] = false;
+                else selectedContents[ad_id] = true;
+            });
+            
+        }
+
+        $("button").hover(function() {
+                            if(typeof $(this).attr("class") === 'undefined') {
+                                $("button").removeClass();
+                                $("button").unbind('mouseenter mouseleave');
+                            }
+        });
+
+        $("#save").click(function() {
+            //alert("save");
+            submitAction('save');
+        });
+
+        $("#execute").click(function() {
+            //alert("execute");
+            submitAction('execute');
+        });
+
+        function submitAction(action) {
+            if (typeof lar_brand_name === 'undefined') alert("Please select a brand");
+            else {
+                var reportForm = document.forms['userInputs'];//document.getElementById("userInputs");
+                reportForm.elements["brand_id"].value = lar_brand_id;
+                //document.getElementsByName("brand_id").value = lar_brand_id;
+                //alert(lar_brand_id + " : " + reportForm.elements["brand_id"].value + " : " + document.getElementsByName("brand_id").value);
+                reportForm.elements["brand_name"].value = lar_brand_name;
+                reportForm.elements["airing_start_date"].value = airingStartDateParam;
+                reportForm.elements["airing_end_date"].value = airingEndDateParam;
+                reportForm.elements["visit_start_date"].value = visitStartDateParam;
+                reportForm.elements["visit_end_date"].value = visitEndDateParam;
+                var lar_report_name = $("#lar-reportname").val();
+                if (typeof lar_report_name === 'undefined' || lar_report_name.trim().length == 0) 
+                    lar_report_name = $("#lar-reportname").attr("placeholder");
+                reportForm.elements["report_name"].value = lar_report_name;
+                reportForm.elements["user_action"].value = action;
+
+                var contentStr = '';
+                for (i = 0; i < applicableContents.length; i++) {
+                    var content_id = applicableContents[i];
+                    if(selectedContents[content_id]) {
+                        if (contentStr.length > 0)
+                            contentStr = contentStr + ',' + content_id;
+                        else
+                            contentStr = '' + content_id;
+                    }
+                }
+                //contentStr = '(' + contentStr + ')'; alert(contentStr);
+                reportForm.elements["contents"].value = contentStr;
+
+                reportForm.submit();
+            }
+        }
+
+        <% if (template.brand_name) { %>
+        $("#lar-reportname").attr("placeholder", lar_brand_name + "_" + initAiringStartDate.format('YYYY-MMM'));
+        <% } %>
+
+        $(document).keyup(function(e) {
+            if (e.keyCode == 27) { // escape key maps to keycode `27`
+                $(".overlay").hide();
+                closeLeftNav();
+            }
+        });
+        
+    });
+
+    </script>
+    
+    <style>
+        
+        body {
+            background: #F0F0F0;
+        }
+        #pvt-beta
+        {
+            width: calc(0.77 * 171px);
+            /*width: calc(0.45 * 171px);*/
+            position: fixed;
+            z-index: 2;
+        }
+
+        header {
+            padding: 20px 5px!important;
+            height: 72px;
+        }
+
+        .home-link
+        {
+            /* actual image size 170px X 53px */
+            width: 109px;
+            height: 36px;
+        }
+
+        div.search-box {
+            margin-bottom: 0;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+        }
+
+        div.search-box > i {
+            font-size: 18px;
+            padding: 5px 6px;
+            color: #FFFFFF;
+            background: #E01A22;
+        }
+
+        ul.brand div.search-box > i {
+            color: #BBBBBB;
+            background: #fff;
+        }
+
+        .typeahead,
+        .tt-query,
+        .tt-hint {
+            padding-left: 30px;
+            width: 260px;
+            height: 29px;
+            color: #FFFFFF;
+        }
+
+        .typeahead {
+            background-color: #E01A22;
+            border: none;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        ul.brand .typeahead {
+            background-color: #fff;
+            color: #555;
+        }
+
+        .typeahead:focus {
+            border: none;
+        }
+
+        #searchInput
+        {
+            box-shadow: none;
+        }
+
+        .tt-menu {
+            width: 260px;
+            text-align: left;
+        }
+        
+        div.logo-micro {
+            position: absolute; top: 25px; right: 25px;
+        }
+        
+        div.ad-title {
+            position: absolute; bottom: 68px; left: 20px; width: calc(100% - 40px); text-align: left; background-color: #222222;
+            opacity: 0.8; color: #FFFFFF; padding: 6px 12px; font-size: 10px; font-family: LatoWebLight;
+        }
+        
+        div.footer-link {
+            position: absolute; right: 20px; text-align: right; color: #FFFFFF; padding: 4px; font-family: Lato; font-size: 6px;
+        }
+        
+        div.data-block {
+            height: 48px; background-color: #222222; padding: 10px;
+        }
+        
+        p.caption {
+            color: #fff; opacity: 0.5; font-family: LatoWebHeavy; font-size: 8px; margin: 0 30px; text-align: center;
+        }
+        
+        p.value {
+            color: #FFF; font-family: LatoWebLight; font-size: 12px; margin: 0 30px; text-align: center;
+        }
+            
+        .hc {
+            padding: 3px 20px;
+            line-height: 32px;
+            font-family: LatoWeb;
+            font-size: 16px;
+            color: #222222;
+        }
+        .hc:hover {
+            cursor: pointer;
+            background-color: #D7D7D7;
+        }
+
+        button {
+            margin-top: 10px;
+            margin-right: 20px;
+            background-color: #F0F0F0;
+            border: 1px solid #E01A22;
+            /*font: 14px LatoWebThin;*/
+            color:  #E01A22;
+            height: auto;
+            width: auto;
+            outline: none !important;
+            padding: 10px 20px;
+        }
+        button:hover {
+            background-color: #E01A22;
+            color:  #FFFFFF;
+            transition: 0.4s ease 0s;
+        }
+
+        button.highlight {
+            background-color: #E01A22;
+            color:  #FFFFFF;
+        }
+
+        #lar-reportname {
+            padding: 6px 12px;
+            width: 260px;
+            height: 36px;
+            border: none;
+            border-radius: 0px;
+            font-family: LatoWeb;
+            font-size: 14px;
+            color: #222222;
+            margin-bottom: 20px;
+            margin-left: 15px;
+        }
+        #lr-brand-search {
+            margin-bottom: 20px;
+            margin-left: 15px;
+        }
+        #lr-brand-search > i {
+            font-size: 18px;
+            padding: 8px 6px;
+            color: #222222;
+            background: #FFFFFF;
+            position: absolute;
+            z-index: 1;
+        }
+         #lr-brand-search .tt-menu {
+            max-height: calc(100vh - 500px);
+            min-height: 40px;
+         }
+        #lar-brandsInput {
+            height: 36px;
+            padding: 6px 12px 6px 30px;
+            width: 260px;
+            background: #FFFFFF;
+            font-family: LatoWeb;
+            font-size: 14px;
+            color: #222222;
+        }
+
+        /* Date Range Picker */
+        #lar-airingdaterange, #lar-visitdaterange {
+            cursor: pointer;
+            background: #FFFFFF;
+            padding: 8px 10px;
+            min-height: 36px;
+        }
+
+        .overlay-select {
+            position: absolute;
+            top: 20px;
+            left: 20px; 
+            height: calc(100% - 40px); 
+            width: calc(100% - 40px); 
+            background-color: 
+            rgba(224, 26, 34, 0.4);
+            cursor: pointer;
+            /*display: none;*/
+        }
+        .overlay-select > span {
+            text-align: center;
+            position: absolute;
+            top: 20%;
+            left: 0;
+            right: 0;
+            color: #FFFFFF;
+            font: LatoWebThin;
+            font-size: 36px;
+        }
+        
+    </style>
+    
+  </head>
+
+  <body>
+      <%- include ../partials/leftnav.ejs %>
+      <%- include ../partials/contactus.ejs %>
+      <%- include ../partials/reportvideo.ejs %>
+      <%- include ../partials/tnc.ejs %>
+      <%- include ../partials/copyright.ejs %>
+      <%- include ../partials/freetrial.ejs %>
+      
+      <div style="position: fixed; z-index: 2; width: 100%;">
+      <header>
+        <div class="container"><div class="h-justify">
+            <div class="btn-group">
+                <a href="http://www.alphonso.tv" class="home-link" style="vertical-align: middle;"></a>
+                <span style="font: 22px LatoWebThin;">insights</span>
+            </div>
+            <div class="btn-group pull-right">
+                <div class="btn-group search-box">
+                    <i id="searchIcon" class="fa fa-search"></i>
+                    <input id="searchInput" type="text" class="typeahead form-control"/>
+                </div>
+                <div class="btn-group">
+                    <span id="signinout" style="font: 14px LatoWeb;
+                                 color: #fff;
+                                 vertical-align: -7px;
+                                 margin-left: 20px;">
+                    <% if (isSignedIn === true) { %>
+                          <%- signininfo %> | <span style="cursor: pointer;" onclick="signout();"> Sign Out </span></span>
+                    <% } else { %>
+                          <span style="cursor: pointer;" onclick="signin();" data-toggle="tooltip" Title="Sign in to access all content.">Sign In</span><!-- | <span style="cursor: pointer;" onclick="javascript:renderFreeTrialOverlay();">Free Trial</span>--></span>
+                    <% } %>
+                </div>
+            </div>
+        </div></div>
+      </header>
+      <div style="background: #FFFFFF; height: 56px; padding-left: 5px; padding-right: 5px; padding-top: 13px; border-bottom: 1px solid #D7D7D7;"> <div class="container">
+        <div class="btn-group" style="overflow: auto; max-width: 100%; white-space: nowrap;">
+            <ol class="breadcrumb" style="margin-bottom: 0;">
+                <li id="homeBreadCrumb" class="clickable"><a href="/">HOME</a></li>
+                <li class="clickable"><a href="/reports">REPORTS</a></li>
+                <li class="active">LOCATION ATTRIBUTION REPORT</li>
+            </ol>
+        </div>
+      </div> </div>
+      </div>
+      <div class="content-section" style="min-height: calc(100vh - 60px);"><div class="container">
+        <h1 class="btn-group" id="header-data" style="font-family: LatoWebLight; font-size: 28px; margin: 0 0 20px 0px;">Create Location Attribution Report</h1>
+        <p>1. Search for a brand to include in the report.</p>
+        <div id="lr-brand-search" class="btn-group">
+            <i class="glyphicon glyphicon-search"></i>
+            <input id="lar-brandsInput" type="text" class="typeahead typeahead-restricted form-control" placeholder="Brand of interest"/><br/>
+        </div>
+        <p>2. Select the date range for the commercials to include.</p>
+        <div id="lar-airingdaterange"  class="pull-left" style="margin-left: 15px; margin-bottom: 20px;">
+             <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;<span></span> <b class="caret"></b>
+        </div><BR />
+        <p style="margin-top: 36px;">3. To include only certain commercials in the report, select the commercials you would like to include.</p>
+        <div id="lar-commercials" class="row"></div>
+        <p>4. Select the date range for store visits.</p>
+        <div id="lar-visitdaterange"  class="pull-left" style="margin-left: 15px; margin-bottom: 20px;">
+             <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>&nbsp;<span></span> <b class="caret"></b>
+        </div><BR />
+        <p style="margin-top: 36px;">5. Enter a name for your report.</p>
+        <input id="lar-reportname" class="btn-group form-control" type="text" placeholder="Report Name" <% if (report_id > 0) { %>value="<%-template.report_name%>"<% } %>/><br/>
+        <button id="cancel" type="button" onclick="window.history.back();">CANCEL</button>
+        <button id="save" type="button">SAVE FOR LATER</button>
+        <button id="execute" class="highlight" type="button">INITIATE ANALYSIS</button>
+        <form id="userInputs" action="/reports" method="post">
+            <input type="hidden" name="brand_id" />
+            <input type="hidden" name="brand_name" />
+            <input type="hidden" name="airing_start_date" />
+            <input type="hidden" name="airing_end_date" />
+            <input type="hidden" name="contents" />
+            <input type="hidden" name="visit_start_date" />
+            <input type="hidden" name="visit_end_date" />
+            <input type="hidden" name="report_name" />
+            <% if (report_id > 0) { %><input type="hidden" name="report_id" value="<%-report_id%>"/><% } %>
+            <input type="hidden" name="user_action" />
+        </form>
+      </div></div>
+
+      <footer>
+        <%- include ../partials/footer.ejs %>
+     </footer>
+
+  </body>
+</html>

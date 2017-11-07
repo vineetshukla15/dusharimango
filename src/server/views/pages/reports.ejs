@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <title>Alphonso TV Ad Insights</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-store" /> <!-- Caching of web page disabled -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="description" content="Search brands to browse their nationally airing television commercials. Compare airings, spend, share of voice, reach and frequency to draw insights.">
+    <link rel="shortcut icon" href="../img/favicon.ico" />
+    
+    <!-- Bootstrap: http://getbootstrap.com/ -->
+    <link rel="stylesheet" type="text/css" href="../bootstrap/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    
+    <!-- Font Awesome: https://fortawesome.github.io/Font-Awesome/ -->
+    <link rel="stylesheet" type="text/css" href="../font/font-awesome-4.5.0/css/font-awesome.min.css">
+    
+    <!-- Font Loto: http://www.latofonts.com/lato-free-fonts/ -->
+    <link rel="stylesheet" type="text/css" href="../font/Lato2OFLWeb/Lato/latofonts.css">
+    
+<% if (config.env == 'prod') { %>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-79645980-1', 'auto');
+        ga('send', 'pageview');
+
+        !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";
+            analytics.load("koCdwr6IUm70VJ1784A8VbSdGVW8N1Ro");
+            analytics.page();
+        }}();
+
+    </script>
+<% } %>
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins): http://jquery.com/download/ -->
+    <script type="text/javascript" src="../jquery/jquery-2.1.4.min.js"></script>
+    <!-- Bootstrap JS, required for Bootstrap's JavaScript plugins: http://getbootstrap.com/ -->
+    <script type="text/javascript" src="../bootstrap/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    
+    <!-- Searchable dropdown: https://github.com/twitter/typeahead.js -->
+    <script type="text/javascript" src="../bootstrap/typeahead.js/typeahead.jquery.min.js"></script>
+
+    <!-- Highcharts for graphs -->
+    <script src="../highcharts/Highcharts-5.0.2/code/highcharts.js"></script>
+    
+    <!-- Customization -->
+    <link rel="stylesheet" type="text/css" href="../css/dashboards.css">
+    <link rel="stylesheet" type="text/css" href="../css/ad_details.css">
+    <link rel="stylesheet" type="text/css" href="../css/breadcrumb.css">
+    <link rel="stylesheet" type="text/css" href="../css/leftnav.css">
+    
+    <script type="text/javascript" src="../js/dashboards.js"></script>
+    <script type="text/javascript" src="../js/leftnav.js"></script>
+        
+    <script type="text/javascript">
+    
+    $(document).ready(function(){
+        
+        var brandList = <%- brands %>;
+        populateSearchList(brandList);
+        
+        function populateSearchList(data) {
+            
+            
+            // List / Array[string] that will be displayed in the dropdown search
+            var searchList = data;
+            var searchListName = 'Brands'; // The name of the list
+        
+            var substringMatcher = function(strs) {
+                return function findMatches(q, cb) {
+                    var matches, substrRegex;
+                
+                    // an array that will be populated with substring matches
+                    matches = [];
+                
+                    // regex used to determine if a string contains the substring `q`
+                    substrRegex = new RegExp(q, 'i');
+                
+                    // iterate through the pool of strings and for any string that
+                    // contains the substring `q`, add it to the `matches` array
+                    $.each(strs, function(i, brand) {
+                        if (substrRegex.test(brand.name)) {
+                            matches.push(brand);
+                        } else if (substrRegex.test(brand.name.replace(/\./g, ""))) {
+                            matches.push(brand);
+                        } else if (substrRegex.test(brand.name.replace(/\s/g, ""))) {
+                            matches.push(brand);
+                        } else if (substrRegex.test(brand.name.replace(/\s/g, "").replace(/\./g, ""))) {
+                            matches.push(brand);
+                        } else if (substrRegex.test(brand.name.replace(/'/g, ""))) {
+                            matches.push(brand);
+                        }
+                    });
+                    cb(matches);
+                };
+            };  
+            
+            
+            $('.typeahead').typeahead({
+                hint: false,
+                highlight: true,
+                minLength: 1
+            },
+            {
+                name: searchListName,
+                displayKey: 'name',
+                source: substringMatcher(searchList),
+                limit: 1000
+            });
+            
+        }
+        
+        
+        /*
+          The searchbox within the dropdown.
+          On select of search dropdown
+            set the html text on display
+            set the correct param(1/2)
+            trigger the fetchReportData
+        */	
+        $('.typeahead').on('typeahead:selected', function(event, datum) {
+          
+          //alert(datum.brand_id);
+          window.location.href = getSEOurl ('/brand/', datum.brand_id, datum.name);//"/brand/" + datum.brand_id + "-" + datum.name;
+        });
+
+        $.urlParam = function(name){
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            if (results != null)
+                return decodeURIComponent(results[1]);
+            else
+                return "";
+        }
+
+        var paramTab =  $.urlParam('tp');
+        //alert(paramTab);
+        if (paramTab != ''){
+            $("#your-reports-nav").removeClass("active");
+            $("#brand-reports-nav").addClass("active");
+
+            $("#myreportsdiv").removeClass("active").removeClass("in");
+            $("#topbrandsdiv").addClass("active").addClass("in");
+        }
+
+        var reportlist = <%- JSON.stringify(userreports) %>;
+        populateReportsList(reportlist, true);
+
+        var precannedreportlist = <%- JSON.stringify(precannedreports) %>;
+        populateReportsList(precannedreportlist, false);
+
+        function populateReportsList(reports, isUserReports) {
+
+            var reportListContainer = $("#reports");
+            if (!isUserReports) reportListContainer = $("#precanned-reports");
+            for (i = 0; i < reports.length; i++) {
+                var reportContainer = document.createElement('tr');
+
+                if (isUserReports) {
+                    var reportNameElem = document.createElement('td');
+                    reportNameElem.innerText = reports[i].report_name;
+                    reportContainer.appendChild(reportNameElem);
+
+                    var createDateElem = document.createElement('td');
+                    createDateElem.innerText = reports[i].create_date;
+                    reportContainer.appendChild(createDateElem);
+                }
+
+                var brandNameElem = document.createElement('td');
+                brandNameElem.innerText = reports[i].brand_name;
+                reportContainer.appendChild(brandNameElem);
+
+                var airingDatesElem = document.createElement('td');
+                airingDatesElem.innerText = reports[i].airing_dates;
+                reportContainer.appendChild(airingDatesElem);
+
+                var visitDatesElem = document.createElement('td');
+                visitDatesElem.innerText = reports[i].visit_dates;
+                reportContainer.appendChild(visitDatesElem);
+
+                var liftinElem = document.createElement('td');
+                if (reports[i].lift != null) {
+                    liftinElem.innerText = reports[i].lift;
+                    liftinElem.style.textAlign = 'right';
+                }
+                reportContainer.appendChild(liftinElem);
+
+                var reportLinkElem = document.createElement('td');
+                if (reports[i].isValid == 0 && reports[i].report_status == 'done') {
+                    reportLinkElem.style.textAlign = 'center';
+                    reportLinkElem.innerHTML = '<span style="color: #E01A22; cursor: default; font: 16px LatoWebHeavy;" data-toggle="tooltip" Title="Not enough data points to create report.">&ensp;!</span>';
+                } else if (reports[i].report_status == 'done' || reports[i].report_status == 'draft') {
+                    //reportLinkElem.innerHTML = '<button type="button" onclick="javascript:renderLAROverlay();">View Report</button>';
+                    var viewRptBtn = document.createElement('button');
+                    viewRptBtn.setAttribute ('data-report-id', reports[i].report_id);
+                    viewRptBtn.type = 'button';
+                    viewRptBtn.onclick = function(){
+                                            /*renderLAROverlay();
+                                            fetchReport($(this).data('report-id'));*/
+                                            window.location.href = '/reports/lar/' + $(this).data('report-id');
+                                        };
+                    if (reports[i].report_status == 'done') viewRptBtn.innerText = 'View Report';
+                    else viewRptBtn.innerText = 'Edit Report';
+                    reportLinkElem.appendChild(viewRptBtn);
+                } else {
+                    reportLinkElem.innerHTML = '<i style="color: #E01A22;" class="fa fa-circle-o-notch fa-spin fa-fw"></i>' +
+                                               '<span style="color: lightgray; cursor: default;" data-toggle="tooltip" Title="Your report is being created. We\'ll mail you at <%- userid %> when it\'s ready.">Generating Report...</span>';
+                }
+                reportContainer.appendChild(reportLinkElem);
+
+                reportListContainer.append(reportContainer);
+            }
+        }
+
+        var currTransId; // Transaction Id to keep tab of stale ajax reponses that will be discarded
+        function fetchReport(report_id) {
+
+            // reset the UI overlay
+            $("#lar-report > #rpt_name").html('<i style="font-size: 20px; color: #777777" class="fa fa-circle-o-notch fa-spin fa-fw"></i>TV Commercials Report');
+            $("#lar-report > #container1").html('<div class="middle-center"><i class="fa fa-bar-chart"></i><p><i style="font-size: 20px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading Report...</p></div>');
+            $("#lar-report > #container2").html('<div class="middle-center"><i class="fa fa-pie-chart"></i><p><i style="font-size: 20px;" class="fa fa-circle-o-notch fa-spin fa-fw"></i> Loading Report...</p></div>');
+            $("#lar-report > #airing_dates").text('TV Flight Dates');
+            $("#lar-report > #visit_dates").text('Visitation between');
+
+            var params = {};
+            var transId = Math.random(); // generate a random transaction Id for this.
+            currTransId = transId;
+            $.get("/reports/lar/"+report_id, params, function(data, status){
+                                            //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                            populateReportCharts(data, transId);
+                                        });
+        }
+
+        function populateReportCharts(data, transId) {
+            //alert(JSON.stringify(data));
+            if (data.brand_id) {
+                $("#lar-report > #rpt_name").text(data.brand_name + ' TV Commercials Report');
+                $("#lar-report > #airing_dates").text('TV Flight Dates ' + data.airing_start + ' - ' + data.airing_end);
+                $("#lar-report > #visit_dates").text('Visitation between ' + data.visit_start + ' - ' + data.visit_end);
+                renderComparision(data.brand_name, data.visit_rate_exposed, data.visit_rate_unexposed, "#lar-report > #container1");
+                renderLiftIn(data.brand_name, data.lift, "#lar-report > #container2");
+            } else {
+                $("#lar-report > #rpt_name").text('TV Commercials Report');
+                $("#lar-report > #container1").html("<div class='middle-center'><i class='fa fa-bar-chart'></i><p>Report Unavailable</p></div>");
+                $("#lar-report > #container2").html("<div class='middle-center'><i class='fa fa-pie-chart'></i><p>Report Unavailable</p></div>");
+            }
+        }
+
+        function renderComparision(brand_name, exposed, unexposed, container) {
+            // hack to clean the graph before recreate.
+            $(container).html("");
+
+            var chartTitle = 'VISITATION LIFT-IN FOR ' + brand_name.toUpperCase() + ' TV COMMERCIALS';
+            $(container).highcharts({
+                chart: {
+                    //marginRight: 25,
+                    style: {
+                        fontFamily: 'LatoWeb', // default font
+                        fontSize: '13px'
+                    },
+                    type: 'bar'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled: false
+                },
+                title: {
+                    text: chartTitle,
+                    align: 'left',
+                    style: {
+                        fontSize: '12px',
+                        fontFamily: 'LatoWebHeavy',
+                        textShadow: 'none',
+                        fontWeight: 'normal'
+                    }
+                },
+                xAxis: {
+                    categories: ['Exposed to TV Commercial', 'Not Exposed to TV Commercial'],
+                    labels: {
+                        style: {
+                            fontSize: '10px',
+                            width: '70px',
+                            whiteSpace:'normal'
+                        },
+                        useHTML : true,
+                        formatter: function () {// http://stackoverflow.com/questions/34037118/setting-highcharts-x-axis-labels-width
+                                        return '<div align="right" style="word-wrap: break-word;word-break: break-all;width:70px">' + this.value + '</div>';
+                                    }
+                    },
+                    tickLength: 0
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: null
+                    },
+                    gridLineDashStyle: 'ShortDot'
+                },
+                legend: {
+                    enabled: false
+                },
+                tooltip: {
+                    enabled: false
+                },
+                plotOptions: {
+                    bar: {
+                        stacking: 'normal',
+                        maxPointWidth: 30
+                    },
+                    series: {
+                        animation: {
+                            duration: 500
+                        }
+                    }
+                },
+                series: [{
+                            name: brand_name,
+                            data: [exposed, unexposed],
+                            color: '#E01A22'
+                        }]
+            });
+        }
+
+        function renderLiftIn(brand_name, liftIn, container) {
+            // hack to clean the graph before recreate.
+            $(container).html("");
+            
+            var processedJSON = [];
+            processedJSON.push({
+              name: 'Visitation Lift-In',
+              y: parseInt(liftIn),
+              color: '#E01A22'
+            });
+
+          // Create the chart
+          $(container).highcharts({
+              chart: {
+                  style: {
+                    fontFamily: 'LatoWeb', // default font
+                    fontSize: '13px'
+                  },
+                  type: 'pie'
+              },
+              credits: {
+                  enabled: false
+              },
+              exporting: {
+                  enabled: false
+              },
+              title: {
+                  text: 'VISITATION LIFT-IN',
+                  align: 'left',
+                  style: {
+                      fontSize: '12px',
+                      fontFamily: 'LatoWebHeavy',
+                      textShadow: 'none',
+                      fontWeight: 'normal'
+                  }
+              },
+              yAxis: {
+                  title: {
+                      text: 'Lift-In Percentage'
+                  }
+              },
+              plotOptions: {
+                  pie: {
+                      shadow: false,
+                      startAngle: 180,
+                      dataLabels: {
+                          enabled: true
+                      },
+                      showInLegend: false,
+                      borderWidth: 0
+                  },
+                    series: {
+                        animation: {
+                            duration: 500
+                        }
+                    }
+              },
+              tooltip: {
+                  enabled: false
+              },
+              series: [{
+                  name: 'Lift-In',
+                  data: processedJSON,
+                  size: '100%',
+                  /*innerSize: '0%',*/
+                  dataLabels: {
+                      format: '{point.y}%',
+                      style: {
+                          fontSize: '36px',
+                          fontFamily: 'LatoWebThin',
+                          fontWeight: 500,
+                          textShadow: 'none',
+                          fontWeight: 'normal'
+                      },
+                      distance: -60
+                  }
+              }]
+          });
+
+        }
+
+        renderMessageOverlay ("<%- usermsg %>");
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $(document).keyup(function(e) {
+            if (e.keyCode == 27) { // escape key maps to keycode `27`
+                $(".overlay").hide();
+                closeLeftNav();
+            }
+        });
+        
+    });
+
+    </script>
+    
+    <style>
+        
+        #pvt-beta
+        {
+            width: calc(0.77 * 171px);
+            /*width: calc(0.45 * 171px);*/
+            position: fixed;
+            z-index: 2;
+        }
+
+        header {
+            padding: 20px 5px!important;
+            height: 72px;
+        }
+
+        .home-link
+        {
+            /* actual image size 170px X 53px */
+            width: 109px;
+            height: 36px;
+        }
+
+        div.search-box {
+            margin-bottom: 0;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+        }
+
+        div.search-box > i {
+            font-size: 18px;
+            padding: 5px 6px;
+            color: #FFFFFF;
+            background: #E01A22;
+        }
+
+        ul.brand div.search-box > i {
+            color: #BBBBBB;
+            background: #fff;
+        }
+
+        .typeahead,
+        .tt-query,
+        .tt-hint {
+            padding-left: 30px;
+            width: 260px;
+            height: 29px;
+            color: #FFFFFF;
+        }
+
+        .typeahead {
+            background-color: #E01A22;
+            border: none;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        ul.brand .typeahead {
+            background-color: #fff;
+            color: #555;
+        }
+
+        .typeahead:focus {
+            border: none;
+        }
+
+        #searchInput
+        {
+            box-shadow: none;
+        }
+
+        .tt-menu {
+            width: 260px;
+            text-align: left;
+        }
+        
+        div.logo-mini {
+            position: absolute; top: 25px; right: 25px;
+        }
+        
+        div.ad-title {
+            position: absolute; top: calc(100% - 122px); left: 20px; width: calc(100% - 40px); text-align: left; background-color: #222222;
+            opacity: 0.8; color: #FFFFFF; padding: 6px 12px; font-size: 14px; font-family: LatoWebLight;
+        }
+        
+        div.footer-link {
+            position: absolute; top: calc(100% - 106px); right: 20px; text-align: right; color: #FFFFFF; padding: 4px; font-family: Lato; font-size: 6px;
+        }
+        
+        div.data-block {
+            height: 70px; background-color: #222222; padding: 10px;
+        }
+        
+        p.caption {
+            color: #fff; opacity: 0.5; font-family: LatoWebHeavy; font-size: 10px; margin: 0 30px; text-align: center;
+        }
+        
+        p.value {
+            color: #FFF; font-family: LatoWebLight; font-size: 24px; margin: 0 30px; text-align: center;
+        }
+            
+        .hc{
+            padding: 3px 20px;
+            line-height: 32px;
+            font-family: LatoWeb;
+            font-size: 16px;
+            color: #222222;
+        }
+        .hc:hover{
+            cursor: pointer;
+            background-color: #D7D7D7;
+        }
+        [id*="container"]
+        {
+            background: #FFFFFF;
+            min-height: 250px;
+            height: 400px;
+            padding: 10px 16px 10px 0px;
+            background-clip: content-box;
+        }
+
+        .nav-tabs {
+            border: none;
+        }
+        .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+            color: #E01A22;
+            cursor: default;
+            background: none;
+            border: none;
+            border-bottom: 4px solid #E01A22;
+            font: 16px LatoWebHeavy;
+        }
+        .nav-tabs>li>a {
+            color: #A0A0A0;
+            border: none;
+            font: 16px LatoWebHeavy;
+        }
+        .nav-tabs>li>a:hover {
+            color: #777777;
+        }
+
+        table {
+            background: #FFFFFF;
+            border: 1px solid #D7D7D7;
+        }
+        table > thead {
+            background: #E7E7E7;
+            font-family: LatoWebHeavy;
+        }
+        table > thead > tr > th:first-child{
+            padding-left: 16px;
+        }
+        table > tbody {
+            text-align: justify;
+        }
+        table > tbody > tr > td {
+            padding-top: 16px !important;
+            padding-bottom: 16px !important;
+        }
+        table > tbody > tr > td:first-child {
+            padding-left: 16px;
+        }
+        table > tbody > tr > td:last-child {
+            text-align: right;
+            padding-right: 16px;
+        }
+        td > button
+        {
+            background-color: #FFFFFF;
+            border: 1px solid #E01A22;
+            font: 14px LatoWeb;
+            color:  #E01A22;
+            height: auto;
+            width: auto;
+            outline: none !important;
+        }
+        td > button:hover
+        {
+            background-color: #E01A22;
+            color:  #FFFFFF;
+            transition: 0.4s ease 0s;
+        }
+
+    </style>
+    
+  </head>
+
+  <body>
+      <%- include ../partials/leftnav.ejs %>
+      <%- include ../partials/lar-overlay.ejs %>
+      <%- include ../partials/msgoverlay.ejs %>
+      
+      <div style="position: fixed; z-index: 1; width: 100%;">
+      <header>
+        <div class="container"><div class="h-justify">
+            <div class="btn-group">
+                <a href="http://www.alphonso.tv" class="home-link" style="vertical-align: middle;"></a>
+                <span style="font: 22px LatoWebThin;">insights</span>
+            </div>
+            <div class="btn-group pull-right">
+                <div class="btn-group search-box">
+                    <i id="searchIcon" class="fa fa-search"></i>
+                    <input id="searchInput" type="text" class="typeahead form-control"/>
+                </div>
+                <div class="btn-group">
+                    <span id="signinout" style="font: 14px LatoWeb;
+                                 color: #fff;
+                                 vertical-align: -7px;
+                                 margin-left: 20px;">
+                    <% if (isSignedIn === true) { %>
+                          <%- signininfo %> | <span style="cursor: pointer;" onclick="signout();"> Sign Out </span></span>
+                    <% } else { %>
+                          <span style="cursor: pointer;" onclick="signin();" data-toggle="tooltip" Title="Sign in to access all content.">Sign In</span><!-- | <span style="cursor: pointer;" onclick="javascript:renderFreeTrialOverlay();">Free Trial</span>--></span>
+                    <% } %>
+                </div>
+            </div>
+        </div></div>
+      </header>
+      <div style="background: #FFFFFF; height: 56px; padding-left: 5px; padding-right: 5px; padding-top: 13px; border-bottom: 1px solid #D7D7D7;"> <div class="container">
+        <div class="btn-group" style="overflow: auto; max-width: 100%; white-space: nowrap;">
+            <ol class="breadcrumb" style="margin-bottom: 0;">
+                <li id="homeBreadCrumb" class="clickable"><a href="/">HOME</a></li>
+                <li id="brandBreadCrumb" class="active">REPORTS</li>
+            </ol>
+        </div>
+      </div> </div>
+      </div>
+      <div class="content-section" style="min-height: calc(100vh);"><div class="container">
+        
+        <h1 class="btn-group" id="header-data" style="font-family: LatoWebLight; font-size: 28px; margin: 12px 0 24px 0; text-align: left;">Location Attribution Reports</h1>
+        <button type="button" style="margin-top: 15px;
+                                        background-color: #E01A22;
+                                        border: 1px solid #E01A22;
+                                        font: 14px LatoWeb;
+                                        color: #F0F0F0;
+                                        height: auto;
+                                        width: auto;
+                                        outline: none !important;
+                                        padding: 10px 20px;
+                                        margin-top: 48px;" class="pull-right" onclick="window.location.href = '/reports/lar';">+ INITIATE NEW ANALYSIS</button>
+        
+        <ul class="nav nav-tabs">
+            <li class="active" id="your-reports-nav"><a data-toggle="tab" href="#myreportsdiv">YOUR REPORTS</a></li>
+            <li id="brand-reports-nav"><a data-toggle="tab" href="#topbrandsdiv">TOP BRANDS</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="myreportsdiv" class="tab-pane fade in active">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>REPORT NAME</th>
+                        <th>CREATED</th>
+                        <th>BRAND</th>
+                        <th>FLIGHT DATES</th>
+                        <th>VISIT DATES</th>
+                        <th style="text-align: right;">LIFT</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="reports">
+                </tbody>
+            </table></div>
+            <div id="topbrandsdiv" class="tab-pane fade">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <!--<th>REPORT NAME</th>
+                        <th>CREATED</th>-->
+                        <th>BRAND</th>
+                        <th>FLIGHT DATES</th>
+                        <th>VISIT DATES</th>
+                        <th style="text-align: right;">LIFT</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="precanned-reports">
+                </tbody>
+            </div>
+        </div>
+        
+      </div></div>
+
+  </body>
+</html>

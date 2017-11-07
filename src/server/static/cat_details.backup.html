@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <title>Alphonso</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-store" /> <!-- Caching of web page disabled -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="shortcut icon" href="./img/favicon.png" />
+    
+    <!-- Bootstrap: http://getbootstrap.com/ -->
+    <link rel="stylesheet" type="text/css" href="./bootstrap/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./bootstrap/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    
+    <!-- Bootstrap Social: https://lipis.github.io/bootstrap-social/ -->
+    <link rel="stylesheet" type="text/css" href="./bootstrap/bootstrap-social-gh-pages/bootstrap-social.css">
+    
+    <!-- Font Awesome: https://fortawesome.github.io/Font-Awesome/ -->
+    <link rel="stylesheet" type="text/css" href="./font/font-awesome-4.5.0/css/font-awesome.min.css">
+    
+    <!-- Font Loto: http://www.latofonts.com/lato-free-fonts/ -->
+    <link rel="stylesheet" type="text/css" href="./font/Lato2OFLWeb/Lato/latofonts.css">
+    
+    <!-- Customization -->
+    <link rel="stylesheet" type="text/css" href="./css/dashboards.css">
+    <link rel="stylesheet" type="text/css" href="./css/breadcrumb.css">
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins): http://jquery.com/download/ -->
+    <script type="text/javascript" src="./jquery/jquery-2.1.4.min.js"></script>
+    <!-- Bootstrap JS, required for Bootstrap's JavaScript plugins: http://getbootstrap.com/ -->
+    <script type="text/javascript" src="./bootstrap/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    
+    <!-- Searchable dropdown: https://github.com/twitter/typeahead.js -->
+    <script type="text/javascript" src="./bootstrap/typeahead.js/typeahead.jquery.min.js"></script>
+    
+    <script type="text/javascript" src="./js/dashboards.js"></script>
+        
+    <script type="text/javascript">
+    
+    $(document).ready(function(){
+        
+        /* Search input even handlers: http://api.jquery.com/keypress/ */
+        /*var searchInput = $("#searchInput");
+        searchInput.keypress(function( event ) {
+            if ( event.which == 13 ) {
+                event.preventDefault();
+                handleSearch();
+            }
+        });
+ 
+        $("#searchIcon").click(function(){ handleSearch(); });
+        
+        function handleSearch(){
+            //alert(searchInput.val());
+            var searchStr = searchInput.val().trim();
+            if (searchStr.length > 0)
+                window.location.href = "/ad_list.html?searchStr=" + searchInput.val();
+        }*/
+        
+        
+        /* 
+            Should this be moved to webserver??
+            The code below will call services to obtain ad list for the searched brand
+        */
+        
+        // Ref: http://www.sitepoint.com/url-parameters-jquery/
+        $.urlParam = function(name){
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+            if (results != null)
+                return decodeURIComponent(results[1]);
+            else
+                return "";
+        }
+        
+        var category = $.urlParam('cat');
+        $("ol.breadcrumb > li.active").text(getTextString(category).toUpperCase());
+        
+        /*$.get("http://proxy.alphonso.tv/dashapi/list_content_by_brand?id=" + brand_id, function(data, status){
+                                        //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                        populateAdList(data);
+                                    });*/
+                                    
+        $.get("http://proxy.alphonso.tv/dashapi/list_brands", function(data, status){
+                                        //alert("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+                                        populateSearchList(data);
+                                    });
+                                    
+        /*function populateAdList(data) {
+            
+            /* populate the breadcrumb */
+            /*if (data.length > 0){
+                var category = data[0].category;
+                var brand = data[0].brand;
+                $("ol.breadcrumb > li > a").text(getTextString(category).toUpperCase());
+                $("ol.breadcrumb > li.active").text(getTextString(brand).toUpperCase());
+            }
+            
+            var adListContainer = $("div.content-section > div.container > div.row");
+            
+            for (i = 0; i < data.length; i++) {
+                var adContainer = document.createElement('div');
+                adContainer.className = "col-xs-12 col-md-6 col-lg-4";
+                
+                var visualDiv = document.createElement('div');
+                visualDiv.className = "clickable";
+                visualDiv.setAttribute ('data-ad-id', data[i].content_id);
+                
+                var imgElement = document.createElement('img');
+                imgElement.src = data[i].thumbnail;
+                imgElement.className = "img-responsive";
+                visualDiv.appendChild(imgElement);
+                
+                var homeLogo = document.createElement('div');
+                homeLogo.className = "home-link logo-mini";
+                visualDiv.appendChild(homeLogo);
+                
+                var adTitle = document.createElement('div');
+                adTitle.className = "ad-title";
+                adTitle.innerText = data[i].title;
+                visualDiv.appendChild(adTitle);
+                
+                var footerLink = document.createElement('div');
+                footerLink.className = "footer-link";
+                footerLink.innerText = "Report Video";
+                visualDiv.appendChild(footerLink);
+                
+                var dataDiv = document.createElement('div');
+                dataDiv.className = "h-justify data-block";
+                populateSideBarCarouselData (dataDiv, "NATL. AIRINGS", convertNumberToShortForm(data[i].natl_airings));//"16K");
+                populateSideBarCarouselData (dataDiv, "DOLLAR SPEND", getDollarConvertedShortValue(data[i].total_spend));//"$9M");
+                populateSideBarCarouselData (dataDiv, "IMPRESSIONS", convertNumberToShortForm(data[i].total_impressions));//"126M");
+                populateSideBarCarouselData (dataDiv, "SHARE OF VOICE", getPercentageString(data[i].share_of_voice));//"32%");
+                
+                adContainer.appendChild(visualDiv);
+                adContainer.appendChild(dataDiv);
+                
+                adListContainer.append(adContainer);
+            }
+            
+            
+            function populateSideBarCarouselData (dataDiv, dataCaption, dataValue) {
+                
+                var containerDiv = document.createElement("div");
+                containerDiv.style.display = "inline-block";
+                
+                var natlAiringsCaption = document.createElement("p");
+                natlAiringsCaption.className = "caption";
+                natlAiringsCaption.innerText = dataCaption;
+                containerDiv.appendChild(natlAiringsCaption);
+                
+                var natlAiringsVal = document.createElement("p");
+                natlAiringsVal.className = "value";
+                natlAiringsVal.innerText = dataValue;
+                containerDiv.appendChild(natlAiringsVal);
+                
+                dataDiv.appendChild(containerDiv);
+                /*
+                    http://stackoverflow.com/questions/21412641/text-align-justify-not-working-on-dynamically-created-content
+                    http://stackoverflow.com/questions/8562843/how-to-append-a-space-after-an-element 
+                */
+                /*dataDiv.appendChild (document.createTextNode (" "));
+            }
+            
+            /* On click of the ad redirect to the ad_details page
+                http://stackoverflow.com/questions/17351282/jquery-cant-get-data-attribute-value
+            */
+            /*$("div.clickable").click(function(){
+                //alert($(this).data('ad-id'));
+                window.location.href = "/ad_details.html?id=" + $(this).data('ad-id');
+            });
+            
+        }*/
+        
+        
+        function populateSearchList(data) {
+            
+            
+            // List / Array[string] that will be displayed in the dropdown search
+            var searchList = data;
+            var searchListName = 'Brands'; // The name of the list
+        
+            var substringMatcher = function(strs) {
+                return function findMatches(q, cb) {
+                    var matches, substrRegex;
+                
+                    // an array that will be populated with substring matches
+                    matches = [];
+                
+                    // regex used to determine if a string contains the substring `q`
+                    substrRegex = new RegExp(q, 'i');
+                
+                    // iterate through the pool of strings and for any string that
+                    // contains the substring `q`, add it to the `matches` array
+                    $.each(strs, function(i, brand) {
+                        if (substrRegex.test(brand.name)) {
+                            matches.push(brand);
+                        }
+                    });
+                    cb(matches);
+                };
+            };  
+            
+            
+            $('.typeahead').typeahead({
+                hint: false,
+                highlight: true,
+                minLength: 1
+            },
+            {
+                name: searchListName,
+                displayKey: 'name',
+                source: substringMatcher(searchList),
+                limit: 10
+            });
+            
+        }
+        
+        
+        /*
+          The searchbox within the dropdown.
+          On select of search dropdown
+            set the html text on display
+            set the correct param(1/2)
+            trigger the fetchReportData
+        */	
+        $('.typeahead').on('typeahead:selected', function(event, datum) {
+          
+          //alert(datum.brand_id);
+          window.location.href = "/ad_list.html?brand_id=" + datum.brand_id;
+        });
+        
+    });
+    
+    </script>
+    
+    <!--<style>
+        
+        div.logo-mini {
+            position: absolute; top: 25px; right: 25px;
+        }
+        
+        div.ad-title {
+            position: absolute; top: calc(100% - 122px); left: 20px; width: calc(100% - 40px); text-align: left; background-color: #222222;
+            opacity: 0.8; color: #FFFFFF; padding: 6px 12px; font-size: 14px; font-family: LatoWebHeavy;
+        }
+        
+        div.footer-link {
+            position: absolute; top: calc(100% - 106px); right: 20px; text-align: right; color: #FFFFFF; padding: 4px; font-family: Lato; font-size: 6px;
+        }
+        
+        div.data-block {
+            height: 70px; background-color: #222222; padding: 10px;
+        }
+        
+        p.caption {
+            color: #fff; opacity: 0.5; font-family: LatoWebHeavy; font-size: 10px; margin: 0;
+        }
+        
+        p.value {
+            color: #FFF; font-family: LatoWebLight; font-size: 24px;
+        }
+        
+    </style>-->
+    
+  </head>
+
+  <body>
+      
+      <header><div class="container">
+            <!--<h3>alphonso</h3>--><a href="/" class="home-link img-responsive"></a>
+            <div class="h-justify">
+                <div class="btn-group">
+                    <ol class="breadcrumb">
+                        <li class="active clickable"></li>  
+                    </ol>
+                </div>
+                <div class="btn-group search-box">
+                    <i id="searchIcon" class="fa fa-search clickable"></i>
+                    <input id="searchInput" type="text" class="typeahead form-control" placeholder="Search for a new brand"/>
+                </div>
+            </div>
+      </div></header>
+      
+      <div class="content-section"><div class="container">
+          <div class="row"><!--
+              <div class="col-xs-12 col-md-6 col-lg-4">
+                  <div class="clickable" data-ad-id="2788542">
+                    <img src="http://assets.alphonso.tv/advt_db/2788542.jpg" class="img-responsive">
+                    <div style="position: absolute; top: 20px; right: 20px; text-align: right; color: white; padding: 4px; font-size: 11px; font-family: LatoWebHeavy;">alphonso</div>
+                    <div style="position: absolute; top: calc(100% - 122px); left: 20px; width: calc(100% - 40px); text-align: left; background-color: #222222; opacity: 0.8; color: #FFFFFF; padding: 6px 12px; font-size: 14px; font-family: LatoWebHeavy;">Esurance Superbowl 2016 Commercial</div>
+                    <div style="position: absolute; top: calc(100% - 106px); right: 20px; text-align= right; color: lightgrey; padding: 4px; font-family: Lato; font-size: 6px;">Report Video</div>
+                  </div>
+                  <div  class="h-justify" style="height: 70px; background-color: black; padding: 10px">
+                      <div style="display: inline-block;">
+                          <p style="color: #A0A0A0; font-family: LatoWebHeavy; font-size: 9px; margin: 0;">NATL. AIRINGS</p>
+                          <p style="color: #E7E7E7; font-family: LatoWebLight; font-size: 26px;">16K</p>
+                      </div>
+                      <div style="display: inline-block;">
+                          <p style="color: #A0A0A0; font-family: LatoWebHeavy; font-size: 9px; margin: 0;">DOLLAR SPEND</p>
+                          <p style="color: #E7E7E7; font-family: LatoWebLight; font-size: 26px;">$9M</p>
+                      </div>
+                      <div style="display: inline-block;">
+                          <p style="color: #A0A0A0; font-family: LatoWebHeavy; font-size: 9px; margin: 0;">IMPRESSIONS</p>
+                          <p style="color: #E7E7E7; font-family: LatoWebLight; font-size: 26px;">126M</p>
+                      </div>
+                      <div style="display: inline-block;">
+                          <p style="color: #A0A0A0; font-family: LatoWebHeavy; font-size: 9px; margin: 0;">SHARE OF VOICE</p>
+                          <p style="color: #E7E7E7; font-family: LatoWebLight; font-size: 26px;">32%</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-xs-12 col-md-6 col-lg-4">
+                  <div class="clickable" data-ad-id="2788511">
+                    <img src="http://assets.alphonso.tv/advt_db/2788511.jpg" class="img-responsive">
+                    <div style="position: absolute; top: 20px; right: 20px; text-align: right; color: white; padding: 4px; font-size: 11px; font-family: LatoWebHeavy;">alphonso</div>
+                    <div style="position: absolute; top: calc(100% - 122px); left: 20px; width: calc(100% - 40px); text-align: left; background-color: #222222; opacity: 0.8; color: #FFFFFF; padding: 6px 12px; font-size: 14px; font-family: LatoWebHeavy;">Esurance Superbowl 2016 Commercial</div>
+                    <div style="position: absolute; top: calc(100% - 106px); right: 20px; text-align= right; color: lightgrey; padding: 4px; font-family: Lato; font-size: 6px;">Report Video</div>
+                  </div>
+                  <div  class="h-justify" style="height: 70px; background-color: black; padding: 10px">
+                      <div style="display: inline-block;">
+                          <p style="color: #A0A0A0; font-family: LatoWebHeavy; font-size: 9px; margin: 0;">NATL. AIRINGS</p>
+                          <p style="color: #E7E7E7; font-family: LatoWebLight; font-size: 26px;">16K</p>
+                      </div>
+                      <div style="display: inline-block;">
+                          <p style="color: #A0A0A0; font-family: LatoWebHeavy; font-size: 9px; margin: 0;">DOLLAR SPEND</p>
+                          <p style="color: #E7E7E7; font-family: LatoWebLight; font-size: 26px;">$9M</p>
+                      </div>
+                      <div style="display: inline-block;">
+                          <p style="color: #A0A0A0; font-family: LatoWebHeavy; font-size: 9px; margin: 0;">IMPRESSIONS</p>
+                          <p style="color: #E7E7E7; font-family: LatoWebLight; font-size: 26px;">126M</p>
+                      </div>
+                      <div style="display: inline-block;">
+                          <p style="color: #A0A0A0; font-family: LatoWebHeavy; font-size: 9px; margin: 0;">SHARE OF VOICE</p>
+                          <p style="color: #E7E7E7; font-family: LatoWebLight; font-size: 26px;">32%</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-xs-12 col-md-6 col-lg-4">
+                  <div class="clickable" data-ad-id="2788525">
+                    <img src="http://assets.alphonso.tv/advt_db/2788525.jpg" class="img-responsive">
+                    <div style="position: absolute; top: 20px; right: 20px; text-align: right; color: white; padding: 4px; font-size: 11px; font-family: LatoWebHeavy;">alphonso</div>
+                    <div style="position: absolute; bottom: 90px; left: 20px; width: calc(100% - 40px); text-align: left; background-color: #222222; opacity: 0.8; color: #FFFFFF; padding: 6px 12px; font-size: 14px; font-family: LatoWebHeavy;">Budweiser Superbowl 2016 Commercial</div>
+                    <div style="position: absolute; bottom: 90px; right: 20px; text-align= right; color: lightgrey; padding: 4px; font-family: Lato; font-size: 6px;">Report Video</div>
+                  </div>
+                  <div  class="h-justify" style="height: 70px; background-color: black; padding: 10px">
+                      <div style="display: inline-block;">
+                          <p style="color: #A0A0A0; font-family: LatoWebHeavy; font-size: 9px; margin: 0;">NATL. AIRINGS</p>
+                          <p style="color: #E7E7E7; font-family: LatoWebLight; font-size: 26px;">16K</p>
+                      </div>
+                      <div style="display: inline-block;">
+                          <p style="color: #A0A0A0; font-family: LatoWebHeavy; font-size: 9px; margin: 0;">DOLLAR SPEND</p>
+                          <p style="color: #E7E7E7; font-family: LatoWebLight; font-size: 26px;">$9M</p>
+                      </div>
+                      <div style="display: inline-block;">
+                          <p style="color: #A0A0A0; font-family: LatoWebHeavy; font-size: 9px; margin: 0;">IMPRESSIONS</p>
+                          <p style="color: #E7E7E7; font-family: LatoWebLight; font-size: 26px;">126M</p>
+                      </div>
+                      <div style="display: inline-block;">
+                          <p style="color: #A0A0A0; font-family: LatoWebHeavy; font-size: 9px; margin: 0;">SHARE OF VOICE</p>
+                          <p style="color: #E7E7E7; font-family: LatoWebLight; font-size: 26px;">32%</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-xs-12 col-md-6 col-lg-4">
+                  <div class="clickable" data-ad-id="2788453">
+                    <img src="http://assets.alphonso.tv/advt_db/2788453.jpg" class="img-responsive">
+                    <div style="position: absolute; top: 20px; right: 20px; text-align: right; color: white; padding: 4px; font-size: 11px; font-family: LatoWebHeavy;">alphonso</div>
+                    <div style="position: absolute; top: calc(100% - 122px); left: 20px; width: calc(100% - 40px); text-align: left; background-color: #222222; opacity: 0.8; color: #FFFFFF; padding: 6px 12px; font-size: 14px; font-family: LatoWebHeavy;">Toyota Superbowl 2016 Commercial</div>
+                    <div style="position: absolute; top: calc(100% - 106px); right: 20px; text-align= right; color: lightgrey; padding: 4px; font-family: Lato; font-size: 6px;">Report Video</div>
+                  </div>
+                  <div  class="h-justify" style="height: 70px; background-color: black; padding: 10px">
+                      <div style="display: inline-block;">
+                          <p style="color: #A0A0A0; font-family: LatoWebHeavy; font-size: 9px; margin: 0;">NATL. AIRINGS</p>
+                          <p style="color: #E7E7E7; font-family: LatoWebLight; font-size: 26px;">16K</p>
+                      </div>
+                      <div style="display: inline-block;">
+                          <p style="color: #A0A0A0; font-family: LatoWebHeavy; font-size: 9px; margin: 0;">DOLLAR SPEND</p>
+                          <p style="color: #E7E7E7; font-family: LatoWebLight; font-size: 26px;">$9M</p>
+                      </div>
+                      <div style="display: inline-block;">
+                          <p style="color: #A0A0A0; font-family: LatoWebHeavy; font-size: 9px; margin: 0;">IMPRESSIONS</p>
+                          <p style="color: #E7E7E7; font-family: LatoWebLight; font-size: 26px;">126M</p>
+                      </div>
+                      <div style="display: inline-block;">
+                          <p style="color: #A0A0A0; font-family: LatoWebHeavy; font-size: 9px; margin: 0;">SHARE OF VOICE</p>
+                          <p style="color: #E7E7E7; font-family: LatoWebLight; font-size: 26px;">32%</p>
+                      </div>
+                  </div>
+              </div>-->
+          </div>
+      </div></div>
+
+  </body>
+</html>

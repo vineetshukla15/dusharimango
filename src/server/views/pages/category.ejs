@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+  <head>
+    <title><%- title %> TV Commercials - Alphonso Insights</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Cache-Control" content="no-store" /> <!-- Caching of web page disabled -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="description" content="Explore TV commercials in <%- title %>. Compare brands in <%- title %> with other brands for airings, spend, share of voice, reach and frequency to draw insights.">
+    <link rel="shortcut icon" href="../img/favicon.ico" />
+    
+    <!-- Bootstrap: http://getbootstrap.com/ -->
+    <link rel="stylesheet" type="text/css" href="../bootstrap/bootstrap-3.3.5-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap/bootstrap-3.3.5-dist/css/bootstrap-theme.min.css">
+    
+    <!-- Font Awesome: https://fortawesome.github.io/Font-Awesome/ -->
+    <link rel="stylesheet" type="text/css" href="../font/font-awesome-4.5.0/css/font-awesome.min.css">
+    
+    <!-- Font Loto: http://www.latofonts.com/lato-free-fonts/ -->
+    <link rel="stylesheet" type="text/css" href="../font/Lato2OFLWeb/Lato/latofonts.css">
+    
+<% if (config.env == 'prod') { %>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-79645980-1', 'auto');
+        ga('send', 'pageview');
+
+        !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";
+            analytics.load("koCdwr6IUm70VJ1784A8VbSdGVW8N1Ro");
+            analytics.page();
+        }}();
+
+    </script>
+<% } %>
+    
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins): http://jquery.com/download/ -->
+    <script type="text/javascript" src="../jquery/jquery-2.1.4.min.js"></script>
+    <!-- Bootstrap JS, required for Bootstrap's JavaScript plugins: http://getbootstrap.com/ -->
+    <script type="text/javascript" src="../bootstrap/bootstrap-3.3.5-dist/js/bootstrap.min.js"></script>
+    
+    <!-- Searchable dropdown: https://github.com/twitter/typeahead.js -->
+    <script type="text/javascript" src="../bootstrap/typeahead.js/typeahead.jquery.min.js"></script>
+    
+    <!-- Customization -->
+    <link rel="stylesheet" type="text/css" href="../css/dashboards.css">
+    <link rel="stylesheet" type="text/css" href="../css/breadcrumb.css">
+    <link rel="stylesheet" type="text/css" href="../css/leftnav.css">
+    
+    <script type="text/javascript" src="../js/dashboards.js"></script>
+    <script type="text/javascript" src="../js/leftnav.js"></script>
+        
+    <script type="text/javascript">
+    
+    $(document).ready(function(){
+    
+        var catAdList = <%- catAdList %>;
+        populateAdList(catAdList);
+                                    
+        function populateAdList(data) {
+            
+            /* populate the breadcrumb */
+            if (data.length > 0){
+                var category = data[0].category;
+                $("ol.breadcrumb > li.active > div").html(getTextString(category).toUpperCase() + '<p style="font-size:10px; margin:0; height:100%; color:#E01A22; opacity:0.6; font-family:LatoWeb;">CHANGE CATEGORY</p>'); // + '<span class="caret" style="top:50%; position:absolute; right:0px; margin:0px;">'
+            } else {
+                $("ol.breadcrumb > li.active > div").html('N.A.<p style="font-size:10px; margin:0; height:100%; color:#E01A22; opacity:0.6; font-family:LatoWeb;">CHANGE CATEGORY</p>'); // + '<span class="caret" style="top:50%; position:absolute; right:0px; margin:0px;">'            
+            }
+            
+            var adListContainer = $("div.content-section > div.container > div.row");
+            
+            for (i = 0; i < data.length; i++) {
+                var adContainer = document.createElement('div');
+                adContainer.className = "col-xs-12 col-md-6 col-lg-4";
+                
+                var visualDiv = document.createElement('div');
+                visualDiv.className = "clickable";
+                visualDiv.style.backgroundColor = '#222222';
+                visualDiv.setAttribute ('data-ad-id', data[i].content_id + "-" + data[i].title.replace(/\s/g, '-').replace(/\//g, '').replace(/\%/g, 'percent'));
+                
+                var imgElement = document.createElement('img');
+                imgElement.src = data[i].thumbnail;
+                imgElement.className = "img-responsive";
+                visualDiv.appendChild(imgElement);
+                
+                var homeLogo = document.createElement('div');
+                homeLogo.className = "home-link logo-mini";
+                visualDiv.appendChild(homeLogo);
+                
+                var adTitle = document.createElement('div');
+                adTitle.className = "ad-title";
+                adTitle.innerText = data[i].title;
+                visualDiv.appendChild(adTitle);
+                
+                var footerLink = document.createElement('div');
+                footerLink.className = "footer-link";
+                footerLink.innerText = "Report Video";
+                footerLink.setAttribute("data-title", getTextString(data[i].title));
+                footerLink.setAttribute("data-id", data[i].content_id);
+                footerLink.onclick = function (event) {renderReportVideoOverlay(this);event.stopPropagation();};
+                visualDiv.appendChild(footerLink);
+                
+                var dataDiv = document.createElement('div');
+                dataDiv.className = "h-justify data-block";
+                
+                populateBottomBarCarouselData (dataDiv, "TOTAL AIRINGS", convertNumberToShortForm(data[i].total_airings));
+                populateBottomBarCarouselData (dataDiv, "EST. SPEND", getDollarConvertedShortValue(data[i].total_spend));
+                //populateBottomBarCarouselData (dataDiv, "REACH", convertNumberToMillionShortForm(data[i].viewership));
+                //populateBottomBarCarouselData (dataDiv, "FREQUENCY", calculateFraction(data[i].total_impressions, data[i].viewership));
+                
+                adContainer.appendChild(visualDiv);
+                adContainer.appendChild(dataDiv);
+                
+                adListContainer.append(adContainer);
+            }
+            
+            
+            function populateBottomBarCarouselData (dataDiv, dataCaption, dataValue) {
+                
+                var containerDiv = document.createElement("div");
+                containerDiv.style.display = "inline-block";
+                
+                var natlAiringsCaption = document.createElement("p");
+                natlAiringsCaption.className = "caption";
+                natlAiringsCaption.innerText = dataCaption;
+                containerDiv.appendChild(natlAiringsCaption);
+                
+                var natlAiringsVal = document.createElement("p");
+                natlAiringsVal.className = "value";
+                natlAiringsVal.innerText = dataValue;
+                containerDiv.appendChild(natlAiringsVal);
+                
+                dataDiv.appendChild(containerDiv);
+                /*
+                    http://stackoverflow.com/questions/21412641/text-align-justify-not-working-on-dynamically-created-content
+                    http://stackoverflow.com/questions/8562843/how-to-append-a-space-after-an-element 
+                */
+                dataDiv.appendChild (document.createTextNode (" "));
+            }
+            
+            /* On click of the ad redirect to the ad_details page
+                http://stackoverflow.com/questions/17351282/jquery-cant-get-data-attribute-value
+            */
+            $("div.clickable").click(function(){
+                //alert($(this).data('ad-id'));
+                window.location.href = "/commercial/" + $(this).data('ad-id');
+            });
+            
+        }
+        
+        var brandList = <%- brands %>;
+        populateSearchList(brandList);
+        
+        function populateSearchList(data) {
+            
+            
+            // List / Array[string] that will be displayed in the dropdown search
+            var searchList = data;
+            var searchListName = 'Brands'; // The name of the list
+        
+            var substringMatcher = function(strs) {
+                return function findMatches(q, cb) {
+                    var matches, substrRegex;
+                
+                    // an array that will be populated with substring matches
+                    matches = [];
+                
+                    // regex used to determine if a string contains the substring `q`
+                    substrRegex = new RegExp(q, 'i');
+                
+                    // iterate through the pool of strings and for any string that
+                    // contains the substring `q`, add it to the `matches` array
+                    $.each(strs, function(i, brand) {
+                        if (substrRegex.test(brand.name)) {
+                            matches.push(brand);
+                        } else if (substrRegex.test(brand.name.replace(/\./g, ""))) {
+                            matches.push(brand);
+                        } else if (substrRegex.test(brand.name.replace(/\s/g, ""))) {
+                            matches.push(brand);
+                        } else if (substrRegex.test(brand.name.replace(/\s/g, "").replace(/\./g, ""))) {
+                            matches.push(brand);
+                        } else if (substrRegex.test(brand.name.replace(/'/g, ""))) {
+                            matches.push(brand);
+                        }
+                    });
+                    cb(matches);
+                };
+            };  
+            
+            
+            $('.typeahead').typeahead({
+                hint: false,
+                highlight: true,
+                minLength: 1
+            },
+            {
+                name: searchListName,
+                displayKey: 'name',
+                source: substringMatcher(searchList),
+                limit: 1000
+            });
+            
+        }
+        
+        
+        /*
+          The searchbox within the dropdown.
+          On select of search dropdown
+            set the html text on display
+            set the correct param(1/2)
+            trigger the fetchReportData
+        */	
+        $('.typeahead').on('typeahead:selected', function(event, datum) {
+          
+          //alert(datum.brand_id);
+          window.location.href = getSEOurl ('/brand/', datum.brand_id, datum.name);//"/brand/" + datum.brand_id + "-" + datum.name;
+        });
+
+        $(document).keyup(function(e) {
+            if (e.keyCode == 27) { // escape key maps to keycode `27`
+                $(".overlay").hide();
+                closeLeftNav();
+            }
+        });
+        
+    });
+
+    </script>
+    
+    <style>
+        
+        #pvt-beta
+        {
+            width: calc(0.77 * 171px);
+            /*width: calc(0.45 * 171px);*/
+            position: fixed;
+            z-index: 2;
+        }
+
+        header {
+            padding: 20px 5px!important;
+            height: 72px;
+        }
+
+        .home-link
+        {
+            /* actual image size 170px X 53px */
+            width: 109px;
+            height: 36px;
+        }
+
+        div.search-box {
+            margin-bottom: 0;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+        }
+
+        div.search-box > i {
+            font-size: 18px;
+            padding: 5px 6px;
+            color: #FFFFFF;
+            background: #E01A22;
+        }
+
+        ul.brand div.search-box > i {
+            color: #BBBBBB;
+            background: #fff;
+        }
+
+        .typeahead,
+        .tt-query,
+        .tt-hint {
+            padding-left: 30px;
+            width: 260px;
+            height: 29px;
+            color: #FFFFFF;
+        }
+
+        .typeahead {
+            background-color: #E01A22;
+            border: none;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        ul.brand .typeahead {
+            background-color: #fff;
+            color: #555;
+        }
+
+        .typeahead:focus {
+            border: none;
+        }
+
+        #searchInput
+        {
+            box-shadow: none;
+        }
+
+        .tt-menu {
+            width: 260px;
+            text-align: left;
+        }
+        
+        div.logo-mini {
+            position: absolute; top: 25px; right: 25px;
+        }
+        
+        div.ad-title {
+            position: absolute; top: calc(100% - 122px); left: 20px; width: calc(100% - 40px); text-align: left; background-color: #222222;
+            opacity: 0.8; color: #FFFFFF; padding: 6px 12px; font-size: 14px; font-family: LatoWebLight;
+        }
+        
+        div.footer-link {
+            position: absolute; top: calc(100% - 106px); right: 20px; text-align: right; color: #FFFFFF; padding: 4px; font-family: Lato; font-size: 6px;
+        }
+        
+        div.data-block {
+            height: 70px; background-color: #222222; padding: 10px;
+        }
+        
+        p.caption {
+            color: #fff; opacity: 0.5; font-family: LatoWebHeavy; font-size: 10px; margin: 0 30px; text-align: center;
+        }
+        
+        p.value {
+            color: #FFF; font-family: LatoWebLight; font-size: 24px; margin: 0 30px; text-align: center;
+        }
+            
+            .hc{
+                padding: 3px 20px;
+                line-height: 32px;
+                font-family: LatoWeb;
+                font-size: 16px;
+                color: #222222;
+            }
+            .hc:hover{
+                cursor: pointer;
+                background-color: #D7D7D7;
+            }
+        
+    </style>
+    
+  </head>
+
+  <body>
+      <!--<img id='pvt-beta' src="../img/beta tag.png">-->
+      <%- include ../partials/leftnav.ejs %>
+      <%- include ../partials/contactus.ejs %>
+      <%- include ../partials/reportvideo.ejs %>
+      <%- include ../partials/tnc.ejs %>
+      <%- include ../partials/copyright.ejs %>
+      <%- include ../partials/freetrial.ejs %>
+      
+      <!--<header><div class="container">
+            <a href="http://www.alphonso.tv" class="home-link img-responsive"></a>
+            <div class="h-justify">
+                <div class="btn-group" style="vertical-align:top; max-width: 100%;"> <!-- http://stackoverflow.com/questions/9273016/why-is-this-inline-block-element-pushed-downward --><!--
+                    <ol class="breadcrumb" style="overflow: visible; white-space: nowrap; max-width: 100%;">
+                        <li id="homeBreadCrumb" class="clickable" style="vertical-align:top;"><a href="/">HOME</a></li>
+                        <!--<li id="categoryBreadCrumb" class="dropdown active clickable" style="padding-bottom:2.5px;">FINANCIAL SERVICES <p class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer; font-size:9px; margin:0; height:100%;">CHANGE CATEGORY</p>--><!--
+                        <li id="categoryBreadCrumb" class="dropdown active clickable" style="padding-bottom:2.5px; text-align: left;">
+                            <div class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer;"></div>
+                            <ul class="dropdown-menu" style="border-radius:0px;
+                                                             margin:10px 0px;
+                                                             padding:0px;
+                                                             white-space: nowrap;
+                                                             height:calc(100vh - 150px);
+                                                             overflow:auto;">
+                            <li class="hc" onclick="window.location.href='/category/Apparel,-Accessories-&-Footwear';">Apparel, Accessories & Footwear</li>
+                            <li class="hc" onclick="window.location.href='/category/Business-&-Industrial';">Business & Industrial</a></li>
+                            <li class="hc" onclick="window.location.href='/category/Education-&-Training';">Education & Training</a></li>
+                            <li class="hc" onclick="window.location.href='/category/Electronics-&-Communication';">Electronics & Communication</a></li>
+                            <li class="hc" onclick="window.location.href='/category/Financial-Services';">Financial Services</a></li>
+                            <li class="hc" onclick="window.location.href='/category/Food-&-Beverage';">Food & Beverage</a></li>
+                            <li class="hc" onclick="window.location.href='/category/Government-&-Non-profits';">Government & Non-profits</a></li>
+                            <li class="hc" onclick="window.location.href='/category/Health-&-Beauty';">Health & Beauty</a></li>
+                            <li class="hc" onclick="window.location.href='/category/Home-&-Garden';">Home & Garden</a></li>
+                            <li class="hc" onclick="window.location.href='/category/Legal-&-Law-services';">Legal & Law services</a></li>
+                            <li class="hc" onclick="window.location.href='/category/Life-&-Entertainment';">Life & Entertainment</a></li>
+                            <li class="hc" onclick="window.location.href='/category/Miscellaneous';">Miscellaneous</a></li>
+                            <li class="hc" onclick="window.location.href='/category/Pet-Supplies';">Pet Supplies</a></li>
+                            <li class="hc" onclick="window.location.href='/category/Pharma-&-Medical';">Pharma & Medical</a></li>
+                            <li class="hc" onclick="window.location.href='/category/Restaurants';">Restaurants</a></li>
+                            <li class="hc" onclick="window.location.href='/category/Retail-&-Marketplaces';">Retail & Marketplaces</a></li>
+                            <li class="hc" onclick="window.location.href='/category/Sporting-Goods';">Sporting Goods</a></li>
+                            <li class="hc" onclick="window.location.href='/category/Toys';">Toys</a></li>
+                            <li class="hc" onclick="window.location.href='/category/Travel';">Travel</a></li>
+                            <li class="hc" onclick="window.location.href='/category/Vehicles-&-Parts';">Vehicles & Parts</a></li>
+                            </ul>
+                        </li>
+                    </ol>
+                </div>
+                <div class="btn-group search-box">
+                    <i id="searchIcon" class="fa fa-search clickable"></i>
+                    <input id="searchInput" type="text" class="typeahead form-control" placeholder="Search for a new brand"/>
+                </div>
+            </div>
+      </div></header>-->
+      <div style="position: fixed; z-index: 1; width: 100%;">
+      <header>
+        <div class="container"><div class="h-justify">
+            <div class="btn-group">
+                <a href="http://www.alphonso.tv" class="home-link" style="vertical-align: middle;"></a>
+                <span style="font: 22px LatoWebThin;">insights</span>
+            </div>
+            <div class="btn-group pull-right">
+                <div class="btn-group search-box">
+                    <i id="searchIcon" class="fa fa-search"></i>
+                    <input id="searchInput" type="text" class="typeahead form-control"/>
+                </div>
+                <div class="btn-group">
+                    <span id="signinout" style="font: 14px LatoWeb;
+                                 color: #fff;
+                                 vertical-align: -7px;
+                                 margin-left: 20px;">
+                    <% if (isSignedIn === true) { %>
+                          <%- signininfo %> | <span style="cursor: pointer;" onclick="signout();"> Sign Out </span></span>
+                    <% } else { %>
+                          <span style="cursor: pointer;" onclick="signin();" data-toggle="tooltip" Title="Sign in to access all content.">Sign In</span><!-- | <span style="cursor: pointer;" onclick="javascript:renderFreeTrialOverlay();">Free Trial</span>--></span>
+                    <% } %>
+                </div>
+            </div>
+        </div></div>
+      </header>
+      <div style="background: #FFFFFF; height: 56px; padding-left: 5px; padding-right: 5px; padding-top: 13px; border-bottom: 1px solid #D7D7D7;"> <div class="container">
+        <div class="btn-group" style="vertical-align:top; max-width: 100%;"> <!-- http://stackoverflow.com/questions/9273016/why-is-this-inline-block-element-pushed-downward -->
+            <ol class="breadcrumb" style="overflow: visible; white-space: nowrap; max-width: 100%;">
+                <li id="homeBreadCrumb" class="clickable" style="vertical-align:top;"><a href="/">HOME</a></li>
+                <li id="categoryBreadCrumb" class="dropdown active clickable" style="padding-bottom:2.5px; text-align: left;">
+                    <div class="dropdown-toggle" data-toggle="dropdown" style="cursor:pointer;"></div>
+                    <ul class="dropdown-menu" style="border-radius:0px;
+                                                        margin:10px 0px;
+                                                        padding:0px;
+                                                        white-space: nowrap;
+                                                        height:calc(100vh - 150px);
+                                                        overflow:auto;">
+                        <li class="hc" onclick="window.location.href='/category/Apparel,-Accessories-&-Footwear';">Apparel, Accessories & Footwear</li>
+                        <li class="hc" onclick="window.location.href='/category/Business-&-Industrial';">Business & Industrial</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Education-&-Training';">Education & Training</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Electronics-&-Communication';">Electronics & Communication</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Financial-Services';">Financial Services</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Food-&-Beverage';">Food & Beverage</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Government-&-Non-profits';">Government & Non-profits</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Health-&-Beauty';">Health & Beauty</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Home-&-Garden';">Home & Garden</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Legal-&-Law-services';">Legal & Law services</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Life-&-Entertainment';">Life & Entertainment</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Miscellaneous';">Miscellaneous</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Pet-Supplies';">Pet Supplies</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Pharma-&-Medical';">Pharma & Medical</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Restaurants';">Restaurants</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Retail-&-Marketplaces';">Retail & Marketplaces</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Sporting-Goods';">Sporting Goods</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Toys';">Toys</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Travel';">Travel</a></li>
+                        <li class="hc" onclick="window.location.href='/category/Vehicles-&-Parts';">Vehicles & Parts</a></li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+      </div> </div>
+      </div>
+      <div class="content-section"><div class="container">
+        <h1 id="header-data" style="font-family: LatoWebLight; font-size: 28px; margin: 0px; text-align: left;"><%- title %> Commercials</h1>
+          <div class="row">
+          </div>
+      </div></div>
+
+      <footer>
+              <p>Don't see the ad you're looking for?</p>
+              <button type="button" onclick="javascript:renderOverlayForDetailsInput();">CONTACT US</button>
+              <%- include ../partials/footer.ejs %>
+     </footer>
+
+  </body>
+</html>

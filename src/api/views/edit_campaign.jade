@@ -1,0 +1,12 @@
+block content
+    h1= title
+    form(action='/save_campaign' method="post")
+    ul#campain_data
+    li Campaign Id: #{campaign_id}
+    li Campaign Name
+       input(type="text", placeholder="Campaign Name")
+    input(type='submit',value='Save',data-transition='fade', data-theme='c')  
+      
+
+
+

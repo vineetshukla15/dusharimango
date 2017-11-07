@@ -1,0 +1,1 @@
+This folder is intended to use to store the generated report so as to make them available for download.

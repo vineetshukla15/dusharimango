@@ -1,0 +1,11 @@
+      <div id='overlay' class='overlay'>
+        <!-- http://stackoverflow.com/questions/18032220/css-change-image-src-on-imghover -->
+        <img src="/img/X icon.png" style="position: fixed; top: 20px; right: 20px;" onmouseover="this.src='/img/X icon_hover.png';this.style.cursor='pointer';" onmouseout="this.src='/img/X icon.png'" onclick="javascript:$('body > #overlay').hide();">
+        <div id="accessDetail" style="position: fixed; top: 20%; left: 0; right: 0;max-height: calc(80vh - 60px);overflow:auto;">
+            <input id="nameInput" type="text" placeholder="Name"/><br/>
+            <input id="emailInput" type="email" placeholder="Email Address"/><br/>
+            <input id="companyInput" type="text" placeholder="Company Name"/><br/>
+            <input id="descInput" type="text" placeholder="Description"/><br/>
+            <button type="button" onclick="javascript:submitDetailsForFullAccess();">CONTACT US</button>
+        </div>
+      </div>
